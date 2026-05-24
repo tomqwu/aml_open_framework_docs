@@ -1,0 +1,3096 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An anti-money-laundering program you can show to your regulator without a six-week reconstruction.">
+      
+      
+      
+        <link rel="canonical" href="https://tomqwu.github.io/aml_open_framework_docs/five-year-lookback/">
+      
+      
+        <link rel="prev" href="../progress/">
+      
+      
+        <link rel="next" href="../spec-reference/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Running a 5-Year Transaction-Monitoring Lookback with the AML Open Framework - AML Open Framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/brand.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#running-a-5-year-transaction-monitoring-lookback-with-the-aml-open-framework" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AML Open Framework" class="md-header__button md-logo" aria-label="AML Open Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AML Open Framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Running a 5-Year Transaction-Monitoring Lookback with the AML Open Framework
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomqwu/aml_open_framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomqwu/aml_open_framework
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Learn
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../how-to/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Build
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../deployment/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Operate
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Explain
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../spec-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Browse
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AML Open Framework" class="md-nav__button md-logo" aria-label="AML Open Framework" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AML Open Framework
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomqwu/aml_open_framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomqwu/aml_open_framework
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../how-to/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Build
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/add-a-rule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a detection rule
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/python-ref-scorer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wire a python_ref scorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/verify-audit-chain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verify the audit chain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy-import/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate from legacy stack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/promote-rule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Promote a rule across environments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/export-case-pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Export per-case / per-batch evidence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/walk-lineage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Walk the lineage chain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/configure-sla/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure SLA monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/triage-defects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage defects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard Tour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audit-evidence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit &amp; Evidence Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regulator-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regulator Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jurisdictions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Jurisdiction Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explain
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Explain
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../personas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Personas &amp; Responsibilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research whitepapers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research whitepapers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/2026-05-aml-data-problem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data is the AML problem — 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/2026-05-regulator-pulse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regulator Pulse: AML / Sanctions Events, 2026-02-01 → 2026-05-08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/2026-04-aml-process-pain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 Daily Pain Points an AML Leader Feels — 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/2026-04-fintech-aml-reality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8 AML Realities a FinTech / EMI / MSB / VASP MLRO Lives With — 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/2026-04-competitive-positioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AML Open Framework — Competitive Positioning Report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/2026-04-regulator-pulse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regulator Pulse: AML / Sanctions Events, 2026-02-01 → 2026-04-29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Progress journal
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Progress journal
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../progress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Progress
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running a 5-Year Transaction-Monitoring Lookback with the AML Open Framework
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running a 5-Year Transaction-Monitoring Lookback with the AML Open Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-8-properties-of-a-lookback-where-the-framework-delivers-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The 8 properties of a lookback — where the framework delivers each
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-framework-sits-on-top-of-your-azure-stack-not-against-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The framework sits on top of your Azure stack, not against it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-component-by-component-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Component-by-component map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-5-historical-replay-patterns-how-the-framework-implements-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The 5 historical-replay patterns — how the framework implements each
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The 5 historical-replay patterns — how the framework implements each">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-partition-by-business-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 1 — Partition by business time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-idempotent-writes-via-deterministic-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 2 — Idempotent writes via deterministic keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-batch-id-everywhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3 — Batch ID everywhere
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-4-point-in-time-reference-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 4 — Point-in-time reference data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-5-parallel-validation-legacy-new-planned-tm-gap-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 5 — Parallel validation (legacy ↔ new) · 🛠 planned · TM Gap 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-data-stitching-what-the-framework-catches-before-rules-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Data stitching — what the framework catches before rules run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-performance-multi-year-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Performance — multi-year scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-evidence-produced-per-run-side-by-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Evidence produced per run — side-by-side
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-role-focus-which-framework-surfaces-each-lookback-role-lives-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Role focus — which framework surfaces each lookback role lives in
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-active-recall-answers-in-framework-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Active-recall answers in framework terms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-5-year-lookback-in-commands-you-can-actually-run-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. A 5-year lookback in commands you can actually run today
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-still-required-from-you-the-framework-doesnt-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's still required from you (the framework doesn't do)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Browse
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Browse
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spec-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metrics framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-8-properties-of-a-lookback-where-the-framework-delivers-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The 8 properties of a lookback — where the framework delivers each
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-framework-sits-on-top-of-your-azure-stack-not-against-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The framework sits on top of your Azure stack, not against it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-component-by-component-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Component-by-component map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-5-historical-replay-patterns-how-the-framework-implements-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The 5 historical-replay patterns — how the framework implements each
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The 5 historical-replay patterns — how the framework implements each">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-partition-by-business-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 1 — Partition by business time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-idempotent-writes-via-deterministic-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 2 — Idempotent writes via deterministic keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-batch-id-everywhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3 — Batch ID everywhere
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-4-point-in-time-reference-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 4 — Point-in-time reference data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-5-parallel-validation-legacy-new-planned-tm-gap-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 5 — Parallel validation (legacy ↔ new) · 🛠 planned · TM Gap 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-data-stitching-what-the-framework-catches-before-rules-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Data stitching — what the framework catches before rules run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-performance-multi-year-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Performance — multi-year scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-evidence-produced-per-run-side-by-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Evidence produced per run — side-by-side
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-role-focus-which-framework-surfaces-each-lookback-role-lives-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Role focus — which framework surfaces each lookback role lives in
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-active-recall-answers-in-framework-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Active-recall answers in framework terms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-5-year-lookback-in-commands-you-can-actually-run-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. A 5-year lookback in commands you can actually run today
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-still-required-from-you-the-framework-doesnt-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's still required from you (the framework doesn't do)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../architecture/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Explain
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../progress/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Progress journal
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/tomqwu/aml_open_framework/edit/main/docs/five-year-lookback.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/tomqwu/aml_open_framework/raw/main/docs/five-year-lookback.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="running-a-5-year-transaction-monitoring-lookback-with-the-aml-open-framework">Running a 5-Year Transaction-Monitoring Lookback with the AML Open Framework<a class="headerlink" href="#running-a-5-year-transaction-monitoring-lookback-with-the-aml-open-framework" title="Permanent link">&para;</a></h1>
+<p>How to use this framework to actually execute the regulatory 5-year
+TM lookback playbook described in
+<a href="https://github.com/tomqwu/aml_learning_for_fintech/blob/main/docs/02-5year-lookback-azure-modernization.md"><code>aml_learning_for_fintech/docs/02-5year-lookback-azure-modernization.md</code></a>.</p>
+<p>This doc mirrors that reference's structure. Each section maps the
+lookback requirement to a specific framework feature, file, or command
+— operator-grade, not positioning.</p>
+<p>The framework is not a replacement for your data platform (ADLS,
+Delta, Databricks, Fabric). It is the <strong>rule-execution + evidence
+layer</strong> that sits on top: it consumes your curated tables, produces
+deterministic alerts/cases/decisions, and emits the regulator-facing
+evidence chain. Everything Azure-side stays Azure-side.</p>
+<blockquote>
+<p><strong>⚠ Verify before quoting in evidence packs.</strong> This doc has been
+through 7 rounds of automated source-of-truth review against the
+code on <code>main</code>, and is reasonably accurate as of the merge date —
+but new framework features land continuously and review can still
+miss subtle CLI flag / manifest field / event-name drift. Before
+citing a specific command, flag, manifest field, or event in a
+regulator-facing artefact, <strong>re-verify against the actual source</strong>
+(CLI: <code>aml &lt;cmd&gt; --help</code>; manifest shape: <code>engine/audit.py</code>;
+events: <code>engine/constants.py</code>). The architectural posture (PIT
+discipline + hash-chained ledger + sidecar wall-clock separation)
+is stable; the exact field names and flags are the moving parts.</p>
+<p><strong>Implemented today vs. TM-roadmap planned.</strong> Items marked <strong>🛠
+planned · TM Gap N</strong> are not on <code>main</code> yet — the TM roadmap that
+sequences them is the plan file <code>Roadmap: Transaction-Monitoring
+feature gaps</code>, not <code>progress.md</code> (which is a chronological progress
+log, not a roadmap). The "lookback in N commands" runbook at §10
+uses only commands that exist today; the equivalence/parallel-run
+path is gated behind Gap 1 and §10 says so.</p>
+</blockquote>
+<hr />
+<h2 id="1-the-8-properties-of-a-lookback-where-the-framework-delivers-each">1. The 8 properties of a lookback — where the framework delivers each<a class="headerlink" href="#1-the-8-properties-of-a-lookback-where-the-framework-delivers-each" title="Permanent link">&para;</a></h2>
+<p>The reference doc names eight properties: a lookback must be
+<em>complete, point-in-time correct, repeatable, performant, auditable,
+explainable, reconciled, signed off.</em> Mapping each to a concrete
+mechanism the framework already ships:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>How the framework enforces it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Complete</strong></td>
+<td><code>aml validate</code> checks spec structure + cross-references. <code>aml validate-data</code> + the engine's <code>_build_warehouse</code> fail-closed <em>only on missing non-nullable contract columns</em> — they raise <code>ContractViolation</code> before any rule fires. <strong>Missing nullable columns are silently <code>None</code>-filled</strong> (a rule filtering on that column will produce zero matches, not a build failure), so author your contracts with <code>nullable: false</code> for every field a rule depends on. Run-time <code>engine/freshness.py</code> adds DQ floors on staleness.</td>
+</tr>
+<tr>
+<td><strong>Point-in-time correct</strong></td>
+<td>Engine threads <code>as_of</code> through every rule. <code>custom_sql</code> rules get <code>{as_of}</code>, <code>{window_start}</code>, <code>{recent_start}</code>, <code>{baseline_start}</code>, <code>{dormant_cutoff}</code> substituted at compile time so the SQL operates on the business date. PIT-correctness of <em>reference data</em> (e.g. risk rating valid on the transaction date) is <em>the author's job</em>: declare an effective-dated contract and encode the <code>effective_start_date</code>/<code>effective_end_date</code> join in your <code>custom_sql</code>. The framework provides the <code>as_of</code> placeholder; it does not auto-apply effective-date filters.</td>
+</tr>
+<tr>
+<td><strong>Repeatable</strong></td>
+<td>The deterministic-replay contract: same spec + same data + same <code>as_of</code> + same seed ⇒ byte-identical alert/case/decision hashes. Pinned by <code>tests/test_engine.py::test_run_is_reproducible</code>.</td>
+</tr>
+<tr>
+<td><strong>Performant</strong></td>
+<td>DuckDB in-memory for the engine; cloud sources (Snowflake/BigQuery/S3/GCS/Parquet) loaded by <code>data/sources.py</code>. The loaders pull whole files/tables — there is no source-side predicate pushdown of <code>{as_of}</code>/<code>{window_start}</code> to the warehouse. Performance for 5-year scale comes from <em>you</em> materializing one-month slices upstream (per §4 Pattern 1) and feeding each slice as the run's input.</td>
+</tr>
+<tr>
+<td><strong>Auditable</strong></td>
+<td><code>engine/audit.py</code> writes a SHA-256-hash-chained <code>decisions.jsonl</code>. <code>AuditLedger.verify_decisions()</code> is regulator-grade <em>only when called with <code>--expected-hash</code></em> — the chain head must be stored out-of-band (WORM bucket, signed log) at run time and passed back at verify time (see §10 step 7). Without it, the verifier falls back to comparing against the same directory's <code>manifest.json</code>, which an attacker who rewrote <code>decisions.jsonl</code> can usually rewrite too. The chain itself is real; the trust anchor is your responsibility.</td>
+</tr>
+<tr>
+<td><strong>Explainable</strong></td>
+<td><code>aggregation_window</code> rules auto-stamp <code>matched_row_ids</code> referencing the exact source rows (#341 fix replays the rule filter so audit evidence matches the alert's own SQL). <code>custom_sql</code> only carries row IDs if the SQL <code>SELECT</code>s them explicitly; <code>python_ref</code> only if the scorer implements the optional inspection hook. <code>walk_lineage</code> reconstructs alert → rule → data when row IDs are present.</td>
+</tr>
+<tr>
+<td><strong>Reconciled</strong></td>
+<td><strong>🛠 planned · TM Gap 1.</strong> An <code>engine/equivalence.py</code> module is sequenced in <a href="../progress/"><code>docs/progress.md</code></a> — joins legacy ↔ new outputs and classifies each divergence (<code>data</code> / <code>rule</code> / <code>mapping</code> / <code>intentional</code>). Until it lands, reconciliation today is "diff your legacy export against <code>run_dir/alerts/*.jsonl</code> in your own SQL/Spark step."</td>
+</tr>
+<tr>
+<td><strong>Signed off</strong></td>
+<td>Cases carry a disposition + reviewer; <code>cases/filing.py</code> enforces a wall-clock sidecar that's <em>out</em> of the deterministic-replay contract so signoff timing is preserved without breaking reproducibility.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-the-framework-sits-on-top-of-your-azure-stack-not-against-it">2. The framework sits on top of your Azure stack, not against it<a class="headerlink" href="#2-the-framework-sits-on-top-of-your-azure-stack-not-against-it" title="Permanent link">&para;</a></h2>
+<p>Your Azure modernization target architecture stays exactly as the
+reference doc draws it. The framework slots into the <strong>Rule Execution
++ Alert/Evidence + Analytics layers</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Legacy / Source Systems              (unchanged — SAS, Oracle, IMS, files)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        ↓
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Azure Data Factory / Fabric          (unchanged — orchestration)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        ↓
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>ADLS Bronze / Silver                 (unchanged — raw / cleaned)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        ↓
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>ADLS Gold (rule-ready Delta tables)  ←─── framework reads here via
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        ↓                                  `aml run --data-source &lt;X&gt; --data-dir &lt;Y&gt;`:
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        ↓                                    --data-source parquet   (Delta is Parquet-compatible —
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        ↓                                                             point at a Parquet view of Delta)
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        ↓                                    --data-source duckdb
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        ↓                                    --data-source csv        (POC / dev)
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        ↓                                    --data-source synthetic  (default — generated fixtures)
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        ↓
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        ↓                                  Cloud connectors (Snowflake / BigQuery /
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        ↓                                  S3 / GCS) live in `data/sources.py` but
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        ↓                                  are PROGRAMMATIC today, not exposed as
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        ↓                                  `aml run --data-source` flags. The
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        ↓                                  production shape is: ADF / Lakeflow
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        ↓                                  materializes the per-month Gold slice to
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        ↓                                  Parquet on a mounted volume, then
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        ↓                                  `aml run --data-source parquet --data-dir
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        ↓                                  /mnt/gold/2021-09/`.
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        ↓
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>┌──────── FRAMEWORK ────────────────────────────────────────────────┐
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>│                                                                   │
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>│  Rule Execution Layer                                             │
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>│    spec/loader.py    JSON Schema + Pydantic cross-validation      │
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>│    engine/runner.py  evaluate aggregation_window / custom_sql /   │
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>│                       list_match / python_ref against DuckDB      │
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>│                                                                   │
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>│  Alert / Evidence Layer                                           │
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>│    alerts/*.jsonl                                                 │
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>│    cases/aggregator.py  → cases/*.json                            │
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>│    metrics/engine.py    → run_dir/metrics/metrics.json            │
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>│    engine/audit.py      → run_dir/decisions.jsonl (hash-chained)  │
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>│    export.py            → regulator-ready ZIP bundle              │
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>│                                                                   │
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>│  Analytics / Review Layer                                         │
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>│    dashboard/ (40 Streamlit pages, persona-routed by audience.py) │
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>│    api/main.py + /api/v1/health for ops                           │
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>│                                                                   │
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>└───────────────────────────────────────────────────────────────────┘
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>        ↓
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>Microsoft Purview                    ←─── framework can publish lineage
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>                                          via tests/test_integrations_purview.py
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>                                          surfaces (alert → rule →
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>                                          matched_row_ids → source).
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>        ↓
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>Synapse / Fabric / Power BI          ←─── consume alerts/*.jsonl,
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>                                          cases/*.json, metrics.json
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>                                          directly (JSON-Lines is
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>                                          first-class in all three).
+</span></code></pre></div>
+<p>The deliberate boundary: <strong>your data platform owns the medallion
+layers; the framework owns the spec, the engine, the audit chain, and
+the evidence.</strong> Lakeflow / ADF / Databricks orchestrate; the framework
+runs the rules and produces the regulator-facing artefacts.</p>
+<hr />
+<h2 id="3-component-by-component-map">3. Component-by-component map<a class="headerlink" href="#3-component-by-component-map" title="Permanent link">&para;</a></h2>
+<p>For each Azure component the reference doc names, where the framework
+contributes:</p>
+<table>
+<thead>
+<tr>
+<th>Azure component</th>
+<th>What the framework adds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ADLS Gen2 / OneLake</strong></td>
+<td>The production shape: ADF / Lakeflow materializes per-month Gold Parquet to a mount; <code>aml run --data-source parquet --data-dir /mnt/gold/&lt;month&gt;/</code> reads it. The <code>data/sources.py</code> module also has S3 / GCS / Snowflake / BigQuery resolvers (programmatic), but <code>aml run</code>'s <code>--data-source</code> only exposes synthetic / csv / parquet / duckdb today; broader exposure is a follow-up.</td>
+</tr>
+<tr>
+<td><strong>Azure Data Factory / Fabric Data Factory</strong></td>
+<td>The framework's CLI (<code>aml run</code>, <code>aml validate</code>, <code>aml export</code>) is wrap-friendly. A typical ADF pipeline: <em>Extract → land Parquet → DQ in Lakeflow/dbt/Spark → <code>aml run</code> activity → publish run_dir back to Gold → publish ZIP to evidence container</em>. Note: <code>aml validate-data</code> is CSV-only (it reads <code>&lt;contract_id&gt;.csv</code> and runs <code>validate_csv</code>) — for Parquet-native flows, run your <code>not_null</code>/<code>unique</code>/RI/PIT checks upstream and pass clean data to <code>aml run</code>. Native parquet <code>validate-data</code> is a planned loader extension.</td>
+</tr>
+<tr>
+<td><strong>Databricks / Spark / Lakeflow</strong></td>
+<td>Your Lakeflow pipelines produce the rule-ready Gold tables; the framework reads them. For Spark-native rule execution you don't need this framework, but you give up the spec contract + the deterministic audit chain. The framework's value-add is the <strong>defensible spec + evidence</strong>, not raw compute.</td>
+</tr>
+<tr>
+<td><strong>Delta Lake</strong></td>
+<td>The framework's <code>--data-source parquet</code> loader (<code>data/sources.py:load_parquet_source</code>) reads a single file per contract — <code>&lt;data-dir&gt;/&lt;contract_id&gt;.parquet</code>. It does <strong>not</strong> read Delta directories, Delta versions, or partitioned Parquet directories directly. Pin Delta's version on your side, then <code>SELECT * FROM delta.\</code>...`<code>and export to flat per-contract</code>.parquet` files for the framework to consume. Native Delta support is a planned loader extension.</td>
+</tr>
+<tr>
+<td><strong>Microsoft Fabric Lakehouse / Warehouse</strong></td>
+<td>Same as Databricks — Fabric produces the curated layer, framework consumes. The Streamlit dashboard can be embedded in Fabric or run standalone (current Azure deploy is Container Apps).</td>
+</tr>
+<tr>
+<td><strong>Microsoft Purview</strong></td>
+<td><code>walk_lineage</code> is the framework-side equivalent: alert → rule → matched_row_ids → source row. Already exercised by <code>tests/test_integrations_purview.py</code>; the lineage events can publish to Purview's REST API for full enterprise-catalog integration.</td>
+</tr>
+<tr>
+<td><strong>Synapse Analytics</strong></td>
+<td>The framework's outputs are JSON-Lines + Parquet-friendly + markdown reports. Synapse SQL can query the alert/case JSONLs via OPENROWSET; Power BI can consume metrics.json.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-the-5-historical-replay-patterns-how-the-framework-implements-each">4. The 5 historical-replay patterns — how the framework implements each<a class="headerlink" href="#4-the-5-historical-replay-patterns-how-the-framework-implements-each" title="Permanent link">&para;</a></h2>
+<p>This is the heart of the doc. Each of your reference doc's five
+patterns has a specific framework expression.</p>
+<h3 id="pattern-1-partition-by-business-time">Pattern 1 — Partition by business time<a class="headerlink" href="#pattern-1-partition-by-business-time" title="Permanent link">&para;</a></h3>
+<p>The framework's run model is <strong>one <code>run_dir</code> under <code>--artifacts</code> per
+(<code>spec</code>, <code>as_of</code>, <code>seed</code>)</strong>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Rerun September 2021 only. ADF / Lakeflow materializes the per-month</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Gold slice to a Parquet mount; `aml run` reads it deterministically.</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>aml<span class="w"> </span>run<span class="w"> </span>examples/your_program/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>--as-of<span class="w"> </span><span class="m">2021</span>-09-30T23:59:59<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span>--data-source<span class="w"> </span>parquet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span>--data-dir<span class="w"> </span>/mnt/gold/2021-09/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span>--artifacts<span class="w"> </span>/evidence/runs/2021-09/
+</span></code></pre></div>
+<p>Backfill is just a loop over months (ISO timestamps; no <code>--output-dir</code>
+flag — use <code>--artifacts</code> to scope the run dir):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">months</span><span class="o">=(</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="s2">&quot;2021-01-31T23:59:59&quot;</span><span class="w"> </span><span class="s2">&quot;2021-02-28T23:59:59&quot;</span><span class="w"> </span><span class="s2">&quot;2021-03-31T23:59:59&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="c1"># ... 60 month-end timestamps ...</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="s2">&quot;2025-12-31T23:59:59&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="o">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">for</span><span class="w"> </span>ts<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">months</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nv">ym</span><span class="o">=</span><span class="si">${</span><span class="nv">ts</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">7</span><span class="si">}</span><span class="w">                                    </span><span class="c1"># e.g. 2021-09</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span>aml<span class="w"> </span>run<span class="w"> </span>examples/your_program/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span>--as-of<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ts</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span>--data-source<span class="w"> </span>parquet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span>--data-dir<span class="w">   </span><span class="s2">&quot;/mnt/gold/</span><span class="si">${</span><span class="nv">ym</span><span class="si">}</span><span class="s2">/&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span>--artifacts<span class="w">  </span><span class="s2">&quot;/evidence/runs/</span><span class="si">${</span><span class="nv">ym</span><span class="si">}</span><span class="s2">/&quot;</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">done</span>
+</span></code></pre></div>
+<p>Each <code>/evidence/runs/YYYY-MM/run-&lt;timestamp&gt;/</code> is self-contained:
+manifest, alerts, cases, decisions, hash chain. (The <code>run-&lt;timestamp&gt;/</code>
+subdirectory naming is the engine's, not yours — <code>--artifacts &lt;dir&gt;</code>
+creates <code>&lt;dir&gt;/run-&lt;ISO-timestamp&gt;/</code>.) A defect fix means re-running
+only the affected months.</p>
+<h3 id="pattern-2-idempotent-writes-via-deterministic-keys">Pattern 2 — Idempotent writes via deterministic keys<a class="headerlink" href="#pattern-2-idempotent-writes-via-deterministic-keys" title="Permanent link">&para;</a></h3>
+<p>The reference doc's "even better design" is exactly the framework's
+default. <code>engine/audit.py</code> uses <code>_canonical_json()</code> + <code>_sha256()</code> to
+build deterministic decision hashes. The hash chain is the
+deterministic key.</p>
+<p>A rerun on identical inputs produces byte-identical output. Detect it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sha256sum<span class="w"> </span>/runs/2021-09/decisions.jsonl
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Compare to the previously-archived hash. Match ⇒ no replay needed.</span>
+</span></code></pre></div>
+<p>For <em>alert-level</em> dedupe across runs, the engine does not emit a
+pre-computed <code>alert_key</code> field today. The deterministic primitives
+you stitch are:</p>
+<ul>
+<li><code>manifest.json:spec_content_hash</code> (rule version proxy — any rule
+  edit changes it)</li>
+<li><code>manifest.json:decisions_hash</code> (whole-run hash)</li>
+<li>The alert's own keys it already carries (<code>customer_id</code>,
+  <code>window_start</code>/<code>window_end</code> for <code>aggregation_window</code>, or the column
+  set your <code>custom_sql</code> returned)</li>
+</ul>
+<p>Compute the dedupe key downstream in your warehouse / Spark step
+(<code>hash(rule_id, rule_version, customer_id, window_start, window_end)</code>)
+— the framework gives you the inputs; an alert-level deterministic key
+column inside <code>alerts/*.jsonl</code> is a planned addition.</p>
+<h3 id="pattern-3-batch-id-everywhere">Pattern 3 — Batch ID everywhere<a class="headerlink" href="#pattern-3-batch-id-everywhere" title="Permanent link">&para;</a></h3>
+<p>Every run produces one <code>&lt;artifacts&gt;/run-&lt;timestamp&gt;/manifest.json</code>
+(<code>run-&lt;timestamp&gt;</code> is the natural batch ID — directory name is the
+ISO timestamp the run was created at). Real shape on <code>main</code>:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// run_dir/manifest.json (real shape — copy from engine/audit.py:finalize +</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1">// engine/runner.py post-finalize patches)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;engine_version&quot;</span><span class="p">:</span><span class="w">     </span><span class="s2">&quot;0.1.x&quot;</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">&quot;run_dir&quot;</span><span class="p">:</span><span class="w">            </span><span class="s2">&quot;/evidence/runs/2021-09/run-2026-05-20T01-16-00Z/&quot;</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">&quot;spec_path&quot;</span><span class="p">:</span><span class="w">          </span><span class="s2">&quot;examples/your_program/aml.yaml&quot;</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">&quot;spec_content_hash&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;b09f...&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1">// raw SHA-256 hex of the YAML bytes,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">                                       </span><span class="c1">//   no &quot;sha256:&quot; prefix</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nt">&quot;as_of&quot;</span><span class="p">:</span><span class="w">              </span><span class="s2">&quot;2021-09-30T23:59:59+00:00&quot;</span><span class="p">,</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="nt">&quot;inputs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">                          </span><span class="c1">// keyed by contract id (NOT an array)</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nt">&quot;txn&quot;</span><span class="p">:</span><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;row_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4923711</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">                  </span><span class="nt">&quot;earliest_ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;latest_ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">                  </span><span class="nt">&quot;source_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;schema_columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">                  </span><span class="nt">&quot;schema_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;row_count&quot;</span><span class="p">:</span><span class="w">   </span><span class="mi">91842</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="nt">&quot;rule_outputs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">                    </span><span class="c1">// rule_id -&gt; SHA-256 hex of the</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">                                       </span><span class="c1">//   alerts/&lt;rule_id&gt;.jsonl file</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="nt">&quot;structuring_cash_deposits&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1b2c3...&quot;</span><span class="p">,</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="nt">&quot;wire_high_risk_country&quot;</span><span class="p">:</span><span class="w">    </span><span class="s2">&quot;d4e5f6...&quot;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">  </span><span class="nt">&quot;decisions_hash&quot;</span><span class="p">:</span><span class="w">     </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w">         </span><span class="c1">// chain head (hex)</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">  </span><span class="nt">&quot;finalised_at&quot;</span><span class="p">:</span><span class="w">       </span><span class="s2">&quot;2026-05-20T01:17:23+00:00&quot;</span><span class="p">,</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">  </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span><span class="w">       </span><span class="c1">// appended by runner after finalize()</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">  </span><span class="nt">&quot;reports&quot;</span><span class="p">:</span><span class="w">            </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;svp_exec_brief&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;data_quality&quot;</span><span class="w"> </span><span class="p">]</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Alert counts per rule are <strong>not</strong> in the manifest — recover them by
+counting lines in <code>alerts/&lt;rule_id&gt;.jsonl</code>. The manifest gives you
+the file hash so you can prove the count came from the sealed file.</p>
+<p>The directory name (<code>run-&lt;timestamp&gt;</code>) is the batch ID you reference
+when verifying or exporting. <code>aml verify-decisions --run-dir &lt;path&gt;</code>
+and <code>aml audit-pack --run-dir &lt;path&gt;</code> both take the <code>run-&lt;ts&gt;/</code>
+directory (or omit it to pick the latest under <code>--artifacts</code>).</p>
+<h3 id="pattern-4-point-in-time-reference-data">Pattern 4 — Point-in-time reference data<a class="headerlink" href="#pattern-4-point-in-time-reference-data" title="Permanent link">&para;</a></h3>
+<p>PIT is <strong>author-encoded, not auto-applied</strong>. The framework gives you
+the building blocks; you wire the effective-date join yourself:</p>
+<ul>
+<li><strong><code>as_of</code> placeholder</strong> in <code>custom_sql</code> rules — the engine
+  substitutes the business date at compile time, so the SQL operates
+  on the business date naturally.</li>
+<li><strong>Effective-dated reference contracts</strong> — declare an
+  <code>customer_risk_ratings_pit</code> (or similar) <code>data_contract</code> whose
+  columns include <code>effective_start_date</code> and <code>effective_end_date</code>. The
+  loader treats these as ordinary declared columns — <em>no special PIT
+  machinery</em>. Your <code>custom_sql</code> rule joins on <code>t.booked_at BETWEEN
+  r.effective_start_date AND COALESCE(r.effective_end_date,
+  TIMESTAMP '9999-12-31')</code> and you have PIT correctness.</li>
+<li><strong>The bigger discipline</strong>: the <em>spec</em> is point-in-time too. Tag
+  your <code>aml.yaml</code> per period (<code>my_program/aml.yaml@2021-09-30</code>) so
+  you can rerun the <em>rules as they were on 2021-09-30</em> against the
+  <em>data as it was on 2021-09-30</em>. <code>manifest.spec_content_hash</code> is
+  the raw SHA-256 of the YAML bytes — it pins the <em>exact content</em> of
+  the spec used (a single character change breaks the hash), but it
+  is <strong>not</strong> the git commit SHA. To prove which git revision produced
+  that content, also record the commit SHA out-of-band at run time
+  (e.g. <code>jq</code> the manifest with <code>git rev-parse HEAD</code> into your evidence
+  log), or add a wrapper that writes <code>git_commit_sha</code> next to the
+  manifest as a sidecar.</li>
+</ul>
+<p>Non-<code>custom_sql</code> rules (<code>aggregation_window</code>, <code>list_match</code>,
+<code>python_ref</code>) don't have a PIT-join knob today — they read whatever
+the data load produces. If a rule needs PIT-correct reference data,
+use <code>custom_sql</code> or pre-join the effective-dated view into your Gold
+table before the engine runs.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Example: rule that uses risk_rating *as of the transaction date*,</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># not today&#39;s risk_rating.</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">#</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Two things to know about custom_sql placeholders:</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">#   1. `compile_rule_sql` (`generators/sql.py`) only substitutes time</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1">#      keys: {as_of}, {window_start}, {recent_start}, {baseline_start},</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1">#      {dormant_cutoff}. Use real contract table names (txn,</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1">#      customer_risk_ratings_pit, etc.) — there is NO {transactions}</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1">#      placeholder.</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1">#   2. The substituted timestamps need explicit `TIMESTAMP &#39;...&#39;`</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1">#      quoting for DuckDB / standard SQL.</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high_risk_jurisdiction_with_pit_rating</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="nt">logic</span><span class="p">:</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom_sql</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">      </span><span class="nt">sql</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">        </span><span class="no">SELECT t.customer_id, SUM(t.amount) AS sum_amount</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">        </span><span class="no">FROM txn t</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">        </span><span class="no">JOIN customer_risk_ratings_pit r</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">          </span><span class="no">ON r.customer_id = t.customer_id</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">         </span><span class="no">AND t.booked_at BETWEEN r.effective_start_date</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">                             </span><span class="no">AND COALESCE(r.effective_end_date, TIMESTAMP &#39;9999-12-31&#39;)</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">        </span><span class="no">WHERE t.booked_at BETWEEN TIMESTAMP &#39;{window_start}&#39; AND TIMESTAMP &#39;{as_of}&#39;</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">          </span><span class="no">AND r.risk_rating = &#39;high&#39;</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">        </span><span class="no">GROUP BY t.customer_id</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">        </span><span class="no">HAVING SUM(t.amount) &gt;= 100000</span>
+</span></code></pre></div>
+<p>The point-in-time <code>customer_risk_ratings_pit</code> table is just another
+declared <code>data_contract</code> in <code>aml.yaml</code> with <code>effective_start_date</code> /
+<code>effective_end_date</code> columns; load it the same way as <code>txn</code>.</p>
+<h3 id="pattern-5-parallel-validation-legacy-new-planned-tm-gap-1">Pattern 5 — Parallel validation (legacy ↔ new) · <strong>🛠 planned · TM Gap 1</strong><a class="headerlink" href="#pattern-5-parallel-validation-legacy-new-planned-tm-gap-1" title="Permanent link">&para;</a></h3>
+<p>The framework's TM-roadmap Track A Gap 1 in <a href="../progress/"><code>docs/progress.md</code></a>
+sequences a <code>Program.legacy_reference</code> field + an <code>engine/equivalence.py</code>
+module that joins legacy ↔ new alerts and classifies each divergence as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>expected difference
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>source data mismatch
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>mapping defect
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>rule logic defect
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>reference data defect
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>timing/window defect
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>legacy defect exposed by migration
+</span></code></pre></div>
+<p>Once merged, classifications will be written as <code>LEGACY_EQUIV_CHECK</code>
+audit events in the deterministic ledger (<code>as_of</code>-stamped, hash-chained,
+IN the replay contract). The legacy file will be content-hashed into the
+<code>input_manifest</code> so future reruns can prove they compared against the
+same legacy snapshot.</p>
+<p><strong>Today, before Gap 1 lands:</strong> the framework's deterministic
+<code>alerts/*.jsonl</code> per month is your right-side input — diff it against
+your legacy alert export in a 20-line SQL/Spark/pandas step:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Pseudocode — pandas-style diff once each side is one row per alert</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="s2">&quot;evidence/runs/2021-09/run-2026-05-20T01-16-00Z/&quot;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="s2">&quot;alerts/structuring_cash_deposits.jsonl&quot;</span><span class="p">,</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">old</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;legacy/tm/2021-09/alerts.csv&quot;</span><span class="p">)</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">diff</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;customer_id&quot;</span><span class="p">,</span> <span class="s2">&quot;window_start&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># diff[&quot;_merge&quot;] ∈ {&quot;left_only&quot;, &quot;right_only&quot;, &quot;both&quot;} → classify by hand</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="c1"># until Gap 1 lands the classifier inline.</span>
+</span></code></pre></div>
+<p>Spec field <code>Program.legacy_reference</code> is <strong>not yet a real field</strong>
+(<code>Program</code> is <code>extra="forbid"</code>); don't add it to your YAML until the
+schema lands.</p>
+<hr />
+<h2 id="5-data-stitching-what-the-framework-catches-before-rules-run">5. Data stitching — what the framework catches before rules run<a class="headerlink" href="#5-data-stitching-what-the-framework-catches-before-rules-run" title="Permanent link">&para;</a></h2>
+<p>The reference doc's stitching-failure table maps to framework controls
+<em>at different layers</em>. Be precise about which command catches what
+today (Codex caught false-assurance phrasing in an earlier draft):</p>
+<table>
+<thead>
+<tr>
+<th>Failure mode</th>
+<th>Where today</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type / null / encoding errors per row</td>
+<td><code>aml validate-data</code> (CSV only — see §6+§10 note) runs <code>validate_csv</code> per contract column: type coercion + non-null check + row-num-anchored error messages.</td>
+</tr>
+<tr>
+<td>Missing customer/account link (referential integrity)</td>
+<td><strong>Not enforced anywhere in the framework today.</strong> The <code>data_contract.quality_checks</code> block accepts arbitrary keys, but only <code>not_null</code> and <code>unique</code> are actually evaluated (by <code>pages/14_Data_Quality.py</code>, not by <code>validate-data</code>). FK-style integrity is <em>your platform's job</em> — gate it in Lakeflow expectations / dbt tests / Spark before the engine runs.</td>
+</tr>
+<tr>
+<td>Duplicate transaction</td>
+<td>Declare <code>quality_checks: [{unique: [transaction_id]}]</code> in your contract; the DQ dashboard page <strong>does</strong> evaluate <code>unique</code> and shows pass/fail. But <code>aml validate-data</code> does NOT — same Lakeflow/dbt enforcement note as above.</td>
+</tr>
+<tr>
+<td>Late-arriving record</td>
+<td><code>aggregation_window</code> rules automatically constrain <code>booked_at &gt;= window_start AND booked_at &lt; as_of</code> (compiled by <code>generators/sql.py</code>). <code>custom_sql</code> rules do NOT — the author must include the <code>t.booked_at &lt;= TIMESTAMP '{as_of}'</code> predicate themselves. <code>engine/freshness.py</code> surfaces "rows arriving late" on <code>pages/14_Data_Quality.py</code>.</td>
+</tr>
+<tr>
+<td>Current reference data used for old transaction</td>
+<td>Author-encoded effective-date join in your <code>custom_sql</code> rule (Pattern 4). No auto-PIT machinery.</td>
+</tr>
+<tr>
+<td>Wrong currency conversion date</td>
+<td>Same pattern — declare an FX rate contract with <code>effective_start_date</code>/<code>effective_end_date</code> and join on <code>t.booked_at</code> in <code>custom_sql</code>.</td>
+</tr>
+<tr>
+<td>Many-to-many ownership ignored</td>
+<td>Explicit join shape in <code>custom_sql</code>. The framework deliberately doesn't auto-resolve M:M — silent M:M is the bug, not the feature.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why the framework draws this line.</strong> Pre-engine DQ enforcement
+belongs in your data platform (Lakeflow / dbt / Spark expectations)
+where it has full table-level capacity. The framework's <code>data_contract</code>
++ dashboard layer give you the <em>spec for what should be true</em> + the
+<em>visibility when it isn't</em> — the gate-vs-visibility split is the same
+discipline as separating policy from enforcement.</p>
+<hr />
+<h2 id="6-performance-multi-year-scale">6. Performance — multi-year scale<a class="headerlink" href="#6-performance-multi-year-scale" title="Permanent link">&para;</a></h2>
+<p>The framework's compute model is <strong>DuckDB in-memory per run, scoped by
+<code>as_of</code> + <code>data-dir</code></strong>. For a single month of a mid-sized bank
+(~50M txns), an in-memory run is fast. For a 5-year backfill:</p>
+<ol>
+<li><strong>Run per-month in parallel.</strong> Each <code>run_dir</code> is independent; the
+   audit chain is per-run. A 60-month backfill is 60 independent
+   jobs — wrap with Lakeflow / ADF parallel branches.</li>
+<li><strong>Pre-filter at the source — outside the framework.</strong> The
+   framework's loaders today read the contract file/table whole (CSV /
+   Parquet load, <code>SELECT *</code>-equivalent for DuckDB); <code>{as_of}</code> /
+   <code>{window_start}</code> are substituted in the rule SQL <em>after</em> the load,
+   in-process in DuckDB, so they do NOT push down to Snowflake /
+   BigQuery / Spark via the framework. Your Lakeflow / ADF / Spark
+   pipeline must materialize <em>only the month's rule-ready slice</em> to
+   the Parquet mount the engine reads. Sizing a 5-year backfill on
+   the assumption of source-side pushdown by the framework will
+   process far more data than necessary.</li>
+<li><strong>Cache the spec compilation.</strong> <code>setuptools-scm</code> + git SHA mean
+   "same spec" is hash-comparable across months; if you didn't change
+   the rules, you don't recompile them.</li>
+<li><strong>Defect remediation = single-partition rerun.</strong> Fix the rule,
+   bump the spec git tag, rerun the affected month, write the new
+   <code>run_dir/${month}/</code>, leave the other 59 untouched. The hash chain
+   makes this safe.</li>
+</ol>
+<p>The Spark/SQL bottlenecks the reference doc lists (huge joins,
+missing partition filters, skew) all live in <em>your</em> curated layer —
+not in the framework. The framework's job is to keep the rule
+execution + audit deterministic; the data platform does the heavy
+lifting.</p>
+<hr />
+<h2 id="7-evidence-produced-per-run-side-by-side">7. Evidence produced per run — side-by-side<a class="headerlink" href="#7-evidence-produced-per-run-side-by-side" title="Permanent link">&para;</a></h2>
+<p>Mapping the reference doc's "mature lookback pipeline should produce"
+checklist to where the framework already emits each artefact:</p>
+<table>
+<thead>
+<tr>
+<th>Reference-doc artefact</th>
+<th>Where the framework emits it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>run_manifest</code> (batch_id, source periods/tables, rule versions, parameter versions, code commit hash, status)</td>
+<td><code>run_dir/manifest.json</code> — has <code>engine_version</code>, <code>run_dir</code> (= batch id), <code>spec_path</code>, <code>spec_content_hash</code> (YAML bytes, not git SHA — see §5), <code>as_of</code>, <code>inputs</code> (per-contract source_path + row_count + content_hash + earliest_ts/latest_ts + schema_columns + schema_hash), <code>rule_outputs</code> (per-rule alert-file hash), <code>decisions_hash</code>, <code>finalised_at</code>. <strong>Not in the manifest today</strong>: git commit SHA (write <code>git rev-parse HEAD</code> to a sidecar), parameter-version field (versioning lives in your git history of the spec), pipeline status flag (your orchestrator owns success/fail status).</td>
+</tr>
+<tr>
+<td><code>reconciliation_report</code> (source row count, target row count, totals, exceptions, alert count)</td>
+<td><code>run_dir/reports/*.md</code> per spec-declared <code>report:</code> carry alert/case totals + counts. <strong>🛠 The legacy-vs-new divergence report is planned · TM Gap 1</strong> — until <code>engine/equivalence.py</code> lands you produce that side externally (see Pattern 5 pandas scaffold).</td>
+</tr>
+<tr>
+<td><code>rule_output_report</code> (alert count by month / customer segment / geography / reason code)</td>
+<td><code>run_dir/alerts/*.jsonl</code> (raw) + the <strong>Rule Performance</strong> + <strong>Comparative Analytics</strong> dashboard pages (<code>pages/5_Rule_Performance.py</code>, <code>pages/19_Comparative_Analytics.py</code>)</td>
+</tr>
+<tr>
+<td><code>dq_report</code> (completeness, duplicates, validity, referential integrity, PIT coverage)</td>
+<td><strong>Partial.</strong> The framework emits <code>not_null</code> + <code>unique</code> results via the <strong>Data Quality</strong> dashboard (<code>pages/14_Data_Quality.py</code>) and staleness via <code>engine/freshness.py</code>. <strong>Referential integrity, PIT-coverage, FX-rate-date, and many-to-many ownership are NOT evaluated by the framework today</strong> (see §5 stitching table) — produce that part of <code>dq_report</code> in your upstream Lakeflow/dbt/Spark step and stitch it into evidence alongside <code>run_dir/</code>.</td>
+</tr>
+<tr>
+<td><code>defect_log</code> (defect_id, severity, root cause, owner, fix version, retest evidence)</td>
+<td><strong>🛠 External / planned.</strong> The framework emits <code>rule_failed</code> events (engine/constants.py:Event.RULE_FAILED) for <code>python_ref</code> failures with an <code>error</code> string — that's the <em>signal</em>, not a structured defect_log. The dashboard's <code>_FAILED</code> future is specific to AI section-explanation, not rule-execution. A proper defect_log (defect_id, severity, root cause, owner, fix version, retest evidence) is your remediation-system's job today (Jira/ServiceNow). Land it next to <code>run_dir/</code> as a wall-clock sidecar per <code>cases/filing.py</code>'s <code>append_to_run_dir</code> pattern.</td>
+</tr>
+</tbody>
+</table>
+<p>The reference doc says: <em>"can you prove what data was run, which
+rules ran, why outputs were created, what exceptions occurred, and
+how defects were resolved?"</em> — every "prove" answer above is a
+specific framework file in <code>run_dir/</code>.</p>
+<hr />
+<h2 id="8-role-focus-which-framework-surfaces-each-lookback-role-lives-in">8. Role focus — which framework surfaces each lookback role lives in<a class="headerlink" href="#8-role-focus-which-framework-surfaces-each-lookback-role-lives-in" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Primary framework surfaces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data engineer</strong></td>
+<td><code>data/sources.py</code> (cloud connectors) + <code>data/synthetic.py</code> (test fixtures) + <code>data_contract</code> YAML. Ownership: the Gold-layer Delta tables are framework-readable.</td>
+</tr>
+<tr>
+<td><strong>Data analyst</strong></td>
+<td><code>pages/3_Alert_Queue.py</code>, <code>pages/4_Case_Investigation.py</code>, <code>pages/17_Customer_360.py</code>, <code>pages/10_Network_Explorer.py</code>. Daily case work.</td>
+</tr>
+<tr>
+<td><strong>QA / DQ engineer</strong></td>
+<td><code>aml validate-data</code>, <code>engine/freshness.py</code>, <code>pages/14_Data_Quality.py</code>, the <code>quality_checks</code> block in each <code>data_contract</code>. Defect log → audit ledger via <code>_log_failure_to_audit</code>.</td>
+</tr>
+<tr>
+<td><strong>Data scientist</strong></td>
+<td><code>python_ref</code> rule type, <code>models/scoring.py</code>, <code>pages/13_Model_Performance.py</code>, <code>engine/tuning.py</code> for threshold sweeps, <code>engine/backtest.py</code> for replay.</td>
+</tr>
+<tr>
+<td><strong>Lead / architect</strong></td>
+<td><code>spec/models.py</code> + <code>schema/aml-spec.schema.json</code> (the contract), <code>engine/audit.py</code> (the chain), <code>docs/progress.md</code> (the roadmap), the regulator-pulse Knowledge page (<code>pages/27_Regulator_Pulse.py</code>). Sign-off: every PR carries Codex review + green CI + spec validation.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-active-recall-answers-in-framework-terms">9. Active-recall answers in framework terms<a class="headerlink" href="#9-active-recall-answers-in-framework-terms" title="Permanent link">&para;</a></h2>
+<p>The reference doc's 8 questions, answered through this framework's
+specific mechanisms:</p>
+<ol>
+<li><strong>What makes a 5-year lookback different from normal monthly monitoring?</strong> Point-in-time correctness across changing data, schemas, rules, reference values, ownership — and <em>proof</em> for every period. The framework enforces this via the <code>as_of</code> discipline + git-tagged specs + the hash-chained audit ledger.</li>
+<li><strong>Why does partitioning matter?</strong> Each <code>run_dir</code> is one partition; defect remediation rewrites one partition without touching the rest. The audit chain segments cleanly per-month.</li>
+<li><strong>What does idempotence mean here?</strong> Same spec + same data + same <code>as_of</code> + same seed ⇒ byte-identical <code>decisions.jsonl</code>. <code>test_run_is_reproducible</code> pins this.</li>
+<li><strong>Why is batch ID important?</strong> <code>run_dir/manifest.json</code> is the batch ID + every artefact it produced. Every alert/case/decision references it.</li>
+<li><strong>What fields are needed for point-in-time reference data?</strong> <code>effective_start_date</code>, <code>effective_end_date</code>, declared in <code>data_contracts[].columns</code> + joined with the <code>as_of</code> placeholder.</li>
+<li><strong>Common stitching failures?</strong> Only the two <code>quality_checks</code> your dashboard DQ page evaluates today (<code>not_null</code>, <code>unique</code>) are caught by the framework itself. Referential integrity, point-in-time reference joins, FX-rate date joins, and many-to-many ownership are <strong>not</strong> enforced by <code>aml validate-data</code> or the engine — they are platform/spec-author responsibility (table in §5 has the full picture). For a compliance lookback, treat the framework as the rule engine + audit chain, not as your data-quality gate.</li>
+<li><strong>What evidence should a lookback run automatically generate?</strong> Everything in §7 — already in <code>run_dir/</code>.</li>
+<li><strong>How would you explain ADLS / Databricks / Delta / Fabric / Synapse / Purview?</strong> The framework is <em>layered on top of</em> this stack, not a replacement (§2–§3).</li>
+</ol>
+<hr />
+<h2 id="10-a-5-year-lookback-in-commands-you-can-actually-run-today">10. A 5-year lookback in commands you can actually run today<a class="headerlink" href="#10-a-5-year-lookback-in-commands-you-can-actually-run-today" title="Permanent link">&para;</a></h2>
+<p>Every command below is a real <code>aml</code> subcommand on <code>main</code>. The one
+step that's roadmap-gated (parallel-run vs legacy) is called out.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 1. Clone and install.</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/tomqwu/aml_open_framework
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">cd</span><span class="w"> </span>aml_open_framework
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,dashboard,api]&quot;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># 2. Author your spec (one-time; iteratively refined). Two paths:</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1">#    a) Scaffold via the wizard:</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>aml<span class="w"> </span>init<span class="w"> </span>./my_program<span class="w">            </span><span class="c1"># 5 questions → starter aml.yaml</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1">#    b) Or copy an example close to your program and tailor it:</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>cp<span class="w"> </span>-r<span class="w"> </span>examples/community_bank<span class="w"> </span>examples/my_program
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nv">$EDITOR</span><span class="w"> </span>examples/my_program/aml.yaml
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1"># 3. Validate the spec.</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>aml<span class="w"> </span>validate<span class="w"> </span>examples/my_program/aml.yaml
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="c1"># 4. Map your warehouse to the spec&#39;s contracts. NOTE: `aml byod`</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="c1">#    profiles CSV today — point it at a representative CSV sample</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="c1">#    (one month of Gold exported to CSV is enough) during onboarding.</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="c1">#    In production you don&#39;t run byod against the live Parquet feed</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="c1">#    — the mapping it produces is a one-time artefact.</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>aml<span class="w"> </span>byod<span class="w"> </span>examples/my_program/aml.yaml<span class="w"> </span>/tmp/gold_sample_csv/
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="nv">$EDITOR</span><span class="w"> </span>data_mapping.yaml
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="c1"># 5. Validate one month of historical data against the spec&#39;s</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="c1">#    contracts. NOTE: `aml validate-data` is CSV-only today (it</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a><span class="c1">#    looks for `&lt;contract.id&gt;.csv` under DATA_DIR). For the Parquet</span>
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a><span class="c1">#    production path, fail data quality in your Lakeflow / dbt /</span>
+</span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a><span class="c1">#    Spark pipeline before the engine runs (see §5). Use this CLI</span>
+</span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a><span class="c1">#    during dev against a CSV sample:</span>
+</span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>aml<span class="w"> </span>validate-data<span class="w"> </span>examples/my_program/aml.yaml<span class="w"> </span>/tmp/gold_sample_csv/
+</span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>
+</span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a><span class="c1"># 6. Backfill — one independent run per business month. In</span>
+</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a><span class="c1">#    production, ADF / Lakeflow materializes the per-month Gold slice</span>
+</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a><span class="c1">#    to a Parquet mount and wraps this loop in parallel branches.</span>
+</span><span id="__span-8-35"><a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a><span class="c1">#    --artifacts &lt;dir&gt; creates &lt;dir&gt;/run-&lt;timestamp&gt;/ — that is the</span>
+</span><span id="__span-8-36"><a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a><span class="c1">#    run_dir name everything else references.</span>
+</span><span id="__span-8-37"><a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a><span class="nv">months</span><span class="o">=(</span>
+</span><span id="__span-8-38"><a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a><span class="w">  </span><span class="s2">&quot;2021-01-31T23:59:59&quot;</span><span class="w"> </span><span class="s2">&quot;2021-02-28T23:59:59&quot;</span><span class="w"> </span><span class="s2">&quot;2021-03-31T23:59:59&quot;</span>
+</span><span id="__span-8-39"><a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a><span class="w">  </span><span class="c1"># ... 60 month-end timestamps ...</span>
+</span><span id="__span-8-40"><a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a><span class="w">  </span><span class="s2">&quot;2025-12-31T23:59:59&quot;</span>
+</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a><span class="o">)</span>
+</span><span id="__span-8-42"><a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a><span class="k">for</span><span class="w"> </span>ts<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">months</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-8-43"><a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a><span class="w">    </span><span class="nv">ym</span><span class="o">=</span><span class="si">${</span><span class="nv">ts</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">7</span><span class="si">}</span>
+</span><span id="__span-8-44"><a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a><span class="w">    </span>aml<span class="w"> </span>run<span class="w"> </span>examples/my_program/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-45"><a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a><span class="w">        </span>--as-of<span class="w">      </span><span class="s2">&quot;</span><span class="nv">$ts</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a><span class="w">        </span>--data-source<span class="w"> </span>parquet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a><span class="w">        </span>--data-dir<span class="w">   </span><span class="s2">&quot;/mnt/gold/</span><span class="si">${</span><span class="nv">ym</span><span class="si">}</span><span class="s2">/&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a><span class="w">        </span>--seed<span class="w">       </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-49"><a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a><span class="w">        </span>--artifacts<span class="w">  </span><span class="s2">&quot;/evidence/runs/</span><span class="si">${</span><span class="nv">ym</span><span class="si">}</span><span class="s2">/&quot;</span>
+</span><span id="__span-8-50"><a id="__codelineno-8-50" name="__codelineno-8-50" href="#__codelineno-8-50"></a><span class="k">done</span>
+</span><span id="__span-8-51"><a id="__codelineno-8-51" name="__codelineno-8-51" href="#__codelineno-8-51"></a>
+</span><span id="__span-8-52"><a id="__codelineno-8-52" name="__codelineno-8-52" href="#__codelineno-8-52"></a><span class="c1"># 7. Verify the hash chain per month. ALWAYS pass --expected-hash from</span>
+</span><span id="__span-8-53"><a id="__codelineno-8-53" name="__codelineno-8-53" href="#__codelineno-8-53"></a><span class="c1">#    an out-of-band store (WORM bucket, signed log, regulator-witnessed</span>
+</span><span id="__span-8-54"><a id="__codelineno-8-54" name="__codelineno-8-54" href="#__codelineno-8-54"></a><span class="c1">#    DB). Without it, verify-decisions falls back to comparing against</span>
+</span><span id="__span-8-55"><a id="__codelineno-8-55" name="__codelineno-8-55" href="#__codelineno-8-55"></a><span class="c1">#    the SAME directory&#39;s manifest.json — an attacker who rewrites</span>
+</span><span id="__span-8-56"><a id="__codelineno-8-56" name="__codelineno-8-56" href="#__codelineno-8-56"></a><span class="c1">#    decisions.jsonl can usually rewrite manifest.json too, so that</span>
+</span><span id="__span-8-57"><a id="__codelineno-8-57" name="__codelineno-8-57" href="#__codelineno-8-57"></a><span class="c1">#    path only catches *partial* tampering. Store each month&#39;s</span>
+</span><span id="__span-8-58"><a id="__codelineno-8-58" name="__codelineno-8-58" href="#__codelineno-8-58"></a><span class="c1">#    decisions_hash externally at run time:</span>
+</span><span id="__span-8-59"><a id="__codelineno-8-59" name="__codelineno-8-59" href="#__codelineno-8-59"></a><span class="c1">#       sha=$(jq -r .decisions_hash $run_dir/manifest.json)</span>
+</span><span id="__span-8-60"><a id="__codelineno-8-60" name="__codelineno-8-60" href="#__codelineno-8-60"></a><span class="c1">#       echo &quot;$ym $sha&quot; &gt;&gt; /worm/decisions-hashes.log    # WORM bucket</span>
+</span><span id="__span-8-61"><a id="__codelineno-8-61" name="__codelineno-8-61" href="#__codelineno-8-61"></a><span class="k">for</span><span class="w"> </span>ym_dir<span class="w"> </span><span class="k">in</span><span class="w"> </span>/evidence/runs/*/<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-8-62"><a id="__codelineno-8-62" name="__codelineno-8-62" href="#__codelineno-8-62"></a><span class="w">    </span><span class="nv">ym</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ym_dir</span><span class="s2">&quot;</span><span class="k">)</span>
+</span><span id="__span-8-63"><a id="__codelineno-8-63" name="__codelineno-8-63" href="#__codelineno-8-63"></a><span class="w">    </span><span class="nv">expected</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span><span class="s2">&quot;^</span><span class="nv">$ym</span><span class="s2"> &quot;</span><span class="w"> </span>/worm/decisions-hashes.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+</span><span id="__span-8-64"><a id="__codelineno-8-64" name="__codelineno-8-64" href="#__codelineno-8-64"></a><span class="w">    </span>aml<span class="w"> </span>verify-decisions<span class="w"> </span>--artifacts<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ym_dir</span><span class="s2">&quot;</span><span class="w"> </span>--expected-hash<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span>
+</span><span id="__span-8-65"><a id="__codelineno-8-65" name="__codelineno-8-65" href="#__codelineno-8-65"></a><span class="k">done</span>
+</span><span id="__span-8-66"><a id="__codelineno-8-66" name="__codelineno-8-66" href="#__codelineno-8-66"></a>
+</span><span id="__span-8-67"><a id="__codelineno-8-67" name="__codelineno-8-67" href="#__codelineno-8-67"></a><span class="c1"># 8. Build the regulator-ready bundles. Both `audit-pack` and `export`</span>
+</span><span id="__span-8-68"><a id="__codelineno-8-68" name="__codelineno-8-68" href="#__codelineno-8-68"></a><span class="c1">#    default their --run-dir to &quot;latest under --artifacts&quot; the same</span>
+</span><span id="__span-8-69"><a id="__codelineno-8-69" name="__codelineno-8-69" href="#__codelineno-8-69"></a><span class="c1">#    way — one invocation per month picks up that month&#39;s run-*/.</span>
+</span><span id="__span-8-70"><a id="__codelineno-8-70" name="__codelineno-8-70" href="#__codelineno-8-70"></a><span class="k">for</span><span class="w"> </span>ym_dir<span class="w"> </span><span class="k">in</span><span class="w"> </span>/evidence/runs/*/<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-8-71"><a id="__codelineno-8-71" name="__codelineno-8-71" href="#__codelineno-8-71"></a><span class="w">    </span><span class="nv">ym</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ym_dir</span><span class="s2">&quot;</span><span class="k">)</span>
+</span><span id="__span-8-72"><a id="__codelineno-8-72" name="__codelineno-8-72" href="#__codelineno-8-72"></a><span class="w">    </span>aml<span class="w"> </span>audit-pack<span class="w"> </span>examples/my_program/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-73"><a id="__codelineno-8-73" name="__codelineno-8-73" href="#__codelineno-8-73"></a><span class="w">        </span>--artifacts<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ym_dir</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-74"><a id="__codelineno-8-74" name="__codelineno-8-74" href="#__codelineno-8-74"></a><span class="w">        </span>--out<span class="w">       </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ym_dir</span><span class="si">}</span><span class="s2">audit-pack.zip&quot;</span>
+</span><span id="__span-8-75"><a id="__codelineno-8-75" name="__codelineno-8-75" href="#__codelineno-8-75"></a><span class="w">    </span>aml<span class="w"> </span><span class="nb">export</span><span class="w"> </span>examples/my_program/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-76"><a id="__codelineno-8-76" name="__codelineno-8-76" href="#__codelineno-8-76"></a><span class="w">        </span>--artifacts<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ym_dir</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-77"><a id="__codelineno-8-77" name="__codelineno-8-77" href="#__codelineno-8-77"></a><span class="w">        </span>--out<span class="w">       </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ym_dir</span><span class="si">}</span><span class="s2">evidence.zip&quot;</span>
+</span><span id="__span-8-78"><a id="__codelineno-8-78" name="__codelineno-8-78" href="#__codelineno-8-78"></a><span class="k">done</span>
+</span><span id="__span-8-79"><a id="__codelineno-8-79" name="__codelineno-8-79" href="#__codelineno-8-79"></a>
+</span><span id="__span-8-80"><a id="__codelineno-8-80" name="__codelineno-8-80" href="#__codelineno-8-80"></a><span class="c1"># 9. (🛠 Planned · TM Gap 1.) Reconcile against the legacy system per</span>
+</span><span id="__span-8-81"><a id="__codelineno-8-81" name="__codelineno-8-81" href="#__codelineno-8-81"></a><span class="c1">#    month — `engine/equivalence.py` is roadmap, not on main today.</span>
+</span><span id="__span-8-82"><a id="__codelineno-8-82" name="__codelineno-8-82" href="#__codelineno-8-82"></a><span class="c1">#    Until it lands, diff each month&#39;s alerts/*.jsonl against your</span>
+</span><span id="__span-8-83"><a id="__codelineno-8-83" name="__codelineno-8-83" href="#__codelineno-8-83"></a><span class="c1">#    legacy alert export in your own SQL/Spark/pandas step. See</span>
+</span><span id="__span-8-84"><a id="__codelineno-8-84" name="__codelineno-8-84" href="#__codelineno-8-84"></a><span class="c1">#    Pattern 5 above for the pandas-style scaffold.</span>
+</span><span id="__span-8-85"><a id="__codelineno-8-85" name="__codelineno-8-85" href="#__codelineno-8-85"></a>
+</span><span id="__span-8-86"><a id="__codelineno-8-86" name="__codelineno-8-86" href="#__codelineno-8-86"></a><span class="c1"># 10. Build per-rule MRM dossiers when ML scorers are in play.</span>
+</span><span id="__span-8-87"><a id="__codelineno-8-87" name="__codelineno-8-87" href="#__codelineno-8-87"></a><span class="c1">#     Same `--artifacts` defaulting as audit-pack:</span>
+</span><span id="__span-8-88"><a id="__codelineno-8-88" name="__codelineno-8-88" href="#__codelineno-8-88"></a>aml<span class="w"> </span>mrm-bundle<span class="w"> </span>examples/my_program/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-89"><a id="__codelineno-8-89" name="__codelineno-8-89" href="#__codelineno-8-89"></a><span class="w">    </span>--artifacts<span class="w"> </span>/evidence/runs/2025-12/
+</span></code></pre></div>
+<p>Each per-month bundle contains the spec it ran against, the run
+manifest, all alerts/cases JSONLs, the hash-chained <code>decisions.jsonl</code>,
+the metric report markdowns, and (when applicable) the sanctions
+evidence + jurisdiction-specific section maps. Concatenated, those
+60 bundles are the 5-year evidence package you hand to the examiner.</p>
+<hr />
+<h2 id="whats-still-required-from-you-the-framework-doesnt-do">What's still required from you (the framework doesn't do)<a class="headerlink" href="#whats-still-required-from-you-the-framework-doesnt-do" title="Permanent link">&para;</a></h2>
+<p>Honest boundaries:</p>
+<ul>
+<li><strong>You own the medallion data platform.</strong> ADLS / Delta / Lakeflow /
+  ADF / Databricks pipelines that produce the Gold rule-ready tables
+  are yours. The framework reads from them; it doesn't replace them.</li>
+<li><strong>You own the legacy parallel-run extract AND the divergence
+  classification today.</strong> The framework can't generate the legacy
+  side, and the on-<code>main</code> engine does not classify divergences either
+  — <code>engine/equivalence.py</code> + <code>Program.legacy_reference</code> are planned
+  (TM Gap 1 in <a href="../progress/"><code>docs/progress.md</code></a>). Until that lands,
+  follow §4 Pattern 5's pandas scaffold or your warehouse SQL to
+  produce the diff yourself.</li>
+<li><strong>You own the historical schema-evolution story.</strong> If your
+  <code>transactions</code> schema changed in 2023, you need versioned
+  <code>data_contracts[]</code> (the framework supports it; you have to author
+  it).</li>
+<li><strong>You own MRM signoff for ML scorers</strong> (<code>python_ref</code> rules).
+  <code>generators/mrm.py</code> emits the pack; the committee approves it.</li>
+</ul>
+<p>What the framework gives you is the <strong>deterministic rule-execution +
+audit-chain + evidence-bundle layer</strong> that turns the lookback from a
+"trust us" project into a "verify the SHA-256 chain yourself"
+artefact. That's the regulator-defensible boundary.</p>
+<hr />
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The reference framing: <a href="https://github.com/tomqwu/aml_learning_for_fintech/blob/main/docs/02-5year-lookback-azure-modernization.md"><code>aml_learning_for_fintech/docs/02-5year-lookback-azure-modernization.md</code></a></li>
+<li><a href="../architecture/"><code>docs/architecture.md</code></a> — engine internals, deterministic-replay design decisions</li>
+<li><a href="../audit-evidence/"><code>docs/audit-evidence.md</code></a> — hash-chain shape, evidence-bundle layout</li>
+<li><a href="../spec-reference/"><code>docs/spec-reference.md</code></a> — every <code>aml.yaml</code> field</li>
+<li><a href="../progress/"><code>docs/progress.md</code></a> — in-flight TM roadmap Track A (Gaps 1, 4, 7 = the equivalence + temporal-leakage + QA-labels combo that unblocks the 5-year-lookback headline)</li>
+<li><a href="../jurisdictions/"><code>docs/jurisdictions.md</code></a> — US / CA / EU / UK / crypto example specs to start from</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../progress/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Project Progress">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Project Progress
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../spec-reference/" class="md-footer__link md-footer__link--next" aria-label="Next: Spec reference">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Spec reference
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/tomqwu/aml_open_framework" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
