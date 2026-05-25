@@ -1002,6 +1002,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cli-fastest-scriptable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · CLI (fastest, scriptable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dashboard-lineage-explorer-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Dashboard (Lineage Explorer page)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · REST API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-in-the-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the chain
+      
+    </span>
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2005,6 +2055,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cli-fastest-scriptable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · CLI (fastest, scriptable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dashboard-lineage-explorer-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Dashboard (Lineage Explorer page)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · REST API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-in-the-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the chain
+      
+    </span>
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2123,36 +2223,168 @@
 
 <h1 id="how-to-walk-the-lineage-chain-for-a-case">How to walk the lineage chain for a case<a class="headerlink" href="#how-to-walk-the-lineage-chain-for-a-case" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>When you need this:</strong> An examiner asks "show me why this case fired — every source row, every transform, every rule version, every decision event."</p>
-<p><strong>Prereqs:</strong> A finished run directory with a <code>case_id</code> in scope.</p>
-<p><strong>Time:</strong> ~30 sec per case (CLI). ~1 min in the dashboard.</p>
+<p><strong>When you need this:</strong> An examiner asks "show me why this case fired — every source row, every transform, every rule version, every decision event." A regulator queries provenance during an exam. A 2LoD reviewer wants to confirm the alert is byte-stable replayable from the inputs.</p>
+<p><strong>Prereqs:</strong> A finished run directory with the target <code>case_id</code> in scope. <code>engine/audit.py::walk_lineage</code> shipped in PR-LIN-19.</p>
+<p><strong>Time:</strong> ~30 sec per case via CLI. ~1 min via the dashboard. Instant via the REST API.</p>
 </blockquote>
-<p>The 7-link lineage chain: <strong>case → rule_id → rule_version → spec_content_hash → input_file_hashes → run timestamp → byte-stable replay</strong>.</p>
+<p>The lineage chain answers "from what facts did this alert arise?" by linking the case back through six artifacts: <strong>case → rule SQL → source data path + schema hash → matched input rows → <code>rule_version</code> → decisions sub-chain</strong>. The chain is a <strong>derived view</strong> computed on demand by <code>walk_lineage()</code> — it isn't persisted as a single file at run-finalize.</p>
+<p>What's persisted on disk: <code>cases/*.json</code>, <code>decisions.jsonl</code>, input contract metadata, <code>rules/*.sql</code>, and the eight manifest-hashed artifacts (<code>decisions_hash</code>, <code>dq_exceptions_hash</code>, <code>field_lineage_hash</code>, <code>sla_report_hash</code>, <code>run_cost_volume_hash</code>, <code>monitoring_digest_hash</code>, <code>defect_log_hash</code>, <code>reconciliation_report_hash</code>). <strong>Tamper-detection caveats</strong>: only the eight named artifacts (plus alert output hashes + input file hashes) are hashed into <code>manifest.json</code>. Post-finalize POSIX read-only protection is set on the artifacts listed in <code>AuditLedger._FROZEN_SNAPSHOT_TARGETS</code> — currently <code>rules/</code> but <strong>not</strong> <code>cases/</code>. So <code>cases/*.json</code> is neither manifest-hashed nor chmod-frozen; a privileged in-place edit of a case file would not be caught by recomputing manifest hashes alone. For full tamper-evidence of lineage, pair the manifest hashes with an external <code>decisions_hash</code> pin (see <a href="../verify-audit-chain/">verify-audit-chain.md</a>) and a separate inventory hash over <code>cases/</code>.</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — placeholder. The three access paths:</p>
-<ol>
-<li><strong>CLI</strong>: <code>aml lineage &lt;run_dir&gt; &lt;case_id&gt;</code> — prints the chain as a table</li>
-<li><strong>Dashboard</strong>: Lineage Explorer page (pages/9_*.py) — paste a case_id, click "Walk"</li>
-<li><strong>API</strong>: <code>GET /api/v1/runs/{run_id}/cases/{case_id}/lineage</code> — JSON response, suitable for embedding in your case-management tool</li>
-</ol>
-</blockquote>
+<h3 id="1-cli-fastest-scriptable">1 · CLI (fastest, scriptable)<a class="headerlink" href="#1-cli-fastest-scriptable" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>aml<span class="w"> </span>lineage<span class="w"> </span>C0042-cash_structuring-001
+</span></code></pre></div>
+<p>By default this picks the latest run under <code>.artifacts/</code>. To target a specific run:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aml<span class="w"> </span>lineage<span class="w"> </span>C0042-cash_structuring-001<span class="w"> </span>--run-dir<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z
+</span></code></pre></div>
+<p>JSON is the default — pipe to <code>jq</code> (note the nested keys returned by <code>walk_lineage()</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># How many input rows triggered this case? (matched_row_ids lives on the case&#39;s alert payload)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>aml<span class="w"> </span>lineage<span class="w"> </span>C0042-...<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.case.alert.matched_row_ids | length&#39;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Which decisions belong to this case?</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>aml<span class="w"> </span>lineage<span class="w"> </span>C0042-...<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.decisions | map(.event)&#39;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Which input files / source paths were involved?</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>aml<span class="w"> </span>lineage<span class="w"> </span>C0042-...<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.input_files | map({contract_id, source_path, content_hash})&#39;</span>
+</span></code></pre></div>
+<p>For a human-readable layout:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aml<span class="w"> </span>lineage<span class="w"> </span>C0042-...<span class="w"> </span>--format<span class="w"> </span>table
+</span></code></pre></div>
+<h3 id="2-dashboard-lineage-explorer-page">2 · Dashboard (Lineage Explorer page)<a class="headerlink" href="#2-dashboard-lineage-explorer-page" title="Permanent link">&para;</a></h3>
+<p><code>pages/32_Lineage_Explorer.py</code> — paste a <code>case_id</code>, the page renders the same chain plus a clickable graph of the link traversal. Useful when an investigator wants to <strong>see</strong> the structure, not parse JSON.</p>
+<h3 id="3-rest-api">3 · REST API<a class="headerlink" href="#3-rest-api" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$JWT</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">     </span><span class="s2">&quot;https://aml-api.example.com/api/v1/runs/</span><span class="nv">$RUN_ID</span><span class="s2">/cases/C0042-cash_structuring-001/lineage&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</span></code></pre></div>
+<p>Same shape as the CLI JSON output — embed in your case-management tool, ticket system, or examiner portal.</p>
+<hr />
+<h2 id="whats-in-the-chain">What's in the chain<a class="headerlink" href="#whats-in-the-chain" title="Permanent link">&para;</a></h2>
+<p>A <code>walk_lineage()</code> result has these top-level keys (verbatim from <code>engine/audit.py::walk_lineage</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>What it pins</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id</code></td>
+<td>The alert this chain describes</td>
+</tr>
+<tr>
+<td><code>run_dir</code></td>
+<td>Absolute path to the run directory the chain was walked from</td>
+</tr>
+<tr>
+<td><code>case</code></td>
+<td>The full <code>cases/&lt;id&gt;.json</code> payload. <code>case.alert.matched_row_ids</code> lists the input rows that triggered the rule.</td>
+</tr>
+<tr>
+<td><code>rule_id</code></td>
+<td>Which rule fired</td>
+</tr>
+<tr>
+<td><code>rule_version</code></td>
+<td>16-hex SHA-256 of the rule's spec subtree at run time</td>
+</tr>
+<tr>
+<td><code>queue</code></td>
+<td>The escalation queue the case was routed to</td>
+</tr>
+<tr>
+<td><code>spec_content_hash</code></td>
+<td>The full spec content hash (proves the whole spec didn't drift)</td>
+</tr>
+<tr>
+<td><code>rule_sql</code></td>
+<td>Content of <code>rules/&lt;rule_id&gt;.sql</code>. For <code>aggregation_window</code> + <code>custom_sql</code> rules this IS the exact SQL evaluated (template substitutions resolved). For <code>list_match</code>, <code>python_ref</code>, <code>network_pattern</code>, the runner writes a callable/comment stub describing the evaluation path, not literal executed SQL — pair with the rule definition in the spec to reconstruct what ran.</td>
+</tr>
+<tr>
+<td><code>engine_version</code></td>
+<td>The framework version that produced the case</td>
+</tr>
+<tr>
+<td><code>as_of</code></td>
+<td>Run's logical <code>as_of</code> timestamp</td>
+</tr>
+<tr>
+<td><code>input_files</code></td>
+<td><strong>Run-wide</strong> input manifest — one entry per data contract loaded for the run, not filtered to the rule that fired. Each entry: <code>{contract_id, source_path, schema_hash, content_hash, row_count}</code>. To answer "which contract did THIS rule actually read?": declarative rule types (<code>aggregation_window</code>, <code>list_match</code>, <code>network_pattern</code>) expose <code>rule.logic.source</code> — cross-reference against this list. <code>custom_sql</code> rules don't have a single <code>source</code> field; inspect the rendered <code>rules/&lt;rule_id&gt;.sql</code> (templated SQL with explicit <code>FROM</code> clauses). <code>python_ref</code> scorers receive a DuckDB connection (<code>scorer(con, as_of)</code>); inspect what tables they query (or hook the optional <code>_inspect_context(con, alerts, as_of)</code> callback) to find the contracts touched.</td>
+</tr>
+<tr>
+<td><code>decisions</code></td>
+<td>Sub-chain from <code>decisions.jsonl</code> filtered to this case (open / dispositioned / escalated / etc.)</td>
+</tr>
+</tbody>
+</table>
+<p>Together: enough to byte-stable replay the case against the original input snapshot and reproduce the same <code>decisions_hash</code> (head of the audit ledger) plus identical per-rule alert-file hashes.</p>
 <hr />
 <h2 id="verify-it-worked">Verify it worked<a class="headerlink" href="#verify-it-worked" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — every link in the chain resolves to a concrete artifact. The <code>engine/audit.py::walk_lineage</code> helper (PR-DATA-4) is the canonical implementation.</p>
-</blockquote>
+<p>Four checks:</p>
+<ol>
+<li><strong>Every link resolves.</strong> <code>decisions</code> non-empty (at minimum <code>case_opened</code>). <code>matched_row_ids</code> lists <strong>DuckDB <code>rowid</code>s generated during rule execution</strong> — they're integer positions in the loaded table, not identifiers stored in the source CSV/parquet, so don't grep the source file for them. Map back by re-loading the contract into DuckDB and selecting <code>WHERE rowid IN (...)</code>. For SQL-backed rule types (<code>aggregation_window</code>, <code>custom_sql</code>), <code>rule_sql</code> should be parseable SQL — for <code>list_match</code>, <code>python_ref</code>, <code>network_pattern</code> it's a comment/callable stub, so use "non-empty content" rather than "parses" as the check.</li>
+<li><strong><code>rule_version</code> is set.</strong> Pre-PR-DATA-4 runs lack this; modern runs always have it. Empty <code>rule_version</code> is the strongest signal you're looking at an old archive.</li>
+<li><strong>Hash chain intact.</strong> Pass the run dir to <code>aml verify-decisions</code> (see the <a href="../verify-audit-chain/">verify-audit-chain how-to</a>) — failure here means the case's decisions sub-chain is poisoned and the lineage is suspect.</li>
+<li><strong>Replay reproduces.</strong> Without all the right inputs, the new <code>decisions_hash</code> won't match — current <code>aml.yaml</code> may have drifted, the default data source is <code>synthetic</code>, and an omitted <code>--as-of</code> stamps wallclock. To deterministic-replay you need to pin <strong>four</strong> things to the archived run:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 1) the spec snapshot from the audit pack (NOT current main&#39;s aml.yaml)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># 2) the original as_of from manifest.json</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># 3) the original seed</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># 4) the original data source + path (whatever was used at run time —</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">#    --data-source / --data-dir / external warehouse credentials, etc.)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nv">ORIGINAL_AS_OF</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span>.as_of<span class="w"> </span>.artifacts/run-OLD/manifest.json<span class="k">)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>aml<span class="w"> </span>run<span class="w"> </span>path/to/archived/spec_snapshot.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span>--as-of<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ORIGINAL_AS_OF</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span>--data-source<span class="w"> </span>&lt;original&gt;<span class="w"> </span>--data-dir<span class="w"> </span>&lt;original&gt;
+</span></code></pre></div>
+<p>The new <code>decisions_hash</code> should byte-match the archived one. This is the strongest possible verification — and the strictest, because any drift in any of the four anchors invalidates it.</p>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — pre-PR-DATA-4 runs lack <code>rule_version</code> stamping. Modern runs always have it; old archives may not.</p>
-</blockquote>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rule_version</code> is empty</td>
+<td>Run predates PR-DATA-4 (Round 26+)</td>
+<td>Expected for old archives. New runs are stamped; you can't retroactively populate.</td>
+</tr>
+<tr>
+<td><code>matched_row_ids</code> is empty</td>
+<td>Custom SQL rule that didn't surface row ids, or rule predates PR-LIN-12</td>
+<td>Update the rule to emit a <code>matched_row_ids</code> field in its custom SQL, or use one of the declarative logic types.</td>
+</tr>
+<tr>
+<td>CLI says "case_id not found in latest run"</td>
+<td>The case lives in an older run</td>
+<td>Pass <code>--run-dir</code> explicitly.</td>
+</tr>
+<tr>
+<td>Different <code>rule_version</code> than expected</td>
+<td>Spec edited between runs</td>
+<td>This is correct behavior — the version IS the spec content. Use the spec snapshot in the corresponding audit pack to recover.</td>
+</tr>
+<tr>
+<td>JSON is enormous</td>
+<td>Wide rule with thousands of matched rows</td>
+<td>Use <code>--format table</code> for a summary, or <code>jq</code> to slice</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>See <a href="../verify-audit-chain/">How to verify the audit chain</a> to prove the lineage data hasn't been tampered with.</li>
-<li>See <a href="../export-case-pack/">How to export a case pack</a> to hand the lineage chain to a regulator as a self-contained ZIP.</li>
+<li><a href="../verify-audit-chain/">How to verify the audit chain</a> — prove the lineage data hasn't been tampered with after the run finalized.</li>
+<li><a href="../export-case-pack/">How to export a case pack</a> — hand the lineage chain to a regulator as a self-contained ZIP.</li>
+<li>Lineage Explorer dashboard page — visual graph view of the same chain.</li>
 </ul>
 
 

@@ -1058,6 +1058,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-read-the-defect-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Read the defect log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-understand-the-four-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Understand the four dimensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-walk-the-triage-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Walk the triage decision tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-work-the-queue-top-down-by-severity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Work the queue top-down by severity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-re-run-to-confirm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Re-run to confirm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2005,6 +2066,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-read-the-defect-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Read the defect log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-understand-the-four-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Understand the four dimensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-walk-the-triage-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Walk the triage decision tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-work-the-queue-top-down-by-severity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Work the queue top-down by severity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-re-run-to-confirm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Re-run to confirm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2123,40 +2245,145 @@
 
 <h1 id="how-to-triage-defects-from-defect_logjsonl">How to triage defects from <code>defect_log.jsonl</code><a class="headerlink" href="#how-to-triage-defects-from-defect_logjsonl" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>When you need this:</strong> A run finished but you suspect "something didn't fire right." The <code>defect_log.jsonl</code> artifact (Round 28 PR-C1 #420) is the Pillar-2 ticket queue — one entry per DQ exception, <code>python_ref</code> failure, or other detected issue.</p>
-<p><strong>Prereqs:</strong> Finished run directory with <code>defect_log.jsonl</code>.</p>
-<p><strong>Time:</strong> ~2 min per defect, on average.</p>
+<p><strong>When you need this:</strong> A run finished but you suspect "something didn't fire right" — a data-quality check failed, a <code>python_ref</code> scorer raised, a mapping was missing, a lineage chain broke. The <code>defect_log.jsonl</code> artifact (Round 28 PR-C1 / #420) is the Pillar-2 ticket queue: one entry per detectable issue, classified along four dimensions so the right human queue picks it up.</p>
+<p><strong>Prereqs:</strong> A finished run directory under <code>.artifacts/</code>. <code>engine/defect_log.py::classify_defect</code> is the canonical classifier.</p>
+<p><strong>Time:</strong> ~2 min per defect on average. Critical-severity entries should be triaged same-day.</p>
 </blockquote>
+<p><code>defect_log.jsonl</code> is one of the eight manifest-hashed artifacts — the <strong>detected-defect snapshot at run finalize</strong> is part of the immutable audit ledger. Later triage actions (acknowledge / resolve / close) are NOT re-written to the ledger; track those externally (see §5 below).</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — placeholder. The mechanism:</p>
-<ol>
-<li>Read <code>defect_log.jsonl</code> — one JSON line per defect</li>
-<li>Each defect has 4 dimensions:</li>
-<li><strong>Category</strong> (11 values): <code>data_quality / rule_logic / mapping / threshold / lineage / metric / spec_config / external / runtime / sanctions_ref / typology_coverage</code></li>
-<li><strong>Classification</strong> (3 values, triage decision tree): <code>data / rule / mapping</code></li>
-<li><strong>Severity</strong> (5 tiers): <code>critical / high / medium / low / info</code></li>
-<li><strong>Lifecycle</strong>: <code>open / acknowledged / resolved / closed / wont_fix</code></li>
-<li>Sort by <code>severity</code> + <code>created_at</code>, work top-down</li>
-<li>The <code>engine/defect_log.py::classify_defect</code> helper is the canonical classifier — read its body to understand the decision tree</li>
-</ol>
-</blockquote>
+<h3 id="1-read-the-defect-log">1 · Read the defect log<a class="headerlink" href="#1-read-the-defect-log" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>jq<span class="w"> </span>-c<span class="w"> </span>.<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z/defect_log.jsonl
+</span></code></pre></div>
+<p>Each line is a defect with this shape (from <code>engine/defect_log.py::Defect</code>):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEFECT-...&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data_quality&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">&quot;classification&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;txn.amount: 12 null values (limit 0)&quot;</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">&quot;detected_by&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;engine.dq.not_null_check&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">&quot;source_run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1b2c3d4e5f6a7b8&quot;</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-05-25T10:15:32Z&quot;</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;open&quot;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Free-form description lives in <code>summary</code>; the producing component goes in <code>detected_by</code>; <code>source_run_id</code> is the deterministic 16-hex id returned by <code>derive_run_id(spec_content_hash, as_of, input_manifest)</code> — NOT the <code>.artifacts/run-&lt;timestamp&gt;</code> directory name. To cross-reference a defect to its run directory, you currently have to grep <code>defect_log.jsonl</code> across <code>.artifacts/run-*/</code> for the matching <code>source_run_id</code> (the manifest schema doesn't expose this id as a top-level field today; adding it is a small follow-up).</p>
+<h3 id="2-understand-the-four-dimensions">2 · Understand the four dimensions<a class="headerlink" href="#2-understand-the-four-dimensions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Values</th>
+<th>What it tells you</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>category</code></strong> (11 declared values)</td>
+<td>Declared: <code>data_quality</code>, <code>rule_logic</code>, <code>mapping</code>, <code>threshold</code>, <code>lineage</code>, <code>metric</code>, <code>spec_config</code>, <code>external</code>, <code>runtime</code>, <code>sanctions_ref</code>, <code>typology_coverage</code>. <strong>Currently emitted by <code>build_defect_log()</code></strong>: <code>data_quality</code> (DQ exceptions), <code>rule_logic</code> (<code>python_ref</code> failures), and <code>spec_config</code> (when <code>evaluate_contract_checks()</code> flags a malformed <code>quality_checks</code> config with <code>check_type="malformed_check"</code> — the corresponding <code>classification</code> is <code>mapping</code>). The remaining 8 categories are reserved for future emitters</td>
+<td>The technical surface where the issue arose</td>
+</tr>
+<tr>
+<td><strong><code>classification</code></strong> (3 values)</td>
+<td><code>data</code>, <code>rule</code>, <code>mapping</code></td>
+<td>Which human queue triages it (decision tree in <code>classify_defect()</code>)</td>
+</tr>
+<tr>
+<td><strong><code>severity</code></strong> (5 tiers)</td>
+<td><code>critical</code>, <code>high</code>, <code>medium</code>, <code>low</code>, <code>info</code></td>
+<td>How fast it needs attention</td>
+</tr>
+<tr>
+<td><strong><code>status</code></strong></td>
+<td><code>open</code>, <code>acknowledged</code>, <code>resolved</code>, <code>closed</code>, <code>wont_fix</code></td>
+<td>Where it is in the triage workflow</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-walk-the-triage-decision-tree">3 · Walk the triage decision tree<a class="headerlink" href="#3-walk-the-triage-decision-tree" title="Permanent link">&para;</a></h3>
+<p>The <code>classification</code> field tells you who owns the ticket:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>                 ┌────────────────────────────────────┐
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                 │  defect.category                   │
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                 └────────────────────────────────────┘
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                                  │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        ┌─────────────────────────┼──────────────────────────┐
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        ▼                         ▼                          ▼
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  data_quality /              rule_logic /             mapping /
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  lineage /                   threshold /              sanctions_ref /
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  external /                  metric                   typology_coverage
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  runtime                          │                          │
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        │                          ▼                          ▼
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        ▼                  classification = &quot;rule&quot;     classification = &quot;mapping&quot;
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>classification = &quot;data&quot;          (Engineer)                  (PM)
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>       (Data Engineer)
+</span></code></pre></div>
+<p><code>classify_defect()</code> is pure + deterministic; you can re-run it on any <code>DQException</code> to recover the same classification.</p>
+<h3 id="4-work-the-queue-top-down-by-severity">4 · Work the queue top-down by severity<a class="headerlink" href="#4-work-the-queue-top-down-by-severity" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Critical defects only, oldest first:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>jq<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;map(select(.severity == &quot;critical&quot;)) | sort_by(.created_at)[]&#39;</span><span class="w"> </span>defect_log.jsonl
+</span></code></pre></div>
+<p>For each defect, choose a target lifecycle:</p>
+<ul>
+<li><strong><code>acknowledged</code></strong> — you've seen it; investigating</li>
+<li><strong><code>resolved</code></strong> — fixed and verified (usually paired with a spec PR or pipeline fix)</li>
+<li><strong><code>closed</code></strong> — resolved + verified across a subsequent run (manifest-hash-pinned proof)</li>
+<li><strong><code>wont_fix</code></strong> — accepted as a known limitation; document why on the spec</li>
+</ul>
+<p>Track transitions in your ticket-of-record system (Linear / Jira / GitHub issues) cross-referencing the defect <code>id</code> + <code>source_run_id</code>. The defect log itself is emitted fresh per run from the detected exceptions — a recurring underlying issue produces a new <code>Defect</code> row each run with a new <code>id</code>, so the absence of the defect in a later run IS the closure proof (verified via the manifest's <code>defect_log_hash</code>).</p>
+<h3 id="5-re-run-to-confirm">5 · Re-run to confirm<a class="headerlink" href="#5-re-run-to-confirm" title="Permanent link">&para;</a></h3>
+<p>After a fix, re-run the spec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>aml<span class="w"> </span>run<span class="w"> </span>aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+</span></code></pre></div>
+<p>The next <code>defect_log.jsonl</code> shouldn't contain the same defect. If it does, the fix was incomplete.</p>
 <hr />
 <h2 id="verify-it-worked">Verify it worked<a class="headerlink" href="#verify-it-worked" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — defects classified consistently, lifecycle states transition cleanly, manifest hash pins.</p>
-</blockquote>
+<p>Four checks:</p>
+<ol>
+<li><strong><code>defect_log.jsonl</code> exists</strong> in the run dir (always emitted, even when empty).</li>
+<li><strong><code>manifest.json::defect_log_hash</code></strong> matches <code>sha256(defect_log.jsonl)</code> — <code>aml verify-decisions</code> only checks the <code>decisions.jsonl</code> chain, so verify this artifact hash manually: <code>sha256sum defect_log.jsonl</code> and compare to the manifest field.</li>
+<li><strong>Re-running a known good spec</strong> produces an empty (or expected-only) defect log.</li>
+<li><strong><code>classify_defect()</code> is idempotent</strong> — re-running the classifier on the same input yields the same category + classification.</li>
+</ol>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — <code>derive_run_id</code> collision (resolved in PR-C1 codex pass-1), strict python_ref abort skipping defect log (resolved pass-2), declared DQ severity silently demoted (resolved pass-3).</p>
-</blockquote>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Two different runs produce different <code>defect.id</code> for the same underlying exception</td>
+<td>Expected when inputs / <code>as_of</code> / spec change — <code>derive_run_id()</code> hashes <code>spec_content_hash + as_of + input_manifest</code>, so a different <code>source_run_id</code> produces a different <code>defect.id</code>. For genuinely-identical runs the id should match (deterministic-replay contract).</td>
+<td>Re-derive both runs' ids by hand and confirm the inputs/<code>as_of</code>/spec really are identical</td>
+</tr>
+<tr>
+<td>Strict <code>python_ref</code> failure not in the defect log</td>
+<td>Pre-PR-C1 codex pass-2: scorer abort skipped the log write</td>
+<td>Re-run on R28+; the log write happens BEFORE the abort path</td>
+</tr>
+<tr>
+<td>Declared DQ severity silently demoted to <code>medium</code></td>
+<td>Pre-PR-C1 codex pass-3: severity not honored from <code>quality_checks.severity</code></td>
+<td>Re-run on R28+; declared severity flows through (PR-B5 <code>QualityCheck.severity</code> field)</td>
+</tr>
+<tr>
+<td>Same defect repeats every run</td>
+<td>Underlying issue not actually fixed</td>
+<td>The defect log is honest — keep working until the issue stops surfacing</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>See <a href="../verify-audit-chain/">How to verify the audit chain</a> — <code>defect_log_hash</code> is part of the manifest, ensure it doesn't drift.</li>
-<li>See <a href="../configure-sla/">Configure SLA monitoring</a> — defect lifecycle states feed into SLA breach detection.</li>
+<li><a href="../configure-sla/">How to configure SLA monitoring</a> — the sibling Pillar-6 evidence (<code>sla_report.json</code>). Together: "is alert stale?" + "did the pipeline produce something processable?"</li>
+<li><a href="../verify-audit-chain/">How to verify the audit chain</a> — the <strong>initial</strong> <code>defect_log.jsonl</code> is one of the eight manifest-hashed artifacts, so the detected-state snapshot is on the chain. Lifecycle transitions after the run (acknowledged → resolved → closed) are NOT currently re-written to the ledger; track those externally (Linear / Jira) and rely on the absence of the same defect in a later run as the closure proof.</li>
+<li><a href="../../audit-evidence/"><code>audit-evidence.md</code></a> — the eight manifest-hashed artifacts and how <code>defect_log.jsonl</code> sits among them.</li>
 </ul>
 
 

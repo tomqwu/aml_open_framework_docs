@@ -974,6 +974,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identify-the-case_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Identify the case_id(s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-export-a-single-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Export a single case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-export-a-batch-hand-picked-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Export a batch (hand-picked cases)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-sign-the-manifest-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Sign the manifest (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-in-the-pack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the pack
+      
+    </span>
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2005,6 +2066,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-identify-the-case_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Identify the case_id(s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-export-a-single-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Export a single case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-export-a-batch-hand-picked-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Export a batch (hand-picked cases)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-sign-the-manifest-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Sign the manifest (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-in-the-pack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the pack
+      
+    </span>
+  </a>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2123,35 +2245,143 @@
 
 <h1 id="how-to-export-per-case-per-batch-evidence-packs">How to export per-case / per-batch evidence packs<a class="headerlink" href="#how-to-export-per-case-per-batch-evidence-packs" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>When you need this:</strong> A regulator/auditor asks for evidence on a SPECIFIC case (or a hand-selected batch), not the whole run. The full audit pack is 50+ MB; the case pack is ~50 KB.</p>
-<p><strong>Prereqs:</strong> A finished run directory. <code>aml export-case</code> and <code>aml export-batch</code> CLI commands (shipped in PR-D4 #424).</p>
+<p><strong>When you need this:</strong> A regulator/auditor asks for evidence on a SPECIFIC case (or a hand-selected batch), not the whole run. The full audit pack is 50+ MB; a single-case pack is ~50 KB.</p>
+<p><strong>Prereqs:</strong> A finished run directory under <code>.artifacts/</code> and the <code>case_id</code> (or list of <code>case_id</code>s) you want to bundle. <code>aml export-case</code> and <code>aml export-batch</code> shipped in PR-D4 / Round 28.</p>
 <p><strong>Time:</strong> ~30 sec per export.</p>
 </blockquote>
+<p>A per-case pack is the surgical alternative to <code>aml auditor-pack</code>: spec snapshot + the one case file + the filtered decision sub-chain + lineage + rule SQL + alert payload — and <strong>only</strong> that case's evidence (no sibling leak).</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — placeholder. The mechanism:
-1. <code>aml export-case &lt;spec&gt; &lt;run_dir&gt; &lt;case_id&gt; [--out case.zip] [--signing-key ...]</code>
-2. <code>aml export-batch &lt;spec&gt; &lt;run_dir&gt; --cases c1,c2,c3 [--out batch.zip]</code>
-3. Pack contents: spec_snapshot.yaml, cases/<id>.json, decisions/<id>.jsonl (filtered), alerts/<id>.jsonl (case-canonical, no sibling leak), lineage/<id>.json, rules/<rule>.sql, manifest.json
-4. Optional HMAC-SHA256 manifest signature via signing-key (PR-D4 codex review)
-5. PII masking honoured — field-aware leaf + token-level compound masking preserves the run's masking contract</p>
-</blockquote>
+<h3 id="1-identify-the-case_ids">1 · Identify the case_id(s)<a class="headerlink" href="#1-identify-the-case_ids" title="Permanent link">&para;</a></h3>
+<p>A <code>case_id</code> is the basename of any <code>cases/&lt;id&gt;.json</code> file in the run directory. List them quickly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ls<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z/cases/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/\.json$//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># C0042-cash_structuring-001</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># C0043-cash_structuring-001</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># C0044-rapid_pass_through-001</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># ...</span>
+</span></code></pre></div>
+<h3 id="2-export-a-single-case">2 · Export a single case<a class="headerlink" href="#2-export-a-single-case" title="Permanent link">&para;</a></h3>
+<p><strong>Important — pass the spec snapshot from the run, NOT current <code>aml.yaml</code>.</strong> The CLI uses the first argument to render <code>program.md</code> and manifest metadata; if <code>aml.yaml</code> has drifted since the run, you'd ship a pack with current program metadata mixed with historical alert evidence. Always point at <code>.artifacts/&lt;run-dir&gt;/spec_snapshot.yaml</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aml<span class="w"> </span>export-case<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z/spec_snapshot.yaml<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z<span class="w"> </span>C0042-cash_structuring-001
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># → ./case-C0042-cash_structuring-001.zip</span>
+</span></code></pre></div>
+<p>Override the output path with <code>--out</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>aml<span class="w"> </span>export-case<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z/spec_snapshot.yaml<span class="w"> </span>.artifacts/run-...<span class="w"> </span>C0042-cash_structuring-001<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--out<span class="w"> </span>/tmp/regulator-requests/2026-05-25-C0042.zip
+</span></code></pre></div>
+<h3 id="3-export-a-batch-hand-picked-cases">3 · Export a batch (hand-picked cases)<a class="headerlink" href="#3-export-a-batch-hand-picked-cases" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aml<span class="w"> </span>export-batch<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z/spec_snapshot.yaml<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>--cases<span class="w"> </span>C0042-cash_structuring-001,C0044-rapid_pass_through-001,C0050-pep_screening-001<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>--out<span class="w"> </span><span class="m">2026</span>-05-25-fincen-pack.zip
+</span></code></pre></div>
+<p><code>--cases</code> is a comma-separated list. Missing case ids <strong>fail loudly</strong> so the investigator never ships a half-empty pack.</p>
+<h3 id="4-sign-the-manifest-optional">4 · Sign the manifest (optional)<a class="headerlink" href="#4-sign-the-manifest-optional" title="Permanent link">&para;</a></h3>
+<p>For chain-of-custody, attach an HMAC-SHA256 signature so the recipient can prove the bundled <strong>file set</strong> (the <code>bundle_hash</code> covers every file's SHA-256 + the file list) hasn't been altered after handoff. Note: the HMAC covers <code>bundle_hash</code> only — other manifest metadata (e.g. timestamps, descriptive fields) could theoretically be edited without invalidating the signature. For full-manifest integrity, hash the entire manifest out-of-band as well.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AML_CASE_PACK_SIGNING_KEY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span><span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>aml<span class="w"> </span>export-case<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z/spec_snapshot.yaml<span class="w"> </span>.artifacts/run-...<span class="w"> </span>C0042-...<span class="w"> </span>--signing-key<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$AML_CASE_PACK_SIGNING_KEY</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><code>generators/audit_pack.py::_attach_signature</code> HMAC-SHA256s <strong>only <code>manifest["bundle_hash"]</code></strong> (the canonical aggregate hash, not the whole manifest), and writes the result into <code>manifest["signature"]</code> with two fields: <code>algorithm</code> (<code>"HMAC-SHA256"</code>) and <code>value</code> (hex digest). The recipient verifies by:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span><span class="o">,</span><span class="w"> </span><span class="nn">hmac</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># 1) Recompute bundle_hash from the actual ZIP entries — do NOT trust</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">#    the value in manifest[&quot;bundle_hash&quot;]. An attacker who edits files</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">#    in the ZIP but leaves the manifest bundle_hash untouched would</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">#    pass an HMAC check on the supplied value.</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">recomputed</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">],</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">assert</span> <span class="n">recomputed</span> <span class="o">==</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;bundle_hash&quot;</span><span class="p">],</span> <span class="s2">&quot;bundle_hash mismatch — pack tampered&quot;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># 2) Then HMAC the (now-verified) bundle_hash:</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">expected</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shared_key</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">recomputed</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">assert</span> <span class="n">expected</span> <span class="o">==</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;signature&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+</span></code></pre></div>
+<p>Share the key out-of-band (not in the ZIP).</p>
+<hr />
+<h2 id="whats-in-the-pack">What's in the pack<a class="headerlink" href="#whats-in-the-pack" title="Permanent link">&para;</a></h2>
+<p>Unzip and inspect. Entries are written at the ZIP root (no enclosing folder) — layout from <code>generators/audit_pack.py::_case_pack_files()</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>(zip root)
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── manifest.json                          # filtered hashes; optional HMAC signature
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├── program.md                              # program intent + scope context
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>├── spec_snapshot.yaml                      # the exact spec content that produced this case
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>                                            #   (included by build_case_pack / build_batch_pack
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                                            #    whenever the runner emitted it — required for
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>                                            #    deterministic replay; see walk-lineage.md §4)
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>├── cases/
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│   └── C0042-cash_structuring-001.json
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>├── decisions/
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│   └── C0042-cash_structuring-001.jsonl   # filtered to only this case&#39;s decisions
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>├── alerts/
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>│   └── C0042-cash_structuring-001.jsonl   # case-canonical (filenames keyed by case_id, not rule)
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>├── lineage/
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>│   └── C0042-cash_structuring-001.json    # slim summary: {case_id, rule_id, rule_version, matched_row_ids, input_files}
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>│                                          #   (NOT the full walk_lineage() chain — that&#39;s derived on demand)
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>└── rules/
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    └── cash_structuring.sql                # rule SQL (keyed by rule_id, not case_id)
+</span></code></pre></div>
+<p>Filenames inside <code>cases/</code>, <code>decisions/</code>, <code>alerts/</code>, <code>lineage/</code> are keyed by <code>case_id</code> so a batch pack lays out one per-case file under each directory rather than one combined file per type. PII masking: <code>_apply_pii_map()</code> substitutes on the case / decision / alert / lineage JSON file CONTENTS and on ZIP entry names. <strong>Not masked</strong>: <code>rules/&lt;rule_id&gt;.sql</code> and <code>spec_snapshot.yaml</code> are copied verbatim — if a <code>custom_sql</code> literal embeds a customer id or a spec field carries a recognizable string, those files leak the plaintext through to the recipient. Audit the spec + rule SQL for embedded identifiers before sharing a masked-run pack.</p>
 <hr />
 <h2 id="verify-it-worked">Verify it worked<a class="headerlink" href="#verify-it-worked" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — unzip the case pack, walk the manifest hashes, confirm <code>aml verify-decisions</code> (PARTIAL mode) passes on the filtered decisions.</p>
-</blockquote>
+<p>Three checks:</p>
+<ol>
+<li><strong>Unzip + walk the manifest</strong> — every file listed in <code>manifest.json</code> exists in the ZIP and its SHA-256 matches the recorded hash. (<code>aml verify-decisions</code> is geared at a full run dir, not the filtered case-pack subchain — do the manifest walk by hand.)</li>
+<li><strong>Decision-chain spot-check</strong> — <code>jq -c .</code> over <code>decisions/&lt;case_id&gt;.jsonl</code> shows only events for that case. No sibling case ids leak in.</li>
+<li><strong>Sibling-leak smoke test</strong> — file names alone don't prove the alerts inside are correctly filtered. Read the contents of each <code>alerts/&lt;case_id&gt;.jsonl</code> and confirm every row belongs to the requested case. Alerts carry <code>customer_id</code>; the case's customer lives at <code>cases/&lt;case_id&gt;.json::alert.customer_id</code> (no top-level <code>customer_id</code>):</li>
+</ol>
+<p><code>customer_id</code> alone is not enough — a leaked sibling alert for the same customer (e.g. two <code>custom_sql</code> windows) would pass that check. Compare the FULL alert payload to <code>cases/&lt;id&gt;.json::alert</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>alerts/*.jsonl<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nv">case_id</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="w"> </span>.jsonl<span class="k">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nv">expected</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-cS<span class="w"> </span><span class="s1">&#39;.alert&#39;</span><span class="w"> </span><span class="s2">&quot;cases/</span><span class="nv">$case_id</span><span class="s2">.json&quot;</span><span class="k">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="c1"># Sort each alert row&#39;s keys canonically before comparing</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span>mapfile<span class="w"> </span>-t<span class="w"> </span>rows<span class="w"> </span>&lt;<span class="w"> </span>&lt;<span class="o">(</span>jq<span class="w"> </span>-cS<span class="w"> </span>.<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="o">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span>row<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">rows</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$row</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;❌ </span><span class="nv">$f</span><span class="s2"> leaked siblings: row </span><span class="nv">$row</span><span class="s2"> does not match case alert&quot;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="k">done</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="k">done</span>
+</span></code></pre></div>
+<p>Empty output = no sibling leak. (If a case has multiple alert rows by design, drop the strict equality and compare on the union of <code>matched_row_ids</code> + <code>window_end</code> + <code>customer_id</code>.)</p>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — case_id not in run, sibling-alert leak (resolved in PR-D4 codex pass), corrupt <code>pii_map.jsonl</code> sidecar (<code>PiiMapCorruptError</code>).</p>
-</blockquote>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case_id not found</code></td>
+<td>Typo, or the run dir is older than the case</td>
+<td><code>ls .artifacts/&lt;run&gt;/cases/</code> to confirm</td>
+</tr>
+<tr>
+<td>Multi-case batch missing one entry</td>
+<td>Wrong <code>case_id</code> in <code>--cases</code></td>
+<td>The command exits non-zero on the missing case — re-check the spelling</td>
+</tr>
+<tr>
+<td><code>PiiMapCorruptError</code> on export</td>
+<td><code>pii_map.jsonl</code> sidecar truncated mid-write</td>
+<td>Re-finalize the run (<code>aml run</code>) — the masking sidecar is regenerated atomically</td>
+</tr>
+<tr>
+<td>Pack contains a sibling alert that wasn't requested</td>
+<td>Pre-PR-D4 codex-pass-1 bug; should not reproduce on R28+</td>
+<td>Confirm the run was produced by ≥ Round 28; re-run if not</td>
+</tr>
+<tr>
+<td>Recipient can't verify HMAC</td>
+<td>Signing key wasn't shared out-of-band</td>
+<td>Share the key via a separate channel from the ZIP</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>See <a href="../verify-audit-chain/">How to verify the audit chain</a> for full-run verification.</li>
-<li>See <a href="../walk-lineage/">How to walk the lineage chain</a> to trace what's INSIDE the case pack.</li>
+<li>See <a href="../verify-audit-chain/">How to verify the audit chain</a> for full-run verification + external-pin patterns.</li>
+<li>See <a href="../walk-lineage/">How to walk the lineage chain</a> to trace what's INSIDE the pack before sending.</li>
+<li>For full-run bundles (regulator examination, not a single-case request), use <code>aml auditor-pack</code> instead.</li>
 </ul>
 
 

@@ -946,6 +946,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-declare-environments-on-the-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Declare environments on the program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mark-each-rule-with-the-lanes-its-approved-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Mark each rule with the lanes it's approved for
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validate-run-in-the-target-lane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Validate + run in the target lane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-promote-via-spec-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Promote via spec PR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-cut-to-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Cut to prod
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2005,6 +2066,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-declare-environments-on-the-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Declare environments on the program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mark-each-rule-with-the-lanes-its-approved-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Mark each rule with the lanes it's approved for
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validate-run-in-the-target-lane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Validate + run in the target lane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-promote-via-spec-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Promote via spec PR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-cut-to-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Cut to prod
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2123,35 +2245,115 @@
 
 <h1 id="how-to-promote-a-rule-across-environments">How to promote a rule across environments<a class="headerlink" href="#how-to-promote-a-rule-across-environments" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>When you need this:</strong> A rule has matured in <code>dev</code> / <code>test</code> and you need to move it to <code>uat</code> / <code>prod</code> with a signed-off audit trail.</p>
-<p><strong>Prereqs:</strong> <code>Program.environment</code> declared in <code>aml.yaml</code> (PR-D3 #423). Rule has <code>environments: [...]</code> field populated.</p>
-<p><strong>Time:</strong> ~5 min per promotion event.</p>
+<p><strong>When you need this:</strong> You authored a rule in dev, want to send it to test for 2LoD validation, then to UAT, then to prod — without copy-pasting YAML and without firing the rule in prod before sign-off.</p>
+<p><strong>Prereqs:</strong> A working rule in your spec. The rule lifecycle workflow shipped in PR-D3 / Round 28 (<code>Program.environment</code> + <code>Rule.environments</code>). <code>aml validate</code> succeeds on the spec.</p>
+<p><strong>Time:</strong> ~5 min once you understand the model. Re-running it on every promotion is the point.</p>
 </blockquote>
-<p>The <code>engine/promotion.py</code> module gates rules by environment. Every rule-execution attempt emits a gate-check event on <code>decisions.jsonl</code> — examiners can prove the gate was consulted.</p>
+<p>Spec-driven promotion: a rule declares which environments it's been approved for via <code>Rule.environments</code>, and the program declares which environment it's currently running in via <code>Program.environment</code>. The engine warns (or with <code>strict_environment_gating: true</code>, raises <code>EnvironmentGatingError</code>) when a mismatched rule fires.</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — placeholder. The mechanism:
-1. Update <code>Rule.environments</code> in <code>aml.yaml</code> to include the target lane
-2. Emit a sign-off audit event (CLI command TBD)
-3. With <code>Program.strict_environment_gating: true</code>, the runner raises <code>EnvironmentGatingError</code> on unapproved rule firings
-4. With strict gating off, it <code>logger.warning</code>s instead but still records the gate-check on <code>decisions.jsonl</code></p>
-</blockquote>
+<h3 id="1-declare-environments-on-the-program">1 · Declare environments on the program<a class="headerlink" href="#1-declare-environments-on-the-program" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">program</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">community_bank_aml</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span><span class="w">               </span><span class="c1"># dev | test | uat | prod</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">strict_environment_gating</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># flip to true once your promotion process is signing off rules</span>
+</span></code></pre></div>
+<p>Greenfield deployments leave <code>environment: dev</code> until the promotion process is wired up. <code>strict_environment_gating: false</code> (the default) means mismatches log a warning; <code>true</code> raises and aborts the run.</p>
+<h3 id="2-mark-each-rule-with-the-lanes-its-approved-for">2 · Mark each rule with the lanes it's approved for<a class="headerlink" href="#2-mark-each-rule-with-the-lanes-its-approved-for" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">structuring_burst</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cash structuring — 3+ deposits under threshold in 30d</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">environments</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">dev</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">test</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># NEW rule: dev + test only</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">logic</span><span class="p">:</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aggregation_window</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</span></code></pre></div>
+<p>Brand-new rules typically ship <code>environments: [dev]</code> only. After 2LoD validation the list expands to <code>[dev, test]</code>, then <code>[dev, test, uat]</code>, then <code>[dev, test, uat, prod]</code> — each step is a spec PR with the corresponding sign-off in the PR description.</p>
+<p>Once the spec lands, every active rule the runner reaches gets a gate-check event on <code>decisions.jsonl</code> via <code>promotion_audit_event()</code> — approved rules show <code>outcome: approved</code>, mismatched rules show <code>outcome: blocked</code> (strict) or <code>warn_only</code> (non-strict). <strong>Strict-mode caveat</strong>: when <code>strict_environment_gating: true</code>, the runner emits the event for the first blocked rule and <strong>then raises <code>EnvironmentGatingError</code></strong>, so any active rules later in the spec aren't reached and don't get gate events that run. In non-strict mode every active rule gets one event. The grep recipes in §"Verify it worked" filter by outcome.</p>
+<h3 id="3-validate-run-in-the-target-lane">3 · Validate + run in the target lane<a class="headerlink" href="#3-validate-run-in-the-target-lane" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Promote your spec to test:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sed<span class="w"> </span>-i.bak<span class="w"> </span><span class="s1">&#39;s/environment: dev/environment: test/&#39;</span><span class="w"> </span>aml.yaml
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>aml<span class="w"> </span>validate<span class="w"> </span>aml.yaml
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>aml<span class="w"> </span>run<span class="w"> </span>aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+</span></code></pre></div>
+<p>The runner emits a <code>promotion_audit_event()</code> for every active rule it reaches, regardless of approval — the <code>outcome</code> field differentiates <code>approved</code> (in this environment) from <code>blocked</code> / <code>warn_only</code> (mismatched). With strict gating enabled, the run aborts on the first mismatch, so active rules after it don't emit a gate event that run.</p>
+<h3 id="4-promote-via-spec-pr">4 · Promote via spec PR<a class="headerlink" href="#4-promote-via-spec-pr" title="Permanent link">&para;</a></h3>
+<p>The promotion workflow is a normal git PR adding the next lane to the rule's <code>environments</code>:</p>
+<div class="language-diff highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gd">- environments: [dev, test]</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="gi">+ environments: [dev, test, uat]</span>
+</span></code></pre></div>
+<p>Reviewers (2LoD MLRO, model risk, audit) sign off on the PR. The Rule Lifecycle dashboard page (<code>pages/51_Rule_Lifecycle.py</code>) surfaces this per-rule along with the <code>approval</code> column (honest placeholder until the signed-off-version store ships).</p>
+<h3 id="5-cut-to-prod">5 · Cut to prod<a class="headerlink" href="#5-cut-to-prod" title="Permanent link">&para;</a></h3>
+<p>Final promotion:</p>
+<div class="language-diff highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gd">- environments: [dev, test, uat]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="gi">+ environments: [dev, test, uat, prod]</span>
+</span></code></pre></div>
+<p>Once the prod deploy picks up the spec and <code>strict_environment_gating: true</code> is set, the engine refuses to run rules that aren't approved for prod — the spec PR is now the audit trail.</p>
 <hr />
 <h2 id="verify-it-worked">Verify it worked<a class="headerlink" href="#verify-it-worked" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — assertion that gate event appears on <code>decisions.jsonl</code> after promotion.</p>
-</blockquote>
+<p>Three checks per promotion:</p>
+<ol>
+<li><strong>Gating events on the audit ledger</strong> — <code>promotion_audit_event()</code> (<code>engine/promotion.py:88-111</code>) emits a gate event for every active rule the runner reaches. <strong>In non-strict mode</strong>, every active rule gets one event. <strong>In strict mode</strong> (<code>strict_environment_gating: true</code>), the runner emits the event for the first blocked rule and then raises <code>EnvironmentGatingError</code> — so an incomplete ledger after a strict-mode abort is expected, not evidence of full coverage. The <code>outcome</code> field carries one of three values:</li>
+<li><code>approved</code> — rule's <code>environments</code> includes the program env</li>
+<li><code>blocked</code> — mismatch + strict gating (run aborts after emitting)</li>
+<li><code>warn_only</code> — mismatch + non-strict gating (run continues; warning logged)</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># All mismatches (strict or warn-only):</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;select(.outcome == &quot;blocked&quot; or .outcome == &quot;warn_only&quot;)&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>.artifacts/run-*/decisions.jsonl
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Only the strict-mode blocks:</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;select(.outcome == &quot;blocked&quot;)&#39;</span><span class="w"> </span>.artifacts/run-*/decisions.jsonl
+</span></code></pre></div>
+<ol>
+<li>
+<p><strong>Rule Lifecycle dashboard page</strong> — visit <code>pages/51_Rule_Lifecycle.py</code>; the rule's status column reflects the lifecycle stage. <code>model_tier</code>, <code>validation_cadence_months</code>, <code>rule_version</code> (16-hex SHA-256), and <code>risk_tier</code> show alongside.</p>
+</li>
+<li>
+<p><strong>Replay the OLD spec, not the promoted one</strong> — a promotion changes the spec content hash, so <code>rule_version</code> AND <code>decisions_hash</code> change too even when the alert population is unchanged. To verify "the same alerts would have fired," keep the pre-promotion spec snapshot in your audit pack and replay against THAT; the post-promotion run is a separate row in <code>run_manifests</code>.</p>
+</li>
+</ol>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — common pitfalls (duplicate environment in list, missing sign-off event, wrong order).</p>
-</blockquote>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rule fires in <code>prod</code> despite not being on <code>environments: [..., prod]</code></td>
+<td><code>strict_environment_gating: false</code> (default) — engine warns instead of blocking</td>
+<td>Flip <code>strict_environment_gating: true</code> once your promotion sign-off process is wired up</td>
+</tr>
+<tr>
+<td>Every rule fires the gating warning at startup</td>
+<td><code>Program.environment</code> left at <code>dev</code> but rules declared <code>[prod]</code> only</td>
+<td>Either set <code>Program.environment</code> to match the deployed lane, or expand rule <code>environments</code></td>
+</tr>
+<tr>
+<td><code>EnvironmentGatingError</code> on a rule that SHOULD be in this lane</td>
+<td>Typo in the <code>environments</code> list (string instead of YAML list)</td>
+<td>Fix the YAML; <code>aml validate</code> catches structural typos before runtime</td>
+</tr>
+<tr>
+<td>Promotion PR merged but engine still skips the rule</td>
+<td>Container hasn't picked up the new spec hash</td>
+<td>Redeploy / restart the dashboard + API; the spec content hash drives <code>rule_version</code></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>See <a href="../add-a-rule/">How to add a rule</a> for the upstream <code>environments:</code> field.</li>
-<li>See <a href="../verify-audit-chain/">How to verify the audit chain</a> to confirm promotion events flow into the chain.</li>
+<li>See <a href="../add-a-rule/">How to add a rule</a> — the upstream <code>environments:</code> field on <code>Rule</code>.</li>
+<li>See <a href="../verify-audit-chain/">How to verify the audit chain</a> — the <strong>spec PR</strong> is the promotion audit trail (the spec content hash changes; the git history records who approved). Subsequent runs against the new spec emit <code>promotion_audit_event()</code> gate-check events on <code>decisions.jsonl</code> (one per active rule per run) — those are the runtime evidence that the gate fired, not the promotion event itself.</li>
+<li>The Rule Lifecycle page (universally-routed, every persona) surfaces every rule's <code>status</code>, <code>model_tier</code>, <code>validation_cadence_months</code>, <code>rule_version</code>, <code>risk_tier</code>, and approval state. It does NOT yet show the <code>environments</code> list — adding that column is a small follow-up; for now verify via the gating-event grep above.</li>
+<li>For the cross-spec lifecycle (<code>active | experimental | deprecated</code>), see <code>Rule.status</code> in <a href="../../spec-reference/"><code>spec-reference.md</code></a>.</li>
 </ul>
 
 

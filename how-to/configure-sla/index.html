@@ -1030,6 +1030,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-declare-the-sla-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Declare the SLA block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tune-for-your-operational-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Tune for your operational reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-read-the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Run + read the report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-visualize-over-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Visualize over time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-wire-into-ops-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Wire into ops escalation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2005,6 +2066,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-declare-the-sla-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Declare the SLA block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tune-for-your-operational-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Tune for your operational reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-read-the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Run + read the report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-visualize-over-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Visualize over time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-wire-into-ops-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Wire into ops escalation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2123,42 +2245,135 @@
 
 <h1 id="how-to-configure-sla-monitoring">How to configure SLA monitoring<a class="headerlink" href="#how-to-configure-sla-monitoring" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>When you need this:</strong> You need alert-disposition SLAs (e.g. "every high-severity case must be resolved within 30 days") + batch-lateness monitoring (e.g. "the daily extract must arrive within 1 day of as_of").</p>
-<p><strong>Prereqs:</strong> <code>Program.sla</code> block in <code>aml.yaml</code> (PR-LF1 #415, R27).</p>
-<p><strong>Time:</strong> ~5 min to declare. Ongoing monitoring via dashboard / digest.</p>
+<p><strong>When you need this:</strong> You want first-class evidence for the two SLAs every AML examiner asks about: <em>"how long do open alerts sit?"</em> and <em>"how fresh is the data the rules ran against?"</em> You want this <strong>declared in the spec</strong> (peer-reviewed, replayable) rather than tracked in a side spreadsheet.</p>
+<p><strong>Prereqs:</strong> <code>Program.sla</code> block on <code>aml.yaml</code>. Shipped in PR-LF1 (#415) / Round 27.</p>
+<p><strong>Time:</strong> ~5 min to declare. Ongoing monitoring via reading <code>sla_report.json</code> directly — no dashboard page or <code>notify-digest</code> flow currently consumes the SLA artifact (see §4 below).</p>
 </blockquote>
+<p>The Pillar-6 SLA monitor (<code>engine/sla.py</code>) evaluates two breach types per run and emits <code>sla_report.json</code> — one of the eight manifest-hashed artifacts, so the SLA evidence is part of the immutable audit ledger. The monitor is <strong>observational, not enforcing</strong>: the engine never aborts on a breach; it records it for downstream surfaces.</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — placeholder. The mechanism:</p>
-<ol>
-<li>Declare a <code>program.sla:</code> block in <code>aml.yaml</code>:
-   <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">program</span><span class="p">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">sla</span><span class="p">:</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">alert_disposition_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">batch_cadence_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">batch_lateness_grace_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-</span></code></pre></div></li>
-<li>Engine emits <code>sla_report.json</code> every run (manifest-pinned)</li>
-<li>Report fields: <code>total_breaches</code>, <code>breaches_by_rule</code>, <code>batch_lateness_days</code>, <code>batch_late</code></li>
-<li>Empty <code>program.sla</code> = monitor disabled, report still emitted (always-present contract)</li>
-</ol>
-</blockquote>
+<h3 id="1-declare-the-sla-block">1 · Declare the SLA block<a class="headerlink" href="#1-declare-the-sla-block" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">program</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">community_bank_aml</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">jurisdiction</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">US</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">regulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FinCEN</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chief_compliance_officer</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">effective_date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2026-01-01</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">sla</span><span class="p">:</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">alert_disposition_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span><span class="w">          </span><span class="c1"># default 30; days before an open alert is &quot;stale&quot;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">batch_cadence_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">               </span><span class="c1"># default 1; expected cadence of the data extract</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">batch_lateness_grace_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">        </span><span class="c1"># default 1; grace before late batch flagged</span>
+</span></code></pre></div>
+<p>All three sub-fields are optional with the defaults shown. Omitting the whole <code>sla:</code> block disables the monitor (the report still emits, with <code>enabled: false</code>).</p>
+<h3 id="2-tune-for-your-operational-reality">2 · Tune for your operational reality<a class="headerlink" href="#2-tune-for-your-operational-reality" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Typical value</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alert_disposition_days</code></td>
+<td>30 (FinCEN guidance) for high-volume programs, 14 for fintechs</td>
+<td>The threshold above which open alerts become an exam finding</td>
+</tr>
+<tr>
+<td><code>batch_cadence_days</code></td>
+<td>1 for batch programs, 0 for near-real-time</td>
+<td>Sets the "expected" gap between <code>as_of</code> and the most recent transaction</td>
+</tr>
+<tr>
+<td><code>batch_lateness_grace_days</code></td>
+<td>1 (24h) for batch, 0 for SLA-critical pipelines</td>
+<td>Late-but-acceptable buffer before the run is flagged</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-run-read-the-report">3 · Run + read the report<a class="headerlink" href="#3-run-read-the-report" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>aml<span class="w"> </span>run<span class="w"> </span>aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>jq<span class="w"> </span>.<span class="w"> </span>.artifacts/run-*/sla_report.json
+</span></code></pre></div>
+<p>Output shape (fields from <code>engine/sla.py::SLAReport</code>):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;alert_disposition_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;batch_cadence_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;batch_lateness_grace_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">&quot;total_breaches&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="nt">&quot;breaches_by_rule&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;structuring_burst&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="nt">&quot;breaches&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">{</span><span class="nt">&quot;case_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C0042-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;opened_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-10T...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;age_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;rule_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;structuring_burst&quot;</span><span class="p">}</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="nt">&quot;batch_lateness_days&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">  </span><span class="nt">&quot;batch_late&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">  </span><span class="nt">&quot;latest_transaction_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-05-23T18:42:00Z&quot;</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="4-visualize-over-time">4 · Visualize over time<a class="headerlink" href="#4-visualize-over-time" title="Permanent link">&para;</a></h3>
+<p>The SLA artifact is <strong>emitted to disk only</strong> today — <code>sla_report.json</code> per run, manifest-hash pinned, but no dashboard page currently subscribes to it. The Today landing card pack for Manager personas has a <code>_sla_breach_count()</code> helper that reads an <code>sla_state</code> column off <code>df_cases</code>, but the default DataFrame loader doesn't populate that column from <code>program.sla</code> / <code>sla_report.json</code> — so unless a custom loader enriches it, the breach count renders as 0 regardless of what the run actually emitted. For trend visualization you currently chart externally; a future dashboard surface that reads <code>sla_report.json</code> per archived run is the natural follow-up.</p>
+<h3 id="5-wire-into-ops-escalation">5 · Wire into ops escalation<a class="headerlink" href="#5-wire-into-ops-escalation" title="Permanent link">&para;</a></h3>
+<p>The framework records the breach; <strong>routing the human escalation is yours</strong>. Common patterns:</p>
+<ul>
+<li>Read <code>sla_report.json</code> from a downstream CI job; open a Linear/Jira ticket when <strong>either</strong> <code>total_breaches &gt; 0</code> (stale open alerts) <strong>or</strong> <code>batch_late == true</code> (late data extract). The two metrics are independent — a late batch with no stale cases sets <code>batch_late</code> true but leaves <code>total_breaches</code> at 0, so a single-field trigger would silently skip pipeline lateness. This OR-trigger is the recommended integration today.</li>
+<li><code>aml notify-digest</code> (CLI) generates a Markdown run summary — note that it reads <code>decisions.jsonl</code> events, not <code>sla_report.json</code>, so it doesn't currently surface SLA breaches in the digest. Wiring an <code>sla_breach</code> decision-event emitter alongside the JSON report would surface it; until then, treat the artifact as the source of truth.</li>
+<li>The post-run <code>monitoring_digest.json</code> (Pillar-2 sibling, PR-LF4) carries the per-rule alert count delta — combine with the SLA report for "rules accumulating backlog."</li>
+</ul>
 <hr />
 <h2 id="verify-it-worked">Verify it worked<a class="headerlink" href="#verify-it-worked" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — read <code>sla_report.json</code>, confirm <code>enabled: true</code>, examine <code>breaches</code>.</p>
-</blockquote>
+<p>Four checks:</p>
+<ol>
+<li><strong><code>sla_report.json</code> exists and <code>enabled: true</code></strong> when the spec declares a <code>sla:</code> block.</li>
+<li><strong><code>manifest.json::sla_report_hash</code></strong> matches <code>sha256(sla_report.json)</code>. <code>aml verify-decisions</code> only checks the <code>decisions.jsonl</code> chain — to verify the SLA artifact hash, recompute manually: <code>sha256sum sla_report.json</code> and compare to <code>manifest.json::sla_report_hash</code>.</li>
+<li><strong>A planted late case</strong> (an open <code>case_opened</code> event older than <code>alert_disposition_days</code> and no terminal decision) appears in <code>breaches</code>.</li>
+<li><strong>A planted late batch</strong> (<code>as_of - latest_transaction_at &gt; cadence + grace</code>) flips <code>batch_late: true</code>.</li>
+</ol>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>TODO</strong> — full-timedelta vs <code>.days</code>-floor (resolved in PR-LF1 codex pass-2), <code>Z</code>-suffix datetime parsing (resolved pass-2), terminal events stamped AFTER <code>as_of</code> (resolved pass-3).</p>
-</blockquote>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Report exists but <code>enabled: false</code></td>
+<td><code>Program.sla</code> block omitted</td>
+<td>Add the block (the report is always emitted; only the monitor needs explicit enablement)</td>
+</tr>
+<tr>
+<td><code>age_days</code> looks off by 1</td>
+<td>Full-timedelta vs <code>.days</code>-floor (resolved PR-LF1 codex pass-2)</td>
+<td>Re-run on R27+; the floor is now correct</td>
+</tr>
+<tr>
+<td>Late <code>case_opened</code> event ignored</td>
+<td>The opened-at timestamp has no timezone suffix</td>
+<td>The parser handles <code>Z</code>/<code>+00:00</code>/naive (PR-LF1 codex pass-2). If still off, check that the event's timestamp ISO-formats correctly</td>
+</tr>
+<tr>
+<td>Cases with terminal events AFTER <code>as_of</code> still flagged as open</td>
+<td>Pre-PR-LF1 codex pass-3 bug</td>
+<td>Re-run on R27+; the comparison now respects <code>as_of</code> strictly</td>
+</tr>
+<tr>
+<td>Batch never flagged late</td>
+<td><code>as_of</code> overridden via <code>--as-of</code> to a recent date</td>
+<td>Expected. The check uses the run's <code>as_of</code>, not wallclock</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>See <a href="../triage-defects/">How to triage defects from <code>defect_log.jsonl</code></a> for the Pillar-2 evidence side.</li>
-<li>The Drift Monitor dashboard page (50) visualizes SLA breach rates over time.</li>
+<li><a href="../triage-defects/">How to triage defects</a> — Pillar-2 ticket queue (<code>defect_log.jsonl</code>) for the sibling evidence: not "is alert stale?" but "did the data pipeline cough up something the engine couldn't process?"</li>
+<li>Note: <code>pages/50_Drift_Monitor.py</code> plots <code>python_ref</code> alert-volume drift, NOT SLA breach trends. Adding an SLA-trend chart is a small follow-up that would consume <code>sla_report.json</code> per archived run.</li>
+<li>The <a href="../../audit-evidence/">audit-evidence reference</a> explains where <code>sla_report.json</code> sits in the eight manifest-hashed artifacts.</li>
 </ul>
 
 
