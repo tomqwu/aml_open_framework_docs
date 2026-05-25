@@ -1804,6 +1804,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="program">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2062,6 +2079,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="program">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2306,6 +2340,27 @@ this document exists to explain intent.</p>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chief_compliance_officer</span><span class="w">     </span><span class="c1"># human owner of the program</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">effective_date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2026-01-01</span><span class="w">          </span><span class="c1"># YYYY-MM-DD, when this version takes effect</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">ai_audit_log</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hash_only</span><span class="w">             </span><span class="c1"># what the GenAI assistant writes to ai_interactions.jsonl</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="c1"># ── Optional blocks (omit when not needed) ──────────────────────</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span><span class="w">                    </span><span class="c1"># promotion lane: dev | test | uat | prod</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="nt">strict_environment_gating</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">    </span><span class="c1"># raise on rule env-mismatch when True</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="nt">sla</span><span class="p">:</span><span class="w">                                </span><span class="c1"># Pillar-6 SLA monitor (PR-LF1)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">alert_disposition_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="nt">batch_cadence_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="nt">batch_lateness_grace_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="nt">legacy_reference</span><span class="p">:</span><span class="w">                   </span><span class="c1"># parallel-run equivalence (PR-EQ-1)</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./legacy-alerts.csv</span><span class="w">         </span><span class="c1"># required</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span><span class="w">                       </span><span class="c1"># optional: csv | parquet | jsonl (default csv)</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="nt">key_columns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">customer_id</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">alert_window_end</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># required</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="nt">rule_map</span><span class="p">:</span><span class="w">                         </span><span class="c1"># optional: new_rule_id → legacy_rule_id</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">      </span><span class="nt">structuring_burst</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LEGACY_RULE_42</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">  </span><span class="nt">nfrs</span><span class="p">:</span><span class="w">                               </span><span class="c1"># non-functional requirements (PR-D2)</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="nt">rto_minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">240</span><span class="w">                  </span><span class="c1"># optional</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="nt">rpo_minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w">                   </span><span class="c1"># optional</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="nt">sla_p95_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span><span class="w">                  </span><span class="c1"># optional</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="nt">throughput_per_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w">           </span><span class="c1"># optional</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">    </span><span class="nt">retention_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2555</span><span class="w">              </span><span class="c1"># optional (7y for AML)</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">    </span><span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MRM</span><span class="nv"> </span><span class="s">validation</span><span class="nv"> </span><span class="s">cadence</span><span class="nv"> </span><span class="s">+</span><span class="nv"> </span><span class="s">BCP/DR</span><span class="nv"> </span><span class="s">posture&quot;</span>
 </span></code></pre></div>
 <p><strong><code>ai_audit_log</code></strong> (default <code>hash_only</code>) controls what the dashboard's GenAI assistant retains in the run's append-only <code>ai_interactions.jsonl</code> file:</p>
 <ul>
@@ -2313,6 +2368,18 @@ this document exists to explain intent.</p>
 <li><code>full_text</code> — logs the entire reply for forensic recall. Institutions opt into this only after clearing it against their privacy posture; the spec change is itself the paper trail.</li>
 </ul>
 <p>Other audit fields (<code>ts</code>, <code>page</code>, <code>persona</code>, <code>backend</code>, <code>citations</code>, <code>confidence</code>, <code>referenced_metric_ids</code>, <code>referenced_case_ids</code>, <code>question</code>) are always logged regardless of mode.</p>
+<h3 id="optional-blocks">Optional blocks<a class="headerlink" href="#optional-blocks" title="Permanent link">&para;</a></h3>
+<p><strong><code>environment</code></strong> (default <code>dev</code>) — the promotion lane this spec is running in. Allowed: <code>dev | test | uat | prod</code>. Combined with each rule's <code>environments</code> list, the engine warns (or with <code>strict_environment_gating: true</code>, raises <code>EnvironmentGatingError</code>) when a rule fires in a lane it wasn't approved for. Greenfield deployments leave this at <code>dev</code> until the promotion process is wired up. <em>PR-D3 / Round 28.</em></p>
+<p><strong><code>strict_environment_gating</code></strong> (default <code>false</code>) — opt-in to hard-fail on environment mismatches instead of warning. Institutions flip this once the rule lifecycle workflow is signing off rule promotions across lanes. <em>PR-D3 / Round 28.</em></p>
+<p><strong><code>sla</code></strong> (default <code>None</code>) — Pillar-6 SLA monitor declaration. Three sub-fields, all optional with sensible defaults:</p>
+<ul>
+<li><code>alert_disposition_days</code> (default <code>30</code>) — max age in days before an open alert is a breach. The engine counts cases with a <code>case_opened</code> event older than this threshold and no terminal decision (<code>closed</code> / <code>escalated_to_str</code>) in the audit ledger.</li>
+<li><code>batch_cadence_days</code> (default <code>1</code>) — expected cadence of the data extract.</li>
+<li><code>batch_lateness_grace_days</code> (default <code>1</code>) — grace window before a late batch is flagged. The engine compares <code>run.as_of</code> to the most-recent transaction timestamp; a gap larger than <code>cadence + grace</code> flags the run as a lateness breach.</li>
+</ul>
+<p>Engine never raises on SLA breach; it records the breach in <code>sla_report.json</code> for downstream surfaces (manifest-hash pinned). Omitting the block disables the monitor. <em>PR-LF1 / Round 27.</em></p>
+<p><strong><code>legacy_reference</code></strong> (default <code>None</code>) — pointer to a legacy alert export for parallel-run divergence classification. Required: <code>path</code> + <code>key_columns</code>. Optional: <code>format</code> (<code>csv | parquet | jsonl</code>, default <code>csv</code>), <code>dataset</code> (for multi-table formats), <code>rule_map</code> (<strong>new → legacy</strong> rule id mapping; keys are this spec's <code>rule_id</code>s, values are the corresponding legacy-system identifiers). Consumed by <code>engine/equivalence.py</code> and the Equivalence dashboard page (pages/48). Engine ignores at runtime — equivalence is a separate read-only synthesis. <em>PR-EQ-1 / Round 26.</em></p>
+<p><strong><code>nfrs</code></strong> (default <code>None</code>) — non-functional requirements declaration. Six optional fields: <code>rto_minutes</code>, <code>rpo_minutes</code>, <code>sla_p95_ms</code>, <code>throughput_per_min</code>, <code>retention_days</code>, <code>notes</code> (free-form prose for MRM context, validation cadence, regulatory commitments). Surfaces feed it into capacity planning, BCP/DR posture, and the regulator audit pack. Engine ignores at runtime. <em>PR-D2 / Round 27.</em></p>
 <h2 id="data_contracts"><code>data_contracts</code><a class="headerlink" href="#data_contracts" title="Permanent link">&para;</a></h2>
 <p>Declared inputs. The engine refuses to run if the warehouse schema does not
 satisfy the contract. External data sources (CSV, Parquet, DuckDB, warehouse,
