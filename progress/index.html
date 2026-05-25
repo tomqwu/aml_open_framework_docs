@@ -218,6 +218,7 @@
   
     
       
+
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
@@ -356,6 +357,157 @@
     </ul>
   </div>
 </nav>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+    <nav class="md-tabs md-tabs--secondary" aria-label="Section navigation" data-md-component="tabs-secondary">
+      <div class="md-grid">
+        <ul class="md-tabs__list">
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../architecture/" class="md-tabs__link">
+                  Reference Architecture
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../personas/" class="md-tabs__link">
+                  Personas &amp; Responsibilities
+                </a>
+              </li>
+            
+          
+            
+              <li class="md-tabs__item md-tabs__item--group-label" aria-hidden="true">
+                <span class="md-tabs__link md-tabs__link--label">Research whitepapers</span>
+              </li>
+              
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../research/2026-05-aml-data-problem/" class="md-tabs__link">
+                  Data is the AML problem — 2026
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../research/2026-05-regulator-pulse/" class="md-tabs__link">
+                  Regulator Pulse: AML / Sanctions Events, 2026-02-01 → 2026-05-08
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../research/2026-04-aml-process-pain/" class="md-tabs__link">
+                  10 Daily Pain Points an AML Leader Feels — 2026
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../research/2026-04-fintech-aml-reality/" class="md-tabs__link">
+                  8 AML Realities a FinTech / EMI / MSB / VASP MLRO Lives With — 2026
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../research/2026-04-competitive-positioning/" class="md-tabs__link">
+                  AML Open Framework — Competitive Positioning Report
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../research/2026-04-regulator-pulse/" class="md-tabs__link">
+                  Regulator Pulse: AML / Sanctions Events, 2026-02-01 → 2026-04-29
+                </a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="md-tabs__item md-tabs__item--group-label" aria-hidden="true">
+                <span class="md-tabs__link md-tabs__link--label">Progress journal</span>
+              </li>
+              
+            
+              
+              
+              <li class="md-tabs__item md-tabs__item--active">
+                <a href="./" class="md-tabs__link">
+                  Project Progress
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../five-year-lookback/" class="md-tabs__link">
+                  Running a 5-Year Transaction-Monitoring Lookback with the AML Open Framework
+                </a>
+              </li>
+            
+          
+            
+          
+        </ul>
+      </div>
+    </nav>
+  
+
+  
+<script>
+  (function () {
+    var center = function () {
+      var item = document.querySelector(".md-tabs--secondary .md-tabs__item--active");
+      if (!item) return;
+      var row = item.parentElement;
+      if (!row || row.scrollWidth <= row.clientWidth) return;
+      row.scrollLeft = item.offsetLeft - row.clientWidth / 2 + item.offsetWidth / 2;
+    };
+    if (document.readyState === "complete") {
+      center();
+    } else {
+      window.addEventListener("load", center);
+    }
+  })();
+</script>
     
   
 </header>

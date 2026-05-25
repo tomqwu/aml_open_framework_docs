@@ -218,6 +218,7 @@
   
     
       
+
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
@@ -356,6 +357,143 @@
     </ul>
   </div>
 </nav>
+
+
+  
+
+  
+
+  
+    <nav class="md-tabs md-tabs--secondary" aria-label="Section navigation" data-md-component="tabs-secondary">
+      <div class="md-grid">
+        <ul class="md-tabs__list">
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../" class="md-tabs__link">
+                  How-to guides
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../add-a-rule/" class="md-tabs__link">
+                  Add a detection rule
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item md-tabs__item--active">
+                <a href="./" class="md-tabs__link">
+                  Wire a python_ref scorer
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../verify-audit-chain/" class="md-tabs__link">
+                  Verify the audit chain
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../../legacy-import/" class="md-tabs__link">
+                  Migrate from legacy stack
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../promote-rule/" class="md-tabs__link">
+                  Promote a rule across environments
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../export-case-pack/" class="md-tabs__link">
+                  Export per-case / per-batch evidence
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../walk-lineage/" class="md-tabs__link">
+                  Walk the lineage chain
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../configure-sla/" class="md-tabs__link">
+                  Configure SLA monitoring
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../triage-defects/" class="md-tabs__link">
+                  Triage defects
+                </a>
+              </li>
+            
+          
+        </ul>
+      </div>
+    </nav>
+  
+
+  
+
+  
+
+  
+<script>
+  (function () {
+    var center = function () {
+      var item = document.querySelector(".md-tabs--secondary .md-tabs__item--active");
+      if (!item) return;
+      var row = item.parentElement;
+      if (!row || row.scrollWidth <= row.clientWidth) return;
+      row.scrollLeft = item.offsetLeft - row.clientWidth / 2 + item.offsetWidth / 2;
+    };
+    if (document.readyState === "complete") {
+      center();
+    } else {
+      window.addEventListener("load", center);
+    }
+  })();
+</script>
     
   
 </header>

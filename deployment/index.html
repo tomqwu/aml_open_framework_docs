@@ -218,6 +218,7 @@
   
     
       
+
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
@@ -356,6 +357,93 @@
     </ul>
   </div>
 </nav>
+
+
+  
+
+  
+
+  
+
+  
+    <nav class="md-tabs md-tabs--secondary" aria-label="Section navigation" data-md-component="tabs-secondary">
+      <div class="md-grid">
+        <ul class="md-tabs__list">
+          
+            
+              
+              
+              <li class="md-tabs__item md-tabs__item--active">
+                <a href="./" class="md-tabs__link">
+                  Deployment
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../dashboard-tour/" class="md-tabs__link">
+                  Dashboard Tour
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../audit-evidence/" class="md-tabs__link">
+                  Audit &amp; Evidence Design
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../regulator-mapping/" class="md-tabs__link">
+                  Regulator Mapping
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="../jurisdictions/" class="md-tabs__link">
+                  Multi-Jurisdiction Support
+                </a>
+              </li>
+            
+          
+        </ul>
+      </div>
+    </nav>
+  
+
+  
+
+  
+<script>
+  (function () {
+    var center = function () {
+      var item = document.querySelector(".md-tabs--secondary .md-tabs__item--active");
+      if (!item) return;
+      var row = item.parentElement;
+      if (!row || row.scrollWidth <= row.clientWidth) return;
+      row.scrollLeft = item.offsetLeft - row.clientWidth / 2 + item.offsetWidth / 2;
+    };
+    if (document.readyState === "complete") {
+      center();
+    } else {
+      window.addEventListener("load", center);
+    }
+  })();
+</script>
     
   
 </header>
