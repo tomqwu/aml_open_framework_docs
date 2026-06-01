@@ -1024,16 +1024,22 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#equivalence-planned" class="md-nav__link">
+    <nav class="md-nav" aria-label="What you should see when the runbook completes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-prove-legacy-new-equivalence" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Equivalence (planned)
+        8 · Prove legacy ↔ new equivalence
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2323,16 +2329,22 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#equivalence-planned" class="md-nav__link">
+    <nav class="md-nav" aria-label="What you should see when the runbook completes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-prove-legacy-new-equivalence" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Equivalence (planned)
+        8 · Prove legacy ↔ new equivalence
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2446,7 +2458,7 @@
 <p><strong>Time:</strong> ~5 min to install + validate. ~20–40 min for the 60-month loop on a laptop (≤1 min/month on synthetic data). ~2 min to pin hashes and verify. ~30 sec to package the regulator-ready ZIP.</p>
 </blockquote>
 <p>This how-to mirrors <a href="../../five-year-lookback/#10-a-5-year-lookback-in-commands-you-can-actually-run-today"><code>docs/five-year-lookback.md</code> §10</a> but pins every command to the <code>community_bank_lookback</code> example so an operator can paste verbatim and watch the artefacts appear under <code>.artifacts/lookback/&lt;YYYY-MM&gt;/</code>.</p>
-<p>The companion equivalence step — legacy↔new parallel-run classification via <code>engine/equivalence.py</code> — is roadmap (TM Gap 1, PR-LOOKBACK-3); §<a href="#equivalence-planned">Equivalence (planned)</a> below points forward.</p>
+<p>The companion equivalence step — legacy↔new parallel-run classification via <code>engine/equivalence.py</code> / <code>aml equivalence</code> — ships today; see <a href="#8-prove-legacy-new-equivalence">§8 · Prove legacy ↔ new equivalence</a> below.</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <h3 id="1-install-and-verify-the-cli">1 · Install and verify the CLI<a class="headerlink" href="#1-install-and-verify-the-cli" title="Permanent link">&para;</a></h3>
@@ -2628,9 +2640,20 @@
 </ol>
 <p>Re-running step 2 with the same seed + step 4 with the same <code>--as-of</code> + <code>--seed 42</code> produces an <strong>identical <code>decisions_hash</code> per month</strong> plus byte-identical <code>alerts/*.jsonl</code> and <code>cases/*.json</code> files. This is the determinism contract pinned by <code>tests/test_engine.py::test_run_is_reproducible</code>. A handful of wall-clock fields are deliberately <em>outside</em> that contract — <code>manifest.json::finalised_at</code>, <code>manifest.json::run_dir</code> (which embeds the run-start timestamp), and the rehashed <code>monitoring_digest</code>/<code>run_cost_volume</code> artefacts that depend on them — so those will differ across reruns. If your second pass produces a different <code>decisions_hash</code> (or different alerts/cases bytes) for any month, that's a bug — file an issue with the diff.</p>
 <hr />
-<h2 id="equivalence-planned">Equivalence (planned)<a class="headerlink" href="#equivalence-planned" title="Permanent link">&para;</a></h2>
-<p>Step 8 in the full operator playbook is <strong>legacy↔new equivalence</strong>: load your legacy system's alert export for the same month, join against the framework's <code>alerts/*.jsonl</code>, and classify each divergence (<code>data</code> / <code>rule</code> / <code>mapping</code> / <code>intentional</code>). The framework's roadmap sequences this as <code>engine/equivalence.py</code> + a <code>Program.legacy_reference</code> spec field — landing in <strong>PR-LOOKBACK-3</strong> of this series. The PR will also commit a representative <code>legacy-alerts.csv</code> alongside <code>examples/community_bank_lookback/aml.yaml</code> so the equivalence flow demos end-to-end from the same example spec.</p>
-<p>Until PR-LOOKBACK-3 lands, follow the pandas-style scaffold in <a href="../../five-year-lookback/#pattern-5-parallel-validation-legacy-new-planned-tm-gap-1"><code>docs/five-year-lookback.md</code> §4 Pattern 5</a> — read your legacy export + the framework's <code>alerts/&lt;rule_id&gt;.jsonl</code>, outer-join on <code>(customer_id, window_start)</code>, and classify by hand.</p>
+<h3 id="8-prove-legacy-new-equivalence">8 · Prove legacy ↔ new equivalence<a class="headerlink" href="#8-prove-legacy-new-equivalence" title="Permanent link">&para;</a></h3>
+<p>The migration gate: load your legacy system's alert export for the period and classify every legacy↔new divergence as <strong>MATCH / NEW_ONLY / LEGACY_ONLY / DIFF</strong>. <code>aml equivalence</code> (shipped in PR-LOOKBACK-3, wrapping <code>engine/equivalence.py</code>) does the join + classification from the CLI — no dashboard needed. A starter <code>legacy-alerts.csv</code> ships alongside the example spec.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>aml<span class="w"> </span>equivalence<span class="w"> </span>.artifacts/lookback/2025-12/run-*/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span>--legacy<span class="w"> </span>examples/community_bank_lookback/legacy-alerts.csv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span>--markdown<span class="w"> </span>equivalence-2025-12.md<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span>--out<span class="w"> </span>equivalence-2025-12.json
+</span></code></pre></div>
+<p>The legacy CSV needs <code>customer_id, period_start, period_end, rule_id_legacy</code> (optional <code>severity</code>; any extra columns become <code>payload</code>). The new-side alerts are read from <code>&lt;run_dir&gt;/alerts/*.jsonl</code> (un-masked automatically when <code>AML_PII_MASKING=1</code>). Options:</p>
+<ul>
+<li><code>--rule-map rule-map.yaml</code> — <code>new_rule_id: legacy_rule_id</code> pairs. A provided map is treated as the <strong>complete</strong> new→legacy mapping, so it must include an identity entry (<code>rule_x: rule_x</code>) for <em>every</em> comparable rule, not only the ones whose ids differ — otherwise the omitted same-id rules bucket as false <code>NEW_ONLY</code>/<code>LEGACY_ONLY</code>. Omit the flag entirely for pure identity matching (<code>new == legacy</code>).</li>
+<li><code>--spec &lt;yaml&gt;</code> — pass per-rule severities so same-cell severity mismatches surface as <strong>DIFF</strong> instead of silent MATCH. Omitted above on purpose: the CLI auto-loads <code>spec_snapshot.yaml</code> from the run dir.</li>
+<li><code>--max-severity-diff N</code> — exit non-zero when the DIFF count exceeds <code>N</code>. Wire this into a CI gate to keep severity drift in check; without it the command is warn-only (always exits 0).</li>
+</ul>
+<p>Each divergence class maps to a migration-defect category: <strong>LEGACY_ONLY</strong> is a coverage gap, <strong>NEW_ONLY</strong> is an intentional improvement or an over-firing defect, <strong>DIFF</strong> is a mapping/threshold drift to reconcile. The <code>--markdown</code>/<code>--out</code> files (counts table + top-20 per class) are written to wherever you point them — <code>aml auditor-pack</code> packages the run directory's artefacts, not your working dir, so attach the equivalence report to the regulator pack as a separate exhibit (or write it under <code>&lt;run_dir&gt;/</code> before packing). For the analytics layer (segmented divergence, drift over the 60 months) see <a href="../../five-year-lookback/#pattern-5-parallel-validation-legacy-new-shipped"><code>docs/five-year-lookback.md</code> §4 Pattern 5</a>.</p>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <table>
