@@ -785,6 +785,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#programprioritization-governed-alert-triage-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        program.prioritization — governed alert triage score
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2496,6 +2507,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#programprioritization-governed-alert-triage-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        program.prioritization — governed alert triage score
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2941,15 +2963,29 @@
 </span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cash withdrawals (this rule is inbound-only)</span>
 </span></code></pre></div>
 <p>Spec model: <code>src/aml_framework/spec/models.py::Rule</code> (<code>business_intent</code>, <code>out_of_scope</code>). Test: <a href="../tests/test_program_intent_wiring.py"><code>tests/test_program_intent_wiring.py</code></a>.</p>
+<h3 id="programprioritization-governed-alert-triage-score"><code>program.prioritization</code> — governed alert triage score<a class="headerlink" href="#programprioritization-governed-alert-triage-score" title="Permanent link">&para;</a></h3>
+<p>Advisory, explainable ML-style scoring that ranks alerts by risk so
+investigators triage highest-first — <strong>without ever changing an alert's
+disposition</strong>. Off by default.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">program</span><span class="p">:</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">prioritization</span><span class="p">:</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nt">weights</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">,</span><span class="nt"> risk_tier</span><span class="p">:</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">,</span><span class="nt"> amount</span><span class="p">:</span><span class="w"> </span><span class="nv">0.5</span><span class="p p-Indicator">,</span><span class="nt"> volume</span><span class="p">:</span><span class="w"> </span><span class="nv">0.5</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</span></code></pre></div>
+<p>Each alert gains <code>priority_score</code> (0–1) + <code>priority_explanation</code> (per-feature
+contributions); the run emits a frozen, manifest-pinned <code>priority_report.json</code>.
+The score is deterministic and in the hash-chained ledger — governed
+augmentation, not a black box. See <a href="../tests/test_prioritization.py"><code>tests/test_prioritization.py</code></a>.</p>
+<p>Spec model: <code>src/aml_framework/spec/models.py::ProgramPrioritization</code>. Test: <a href="../tests/test_prioritization.py"><code>tests/test_prioritization.py</code></a>.</p>
 <hr />
 <h2 id="7-generate-the-audit-bundle-1-min">7. Generate the Audit Bundle (1 min)<a class="headerlink" href="#7-generate-the-audit-bundle-1-min" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Point --run-dir at the artifacts directory printed by `aml run` in step 3</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="c1"># (e.g. /tmp/aml_run_&lt;id&gt;/) — replace RUN_DIR below.</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>aml<span class="w"> </span>auditor-pack<span class="w"> </span>examples/community_bank/aml.yaml<span class="w"> </span>--run-dir<span class="w"> </span>RUN_DIR<span class="w"> </span>--out<span class="w"> </span>evidence.zip
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># Granular subsets (PR-D4) — same RUN_DIR:</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>aml<span class="w"> </span>export-case<span class="w">  </span>examples/community_bank/aml.yaml<span class="w"> </span>RUN_DIR<span class="w"> </span>CASE_ID<span class="w"> </span>--out<span class="w"> </span><span class="k">case</span>.zip
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>aml<span class="w"> </span>export-batch<span class="w"> </span>examples/community_bank/aml.yaml<span class="w"> </span>RUN_DIR<span class="w"> </span>--cases<span class="w"> </span>c1,c2<span class="w"> </span>--out<span class="w"> </span>batch.zip
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Point --run-dir at the artifacts directory printed by `aml run` in step 3</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># (e.g. /tmp/aml_run_&lt;id&gt;/) — replace RUN_DIR below.</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>aml<span class="w"> </span>auditor-pack<span class="w"> </span>examples/community_bank/aml.yaml<span class="w"> </span>--run-dir<span class="w"> </span>RUN_DIR<span class="w"> </span>--out<span class="w"> </span>evidence.zip
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># Granular subsets (PR-D4) — same RUN_DIR:</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>aml<span class="w"> </span>export-case<span class="w">  </span>examples/community_bank/aml.yaml<span class="w"> </span>RUN_DIR<span class="w"> </span>CASE_ID<span class="w"> </span>--out<span class="w"> </span><span class="k">case</span>.zip
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>aml<span class="w"> </span>export-batch<span class="w"> </span>examples/community_bank/aml.yaml<span class="w"> </span>RUN_DIR<span class="w"> </span>--cases<span class="w"> </span>c1,c2<span class="w"> </span>--out<span class="w"> </span>batch.zip
 </span></code></pre></div>
 <p>Produces an evidence ZIP containing:
 - The spec snapshot at execution time
@@ -2963,25 +2999,25 @@
 <p>Steps 1–7 onboard you to a single run. The scenario the framework is <em>built</em> for is bigger: <strong>replay 5 years of history through your modernised rules, prove the new cloud engine reproduces the legacy system's alerts, and walk away with regulator-ready evidence for every month.</strong> This is the "parallel run before you cut over" that an examiner expects when you migrate a SAS / Actimize / Mantas TM stack to the cloud.</p>
 <p>End-to-end it is five moves. The full copy-paste runbook (the 60-month loop, WORM-style hash log, per-month verification) lives in <a href="../how-to/run-five-year-lookback/"><code>docs/how-to/run-five-year-lookback.md</code></a>; this is the orientation.</p>
 <h3 id="a-generate-60-month-end-slices">a. Generate 60 month-end slices<a class="headerlink" href="#a-generate-60-month-end-slices" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>scripts/generate_lookback_dataset.py<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span>--years<span class="w"> </span><span class="m">5</span><span class="w"> </span>--end<span class="w"> </span><span class="m">2025</span>-12-31<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span>--spec<span class="w"> </span>examples/community_bank_lookback/aml.yaml<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span>--out<span class="w"> </span>examples/community_bank_lookback/data/
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>python<span class="w"> </span>scripts/generate_lookback_dataset.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span>--years<span class="w"> </span><span class="m">5</span><span class="w"> </span>--end<span class="w"> </span><span class="m">2025</span>-12-31<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span>--spec<span class="w"> </span>examples/community_bank_lookback/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span>--out<span class="w"> </span>examples/community_bank_lookback/data/
 </span></code></pre></div>
 <p>Writes <code>data/{parquet,csv}/&lt;YYYY-MM&gt;/{txn,customer}.*</code> for 60 months, with the synthetic seed pinned so planted-positive customers stay reproducible month to month. (Needs the <code>dashboard</code> extra for pyarrow; <code>--formats csv</code> skips it.)</p>
 <h3 id="b-run-one-business-month-loop-the-rest">b. Run one business month (loop the rest)<a class="headerlink" href="#b-run-one-business-month-loop-the-rest" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>aml<span class="w"> </span>run<span class="w"> </span>examples/community_bank_lookback/aml.yaml<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span>--as-of<span class="w"> </span><span class="m">2026</span>-01-01T00:00:00<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span>--data-source<span class="w"> </span>parquet<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span>--data-dir<span class="w"> </span>examples/community_bank_lookback/data/parquet/2025-12<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span>--artifacts<span class="w"> </span>.artifacts/lookback/2025-12
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>aml<span class="w"> </span>run<span class="w"> </span>examples/community_bank_lookback/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span>--as-of<span class="w"> </span><span class="m">2026</span>-01-01T00:00:00<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span>--data-source<span class="w"> </span>parquet<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span>--data-dir<span class="w"> </span>examples/community_bank_lookback/data/parquet/2025-12<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">  </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span>--artifacts<span class="w"> </span>.artifacts/lookback/2025-12
 </span></code></pre></div>
 <p>Each month gets its own <code>run-&lt;ts&gt;/</code> with an independent manifest, alerts, decisions ledger, and hash chain. The runbook wraps this in a 60-iteration <code>for</code> loop.</p>
 <h3 id="c-prove-legacy-new-equivalence-the-migration-gate">c. Prove legacy ↔ new equivalence (the migration gate)<a class="headerlink" href="#c-prove-legacy-new-equivalence-the-migration-gate" title="Permanent link">&para;</a></h3>
 <p>This is the move that separates "we rewrote the rules" from "we <em>proved</em> the rewrite is equivalent." Point <code>aml equivalence</code> at the run's alerts and your legacy system's export for the same period — a starter export ships with the example:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>aml<span class="w"> </span>equivalence<span class="w"> </span>.artifacts/lookback/2025-12/run-*/<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span>--legacy<span class="w"> </span>examples/community_bank_lookback/legacy-alerts.csv<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span>--markdown<span class="w"> </span>equivalence-2025-12.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>aml<span class="w"> </span>equivalence<span class="w"> </span>.artifacts/lookback/2025-12/run-*/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span>--legacy<span class="w"> </span>examples/community_bank_lookback/legacy-alerts.csv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span>--markdown<span class="w"> </span>equivalence-2025-12.md
 </span></code></pre></div>
 <p>Every legacy↔new pair is classified into one of four buckets — this <em>is</em> your migration-defect triage:</p>
 <table>
@@ -3019,16 +3055,16 @@
 <p>Equivalence keys on the <strong>exact</strong> <code>(customer, window, rule)</code> cell, so with the starter <code>legacy-alerts.csv</code> against a fresh run you'll typically see only <strong>NEW_ONLY</strong> + <strong>LEGACY_ONLY</strong> — that <em>is</em> the divergence you triage (each one a <strong>data</strong>, <strong>rule</strong>, or <strong>mapping</strong> defect vs. an intentional change). A guaranteed <strong>MATCH</strong> needs the legacy period to equal a real alert's window exactly; the runbook + <code>tests/test_lookback_demo.py</code> show that by anchoring a legacy row to a live alert. Pass <code>--rule-map rule-map.yaml</code> when legacy rule ids differ — but it's the <strong>complete</strong> new→legacy map, so include an identity entry (<code>rule_x: rule_x</code>) for every comparable rule too, or you'll see same-id rules reported as false divergence. Omit the flag entirely only when all ids already match. <code>--max-severity-diff N</code> fails a CI gate when severity drift exceeds a threshold.</p>
 </blockquote>
 <h3 id="d-verify-every-months-hash-chain-against-an-external-pin">d. Verify every month's hash chain against an external pin<a class="headerlink" href="#d-verify-every-months-hash-chain-against-an-external-pin" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>aml<span class="w"> </span>verify-decisions<span class="w"> </span>--run-dir<span class="w"> </span>.artifacts/lookback/2025-12/run-*/<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span>--expected-hash<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span>.decisions_hash<span class="w"> </span>.artifacts/lookback/2025-12/run-*/manifest.json<span class="k">)</span><span class="s2">&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>aml<span class="w"> </span>verify-decisions<span class="w"> </span>--run-dir<span class="w"> </span>.artifacts/lookback/2025-12/run-*/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span>--expected-hash<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span>.decisions_hash<span class="w"> </span>.artifacts/lookback/2025-12/run-*/manifest.json<span class="k">)</span><span class="s2">&quot;</span>
 </span></code></pre></div>
 <p>In production you'd pin <code>--expected-hash</code> from an out-of-band store (the runbook's §5 covers the WORM threat model). Exit 0 = the decisions ledger recomputes to the trusted head.</p>
 <h3 id="e-bundle-the-regulator-evidence">e. Bundle the regulator evidence<a class="headerlink" href="#e-bundle-the-regulator-evidence" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Build from the run&#39;s frozen spec_snapshot.yaml — not the live spec — so the</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="c1"># pack&#39;s metadata always describes the exact run it bundles, even if the spec</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># changed since.</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>aml<span class="w"> </span>auditor-pack<span class="w"> </span>.artifacts/lookback/2025-12/run-*/spec_snapshot.yaml<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">  </span>--run-dir<span class="w"> </span>.artifacts/lookback/2025-12/run-*/<span class="w"> </span>--out<span class="w"> </span>evidence-2025-12.zip
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Build from the run&#39;s frozen spec_snapshot.yaml — not the live spec — so the</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="c1"># pack&#39;s metadata always describes the exact run it bundles, even if the spec</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># changed since.</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>aml<span class="w"> </span>auditor-pack<span class="w"> </span>.artifacts/lookback/2025-12/run-*/spec_snapshot.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span>--run-dir<span class="w"> </span>.artifacts/lookback/2025-12/run-*/<span class="w"> </span>--out<span class="w"> </span>evidence-2025-12.zip
 </span></code></pre></div>
 <p><strong>Why this is the north-star flow:</strong> it exercises the framework's whole thesis in one pass — <em>equivalence before optimization</em> (c), <em>evidence as a product</em> (b, d, e), <em>point-in-time correctness</em> (a's month-end slices), and <em>DQ/reconciliation/defect</em> triage (c's classification). See <a href="../five-year-lookback/"><code>docs/five-year-lookback.md</code></a> for the analytics patterns layered on top.</p>
 <hr />
