@@ -1645,6 +1645,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-changed-since-june-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What changed since June 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-changed-since-may-25" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2366,6 +2377,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-changed-since-june-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What changed since June 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-changed-since-may-25" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2548,20 +2570,26 @@
 
 
 <h1 id="aml-open-framework-competitive-positioning-report-june-2026">AML Open Framework — Competitive Positioning Report: June 2026<a class="headerlink" href="#aml-open-framework-competitive-positioning-report-june-2026" title="Permanent link">&para;</a></h1>
-<p><em>Date: 2026-06-01 · Scope: post-May 31 security hardening (H0–H6) · Companion: <a href="../2026-06-regulator-pulse/"><code>2026-06-regulator-pulse.md</code></a> for the regulatory deadline context. Previous edition: <a href="../2026-05-competitive-positioning/"><code>2026-05-competitive-positioning.md</code></a>.</em></p>
+<p><em>Date: 2026-06-03 · Last updated: 2026-06-03 · Scope: post-May 31 security hardening (H0–H6) · Companion: <a href="../2026-06-regulator-pulse/"><code>2026-06-regulator-pulse.md</code></a> for the regulatory deadline context. Previous edition: <a href="../2026-05-competitive-positioning/"><code>2026-05-competitive-positioning.md</code></a>.</em></p>
 <blockquote>
-<p>Refresh commissioned 2026-06-01, 7 days after the May 25 edition. Four events materially shift the competitive map since May 25: (1) the FinCEN Whistleblower NPRM comment period closed today (2026-06-01) — the proposed award structure (final rule expected late 2026 / early 2027) sharpens the internal-reporting risk calculus even before it's finalized; (2) the Effectiveness NPRM + GENIUS Act NPRM comment deadline is in 8 days (2026-06-09); (3) AUSTRAC Tranche 2 enforcement is in 30 days (2026-07-01); (4) the May 31 security hardening sprint (H0–H6) shipped determinism, injection-safety, and coverage-gate fixes that directly strengthen the framework's SR 26-2 challenger-model position.</p>
+<p>Refresh commissioned 2026-06-01, 7 days after the May 25 edition. Four events materially shift the competitive map since May 25: (1) the FinCEN Whistleblower NPRM comment period closed 2026-06-01 — the proposed award structure (final rule expected late 2026 / early 2027) sharpens the internal-reporting risk calculus even before it's finalized; (2) the Effectiveness NPRM + GENIUS Act NPRM comment deadline is in <strong>6 days</strong> (2026-06-09); (3) AUSTRAC Tranche 2 enforcement is in <strong>28 days</strong> (2026-07-01); (4) the May 31 security hardening sprint (H0–H6) shipped determinism, injection-safety, and coverage-gate fixes that directly strengthen the framework's SR 26-2 challenger-model position.</p>
+<p><em>Updated 2026-06-03: day counts refreshed; June 9 deadline now 6 days away — gap analyses not yet complete are past the comfortable completion window.</em></p>
 </blockquote>
+<hr />
+<h2 id="what-changed-since-june-1">What changed since June 1<a class="headerlink" href="#what-changed-since-june-1" title="Permanent link">&para;</a></h2>
+<p><strong>June 9 comment deadline is now 6 days away.</strong> The Effectiveness NPRM + GENIUS Act NPRM dual deadline has moved from "8 days" to "6 days." The last realistic business-day window for completing, reviewing, and filing comment letters is Thursday June 5 / Friday June 6 for most firms. Any firm still relying on informal program frameworks for the PPSI NPRM is at high risk of filing no comment at all.</p>
+<p><strong>SR 26-2 is 47 days examination-active</strong> (up from 45 on June 1). Q2 2026 examination cycles are ongoing — second-line MRM teams are mid-presentation to boards, not starting gap analyses. The framework's challenger-model documentation bundle is the gap-filler for Q3 model-risk committee reports.</p>
+<p><strong>AUSTRAC Tranche 2 is 28 days away.</strong> No OSS competitor has moved on this in the 2 days since June 1. The first-mover window is narrowing: AUSTRAC's first-cycle enforceable undertaking posture applies to firms with <em>documented</em> good-faith compliance efforts — programs started now still qualify; programs started after July 1 do not.</p>
 <hr />
 <h2 id="what-changed-since-may-25">What changed since May 25<a class="headerlink" href="#what-changed-since-may-25" title="Permanent link">&para;</a></h2>
 <p><strong>FinCEN Whistleblower NPRM comment period closed today.</strong> The comment period for the March 30 NPRM (10–30% of collected sanctions from a $300M fund) closed 2026-06-01. The <strong>proposed</strong> award structure is known in outline, but the terms are not settled — FinCEN will consolidate comments and a final rule is expected late 2026 / early 2027, so treat the percentages as proposed, not final. Even so, the incentive signal is real, substantial, and targeted at SAR-backlog and screening-gap failures. Compliance teams that haven't reviewed internal escalation channels since Q1 2026 are running behind.</p>
 <p><strong>The May 31 security hardening sprint (H0–H6) closes SR 26-2 gaps directly.</strong> Six PRs shipped in one sprint address the exact controls SR 26-2 examiners will inspect in a challenger-model review: coverage gate enforcement (test-outcome-analysis discipline), zip-slip sanitisation (evidence-bundle integrity), SQL injection prevention (data-integrity chain), and audit pack byte-determinism (same-inputs → identical-output guarantee). The determinism fix is the most competitively significant: no commercial AML platform publishes a same-spec + same-data + same-seed = identical-output guarantee.</p>
-<p><strong>8 days to the Effectiveness NPRM + GENIUS Act NPRM dual deadline (June 9).</strong> Firms that complete gap analyses before June 9 can use their comment-window work as documented evidence of proactive compliance posture in SR 26-2 model governance.</p>
-<p><strong>30 days to AUSTRAC Tranche 2 enforcement (July 1).</strong> No OSS AML framework has shipped an AUSTRAC-specific example spec. The window to position as the go-to open-source baseline for Australian DNFBPs is closing in 30 days.</p>
+<p><strong>6 days to the Effectiveness NPRM + GENIUS Act NPRM dual deadline (June 9).</strong> Firms that complete gap analyses before June 9 can use their comment-window work as documented evidence of proactive compliance posture in SR 26-2 model governance.</p>
+<p><strong>28 days to AUSTRAC Tranche 2 enforcement (July 1).</strong> No OSS AML framework has shipped an AUSTRAC-specific example spec. The window to position as the go-to open-source baseline for Australian DNFBPs is closing in 28 days.</p>
 <hr />
 <h2 id="1-competitive-landscape-june-2026-update">1. Competitive Landscape — June 2026 Update<a class="headerlink" href="#1-competitive-landscape-june-2026-update" title="Permanent link">&para;</a></h2>
 <h3 id="commercial-enterprise-platforms">Commercial enterprise platforms<a class="headerlink" href="#commercial-enterprise-platforms" title="Permanent link">&para;</a></h3>
-<p><strong>Veteran rules-plus-ML platforms (NICE Actimize SAM, Oracle FCCM, SymphonyAI, FIS/SAS AML).</strong> SR 26-2 has been examination-active since April 17 — 45 days. Q2 2026 examination cycles are running. Second-line MRM teams are now presenting gap analyses to boards. The window for platforms to produce SR-26-2-aligned MRM documentation bundles is open, but the framework's challenger-model position is already established for the first examination cycle.</p>
+<p><strong>Veteran rules-plus-ML platforms (NICE Actimize SAM, Oracle FCCM, SymphonyAI, FIS/SAS AML).</strong> SR 26-2 has been examination-active since April 17 — 47 days. Q2 2026 examination cycles are running. Second-line MRM teams are now presenting gap analyses to boards. The window for platforms to produce SR-26-2-aligned MRM documentation bundles is open, but the framework's challenger-model position is already established for the first examination cycle.</p>
 <p><strong>AI-native challengers (ComplyAdvantage, Hawk:AI, Featurespace/Visa, Feedzai, Lucinity).</strong> The ML-first model-validation burden under SR 26-2 is real and increasing with each examination cycle. A challenger that cannot produce a deterministic replay of a flagged alert — with identical output hashes across runs — fails the SR 26-2 independent-validation test.</p>
 <p><strong>Graph/network specialists (Quantexa, Ripjar, Sayari).</strong> No change. Slot remains case-level visualisation, not full MRM challenger.</p>
 <h3 id="open-source-june-2026">Open source — June 2026<a class="headerlink" href="#open-source-june-2026" title="Permanent link">&para;</a></h3>
@@ -2575,8 +2603,8 @@
 <h2 id="2-where-the-framework-wins-june-2026-update">2. Where the Framework Wins — June 2026 Update<a class="headerlink" href="#2-where-the-framework-wins-june-2026-update" title="Permanent link">&para;</a></h2>
 <p><strong>The H0–H6 sprint closes the one remaining SR 26-2 gap: demonstrable test coverage of compliance-critical engine paths.</strong> The coverage gate (H0) was non-enforcing — pytest-cov exits 0 on Linux below the threshold, so CI was green at 98.99% despite the advertised 99% floor. The gate is now enforced by a platform-independent script (<code>scripts/check_coverage_floor.py</code>). Combined with the determinism fix (audit pack now byte-identical across runs), the framework now satisfies all three SR 26-2 independent-challenger requirements: deterministic rerun, hash-chained audit ledger, and demonstrated test coverage of the scoring and audit logic.</p>
 <p><strong>Zip-slip and SQL injection fixes (H2, H4) directly protect the regulator-evidence bundle.</strong> The ZIP the examiner receives must contain only the intended evidence; the data the framework reads must be validated before it enters the hash chain. These aren't cosmetic — they are the controls that protect the evidential integrity SR 26-2 and the Effectiveness NPRM both require.</p>
-<p><strong>GENIUS Act PPSI template window closes June 9.</strong> The NPRM proposes BSA-program + OFAC sanctions compliance for permitted payment stablecoin issuers. The comment deadline is June 9 — 8 days. Publishing a PPSI-compliance reference template during the comment window positions the framework as the PPSI baseline before any competitor.</p>
-<p><strong>AUSTRAC Tranche 2 deadline is July 1 — 30 days.</strong> No OSS competitor exists. One PR, one new buyer segment, enforceable from July 1.</p>
+<p><strong>GENIUS Act PPSI template window closes June 9.</strong> The NPRM proposes BSA-program + OFAC sanctions compliance for permitted payment stablecoin issuers. The comment deadline is June 9 — <strong>6 days</strong>. Publishing a PPSI-compliance reference template during the comment window positions the framework as the PPSI baseline before any competitor.</p>
+<p><strong>AUSTRAC Tranche 2 deadline is July 1 — 28 days.</strong> No OSS competitor exists. One PR, one new buyer segment, enforceable from July 1.</p>
 <hr />
 <h2 id="3-highest-leverage-next-features-june-2026-re-ranking">3. Highest-Leverage Next Features — June 2026 Re-ranking<a class="headerlink" href="#3-highest-leverage-next-features-june-2026-re-ranking" title="Permanent link">&para;</a></h2>
 <table>
