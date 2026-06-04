@@ -1193,6 +1193,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#triage-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triage Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#case-investigation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2797,6 +2808,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#triage-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triage Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#case-investigation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3464,7 +3486,7 @@
 
 
 <h1 id="dashboard-tour">Dashboard Tour<a class="headerlink" href="#dashboard-tour" title="Permanent link">&para;</a></h1>
-<p>The Streamlit dashboard runs the full engine on startup and surfaces results across <strong>41 purpose-built pages</strong> (43 page files on disk — the two extras, Welcome and Today, are navigation surfaces documented separately). The sidebar <strong>Audience</strong> selector hides operational pages outside your persona's primary workflow. Every page also mounts the GenAI Assistant in the sidebar (PR-K) — backend selectable via <code>AML_AI_BACKEND</code>, audit-logged per spec.</p>
+<p>The Streamlit dashboard runs the full engine on startup and surfaces results across <strong>42 purpose-built pages</strong> (44 page files on disk — the two extras, Welcome and Today, are navigation surfaces documented separately). The sidebar <strong>Audience</strong> selector hides operational pages outside your persona's primary workflow. Every page also mounts the GenAI Assistant in the sidebar (PR-K) — backend selectable via <code>AML_AI_BACKEND</code>, audit-logged per spec.</p>
 <p>The sidebar carries two external links — <strong>Research &amp; whitepapers</strong> and <strong>How-to recipes</strong> — pointing at the MkDocs docs site at <code>tomqwu.github.io/aml_open_framework_docs/</code> (<code>AML_DOCS_URL</code> env override). Round 32 (2026-05-24) retired the in-app Knowledge category — the 10 pages 33–42 ported from the old GH-Pages site in PR-U2/U3 — once the docs site shipped in Round 31. Knowledge content lives in one canonical place now; the dashboard owns the operational/run-coupled surfaces only.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,dashboard]&quot;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/community_bank/aml.yaml
@@ -3479,6 +3501,8 @@
 <h3 id="alert-queue">Alert Queue<a class="headerlink" href="#alert-queue" title="Permanent link">&para;</a></h3>
 <p>Filterable, sortable alert triage view for L1 analysts. Filter by rule or severity, view aggregated amounts and time windows, and drill into individual alerts. Charts show alert volume by rule and severity distribution.</p>
 <p><img alt="Alert Queue" src="../screenshots/03_alert_queue.png" /></p>
+<h3 id="triage-queue">Triage Queue<a class="headerlink" href="#triage-queue" title="Permanent link">&para;</a></h3>
+<p>Ranks scored alerts by the advisory N1 <code>priority_score</code> (highest first) so an investigator works the highest-SAR-likelihood alerts before the long tail. Each row's score is colour-graded (red = urgent); a "Why this score?" panel renders the per-alert <code>priority_explanation</code> — the bias baseline plus each feature's contribution, largest first, with <code>score = sigmoid(Σ contributions)</code>. <strong>Advisory only:</strong> the sort never changes an alert's disposition or open/close state; the deterministic rules stay authoritative. Routed universally so every investigator persona can reach it. Enabled by a <code>program.prioritization</code> block in the spec.</p>
 <h3 id="case-investigation">Case Investigation<a class="headerlink" href="#case-investigation" title="Permanent link">&para;</a></h3>
 <p>Per-case investigation workspace with entity profile (customer details, risk rating, country), alert details (regulation citations, evidence requested), transaction timeline with alert window highlighting, Sankey flow diagram showing channel-level fund movement, and evidence panel.</p>
 <p><img alt="Case Investigation" src="../screenshots/04_case_investigation.png" /></p>
@@ -3629,7 +3653,7 @@
 <p>Generate a board-ready PDF report from the Executive Dashboard with program overview, key metrics (RAG-colored), case summary, and maturity assessment. Uses <code>reportlab</code> for professional formatting.</p>
 <hr />
 <h2 id="audience-filtering">Audience Filtering<a class="headerlink" href="#audience-filtering" title="Permanent link">&para;</a></h2>
-<p>The 41 operational pages serve 13 distinct personas. The sidebar <strong>Audience</strong> selector hides non-relevant pages so each role sees a focused operational workflow (no persona sees more than 9 operational pages); the cross-cutting synthesis surfaces (North-Star Coverage, FP Analysis, Threshold Sensitivity, Anomaly Discovery, Drift Monitor, Rule Lifecycle, Decision Trail, Experiment Tracking, Equivalence) stay visible to every persona regardless of the filter:</p>
+<p>The 42 operational pages serve 13 distinct personas. The sidebar <strong>Audience</strong> selector hides non-relevant pages so each role sees a focused operational workflow (no persona sees more than 9 operational pages); the cross-cutting synthesis surfaces (North-Star Coverage, FP Analysis, Threshold Sensitivity, Anomaly Discovery, Drift Monitor, Rule Lifecycle, Decision Trail, Experiment Tracking, Equivalence, Triage Queue) stay visible to every persona regardless of the filter:</p>
 <table>
 <thead>
 <tr>
