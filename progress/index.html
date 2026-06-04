@@ -3248,6 +3248,10 @@
 </blockquote>
 <hr />
 <blockquote>
+<p><strong>#494 — Equivalence divergence clustering</strong> (<code>feat/equivalence-divergence-clustering</code>, 2026-06-04, Next-tier ML/AI roadmap): deterministic shape-signature grouping of an <code>EquivalenceReport</code>'s NEW_ONLY/LEGACY_ONLY divergences. A new pure-stdlib engine module <code>engine/equivalence_clustering.py</code> (<code>cluster_divergences(report) -&gt; DivergenceClusterReport</code>) buckets every divergent cell by the signature <code>(classification, rule_id, severity, window_days)</code>, surfaced as a <code>## Divergence clusters</code> table in the <code>aml equivalence --markdown</code> report and as a "Divergence clusters" section with a per-cluster drill-down on dashboard page 48 (Equivalence). Governed as an <strong>explanation</strong>: the four-way MATCH/NEW_ONLY/LEGACY_ONLY/DIFF classification stays authoritative in the ledger; clusters are a triage lens. <strong>No sklearn</strong> — pure stdlib+pydantic keeps the determinism invariant and the <code>.[dev]</code>-only unit CI intact. Closes #494.</p>
+</blockquote>
+<hr />
+<blockquote>
 <p><strong>M1–M4 — ML/AI roadmap Now tier, drained in one 24h marathon</strong> (<code>v0.1.46</code> + <code>v0.1.47</code>, #481–#488, 2026-06-04): the four Now-tier initiatives off the N1 governed-augmentation seam, each plan → TDD → Codex → CI → merge. All four GH issues opened and closed in the same session; 0 open issues at close.</p>
 <ul>
 <li>

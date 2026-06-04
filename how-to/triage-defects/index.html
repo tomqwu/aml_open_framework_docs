@@ -1156,6 +1156,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6-triage-equivalence-divergences-by-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 · Triage equivalence divergences by cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2374,6 +2385,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6-triage-equivalence-divergences-by-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 · Triage equivalence divergences by cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2586,6 +2608,12 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>aml<span class="w"> </span>run<span class="w"> </span>aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
 </span></code></pre></div>
 <p>The next <code>defect_log.jsonl</code> shouldn't contain the same defect. If it does, the fix was incomplete.</p>
+<h3 id="6-triage-equivalence-divergences-by-cluster">6 · Triage equivalence divergences by cluster<a class="headerlink" href="#6-triage-equivalence-divergences-by-cluster" title="Permanent link">&para;</a></h3>
+<p>When the defect is a <strong>legacy↔new divergence</strong> (a cell the legacy system fired that the new spec didn't, or vice versa), run the equivalence comparison and render the Markdown report:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aml<span class="w"> </span>equivalence<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z<span class="w"> </span>--legacy<span class="w"> </span>legacy_alerts.csv<span class="w"> </span>--markdown<span class="w"> </span>report.md
+</span></code></pre></div>
+<p>Open <code>report.md</code> and read the <strong><code>## Divergence clusters</code></strong> table. Work the <strong>largest cluster first</strong> (rows are sorted by size descending): each cluster is one defect shape — same rule, severity, and window length — so a single root cause (data, rule logic, or mapping) usually explains the whole cluster, and one fix clears many cells.</p>
+<p>The same clusters appear on <strong>dashboard page 48 (Equivalence)</strong> with a per-cluster drill-down into the member customers. Clustering is a <strong>triage lens only</strong> — the four-way MATCH / NEW_ONLY / LEGACY_ONLY / DIFF classification is what lands in the ledger.</p>
 <hr />
 <h2 id="verify-it-worked">Verify it worked<a class="headerlink" href="#verify-it-worked" title="Permanent link">&para;</a></h2>
 <p>Four checks:</p>
