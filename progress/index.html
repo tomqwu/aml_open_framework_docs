@@ -3242,7 +3242,28 @@
 
 
 <h1 id="project-progress">Project Progress<a class="headerlink" href="#project-progress" title="Permanent link">&para;</a></h1>
-<p>Snapshot of where the AML Open Framework is as of 2026-06-03. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<p>Snapshot of where the AML Open Framework is as of 2026-06-04. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<blockquote>
+<p><strong>M1–M4 — ML/AI roadmap Now tier, drained in one 24h marathon</strong> (<code>v0.1.46</code> + <code>v0.1.47</code>, #481–#488, 2026-06-04): the four Now-tier initiatives off the N1 governed-augmentation seam, each plan → TDD → Codex → CI → merge. All four GH issues opened and closed in the same session; 0 open issues at close.</p>
+<ul>
+<li>
+<p><strong>M1 — Triage Queue</strong> (<code>v0.1.46</code>, #485): dashboard page (<code>pages/52_Triage_Queue.py</code> + Streamlit-free <code>dashboard/triage.py</code> helpers) ranking alerts by the advisory N1 <code>priority_score</code> with a per-alert "Why this score?" explanation panel (data_grid red=urgent gradient + section_explainer). Universally routed; advisory-only framing explicit; e2e + screenshot. The user-facing payoff of N1 — investigators can finally sort the queue by SAR-likelihood. Caught a <code>.[dev]</code>-only CI gap (test imported pandas unguarded) → <code>pytest.importorskip</code>.</p>
+</li>
+<li>
+<p><strong>M2 — <code>aml model-inventory</code></strong> (<code>v0.1.47</code>, #486): spec-only, deterministic SR-26-2 model-population inventory (<code>generators/model_inventory.py</code>) covering every rule, every <code>python_ref</code> external model, <strong>and</strong> the N1 prioritization scorer (which the rule-centric <code>build_inventory</code> misses) — <code>--out</code> JSON + <code>--markdown</code> table. CLI-only, no deploy of its own. Codex: markdown pipe-escaping.</p>
+</li>
+<li>
+<p><strong>M3 — champion-challenger <code>priority_outcome.json</code></strong> (<code>v0.1.47</code>, #487): <code>aml run --labels labels.csv [--challenger-weights '{...}']</code> scores labelled alerts with champion vs challenger, reports precision@k / recall, picks a <code>winner</code>; frozen + manifest-pinned like <code>priority_report.json</code>. <strong>Temporal-leakage guard enforced at runtime</strong> — the scorer is fed only an allowlist of as-of features, proven by an invariance test. Codex (1 round): conditional manifest pin (no-label runs stay baseline-identical), precision@k denominator, enforced allowlist.</p>
+</li>
+<li>
+<p><strong>M4 — point-in-time effective-dated joins</strong> (<code>v0.1.47</code>, #488, <strong>Pillar 3 PARTIAL→COVERED</strong>): <code>DataContract.effective_dated: {valid_from, valid_to}</code> + <code>aggregation_window.enrich: {contract, key, where}</code> make the SQL generator emit an as-of JOIN (pre-filtered base subquery → <code>ref.valid_from &lt;= booked_at &lt; ref.valid_to</code>) so a rule resolves reference state contemporaneous with each txn. The proof: a customer whose risk goes low→high mid-window is counted only for the txns booked <strong>while high</strong> (<code>count==2</code>, not the latest-row <code>count==4</code>). <code>key</code> not <code>on</code> — YAML 1.1 coerces a bare <code>on:</code> to boolean <code>true</code>. Codex (2 rounds): OR-precedence parens, raise-don't-silently-drop the join when <code>contracts</code> absent (threaded through runner/dbt/tuning/backtest/2 tuning pages), column-ambiguity base-subquery, key cross-ref validation, and preserving <code>enrich</code> in dashboard what-if previews.</p>
+</li>
+</ul>
+<p><strong>Azure deploys</strong>: <code>v0.1.46</code> (M1, dashboard) rolled mid-marathon — live <code>/Triage_Queue</code> 200, <code>/api/v1/health</code> → <code>0.1.46</code>. <code>v0.1.47</code> (M2/M3/M4) batched after the M4 merge — M2 is CLI-only, M3 is an engine artifact, M4 flips the North-Star Pillar-3 card live. Both Container Apps + smoke at <code>/api/v1/health</code>.</p>
+<p><strong>Process notes</strong>: the user set a standing "don't prompt me while issues/PRs are in the queue" directive for the marathon (<code>project_marathon_autonomy_2026-06</code> memory). One mid-flight recovery: after the M2 merge switched HEAD to <code>main</code>, M3's Task-3 edits landed on <code>main</code> by mistake — caught via <code>'Rule' object has no attribute 'owner'</code> at import, stashed + rebased the M3 branch onto current main, re-applied cleanly, no work lost.</p>
+<p><strong>Result</strong>: 4 issues + 8 PRs (incl. the badge-branch CI fix #480 and docs PRs) merged, 2 Azure deploys, 0 open issues at close. The N1 governed seam now has its triage UI (M1), its model-inventory governance companion (M2), its outcome-analysis + leakage guard (M3), and its point-in-time data foundation (M4).</p>
+</blockquote>
+<hr />
 <blockquote>
 <p><strong>N1 — governed alert-prioritization layer</strong> (<code>v0.1.45</code>, #477, 2026-06-03): first of the ML/AI roadmap ("governed augmentation") initiatives (the N1 plan). Establishes the <strong>governed seam</strong> an advisory ML triage score plugs into: explainable, deterministic, and constitutionally incapable of changing a disposition.</p>
 <ul>
