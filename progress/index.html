@@ -3265,6 +3265,31 @@
 </blockquote>
 <hr />
 <blockquote>
+<p><strong>Mobile Direction-C redesign</strong> (<code>v0.1.48</code>–<code>v0.1.50</code>, 2026-06-04): the three-version mobile-UX evolution that shipped the current production UI across both Azure Container Apps (<code>ca-aml-api-dev</code> + <code>ca-aml-dashboard-dev</code>), smoke-verified at 375 px.</p>
+<ul>
+<li>
+<p><strong>Discoverability arc</strong>: a faint chevron on the Start screen → an explicit in-canvas ☰ Menu button (v0.1.48/49) → a persistent <strong>bottom tab bar</strong> (v0.1.50, Direction-C). The nav surface got progressively more obvious because tap-testing on physical 375 px devices showed users didn't find the sidebar reliably.</p>
+</li>
+<li>
+<p><strong>Direction-C selection</strong> (v0.1.50): a <code>/huashu-design</code> session mocked three full mobile directions in the real brand (A: editorial calm — full-bleed serif + minimal chrome; B: thread-card — a numbered "golden thread" teaser card on the landing; C: immersive ink-hero + a persistent bottom tab bar). Direction C was chosen — a persistent <strong>bottom tab bar</strong> (Today · Alerts · Cases · Audit · More) injected in <code>app.py</code> as <code>target="_top"</code> anchor links, with the active tab computed server-side from <code>pg.url_path</code>. Direction C tests best for thumb-reach on tall phones and mirrors iOS/Android app conventions the investigator persona already knows.</p>
+</li>
+<li>
+<p><strong>Full-bleed mobile</strong>: the dark side-gutters that appeared on narrow viewports (an artefact of the <code>.stApp</code> background bleed) were removed; the layout is now edge-to-edge on all screen widths.</p>
+</li>
+<li>
+<p><strong>Minimal mobile topbar</strong>: the <code>.dna-topbar</code> height was reduced for narrow screens so it doesn't eat vertical real estate when combined with the bottom tab bar.</p>
+</li>
+<li>
+<p><strong>Start ink-hero band + live stat cards</strong> (landed alongside v0.1.49): the Start screen got a high-contrast ink-hero headline band ("An AML program you can show.") plus three live stat cards (alerts / cases / audit entries) computed from the cached session state — turning a static marketing blurb into a live proof point.</p>
+</li>
+<li>
+<p><strong>Testing lesson</strong>: an earlier Playwright e2e that tapped a nav link by CSS selector gave a false green — the tap registered on an off-screen element. Replaced with assertions that use <code>is_visible()</code> + in-viewport bounding-box checks; the new test fails correctly when the element is outside the viewport.</p>
+</li>
+</ul>
+<p><strong>Deploys</strong>: <code>v0.1.48</code> (Start screen skeleton) → <code>v0.1.49</code> (☰ Menu + ink-hero + stat cards) → <code>v0.1.50</code> (Direction-C bottom tab bar + full-bleed + topbar trim). All three tags pushed to <code>main</code>, each followed by <code>az acr build</code> → both Container Apps updated → smoke at <code>/api/v1/health</code> + 375 px viewport.</p>
+</blockquote>
+<hr />
+<blockquote>
 <p><strong>First-run Start screen + mobile nav fix</strong> (2026-06-04, <code>feat/first-run-golden-thread</code>, spec: <code>docs/superpowers/specs/2026-06-04-first-run-golden-thread-design.md</code>): replaced the confusing cold-open (the old legacy Welcome page) with a purpose-built first-run experience.</p>
 <ul>
 <li>
@@ -3557,7 +3582,7 @@
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── attestations/     MLRO sign-off ledger — hash-chained attestations.jsonl (Round 10)
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── cases/            Investigation aggregator, SLA timer, STR bundling, filing sidecars (Round 6/10)
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── assistant/        GenAI co-pilot (template/ollama/openai backends, sidebar on every page)
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── dashboard/        32-page Streamlit web app (mobile-responsive, multi-tenant, GenAI panel)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── dashboard/        44-page Streamlit web app (mobile-responsive, multi-tenant, GenAI panel)
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── data/             Synthetic generator + 8 source loaders + ISO 20022 parser
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   ├── iso20022/     pacs.008, pacs.009, pain.001, pacs.004 ingestion (Round 5)
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   └── lists/        Sanctions, adverse media, sanctioned wallets, purpose codes
@@ -4550,7 +4575,7 @@
 </ul>
 <h3 id="for-the-analyst-l1l2">For the analyst (L1/L2)<a class="headerlink" href="#for-the-analyst-l1l2" title="Permanent link">&para;</a></h3>
 <ul>
-<li>32-page web dashboard with persona-filtered navigation</li>
+<li>44-page web dashboard with persona-filtered navigation</li>
 <li>Row-click drill-through on every triage table (no more selectbox-below-table)</li>
 <li>Investigation-level review (not just alerts)</li>
 <li>Per-case live SLA + escalation recommendations</li>
@@ -4763,7 +4788,7 @@
 <li><code>README.md</code> — hub-style entry point with documentation map</li>
 <li><code>docs/getting-started.md</code> — 15-min onboarding path</li>
 <li><code>docs/architecture.md</code> — reference design</li>
-<li><code>docs/dashboard-tour.md</code> — all 32 pages organized by workflow (drift-protected by <code>test_dashboard_tour_coverage.py</code>)</li>
+<li><code>docs/dashboard-tour.md</code> — all 42 operational pages organized by workflow (drift-protected by <code>test_dashboard_tour_coverage.py</code>)</li>
 <li><code>docs/jurisdictions.md</code> — US / CA / EU / UK / crypto / cyber-fraud specs</li>
 <li><code>docs/personas.md</code> — role-based workflows</li>
 <li><code>docs/spec-reference.md</code> — field-by-field <code>aml.yaml</code> guide</li>

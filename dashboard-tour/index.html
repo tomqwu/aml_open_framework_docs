@@ -3564,6 +3564,7 @@
 <p><img alt="Alert Queue" src="../screenshots/03_alert_queue.png" /></p>
 <h3 id="triage-queue">Triage Queue<a class="headerlink" href="#triage-queue" title="Permanent link">&para;</a></h3>
 <p>Ranks scored alerts by the advisory N1 <code>priority_score</code> (highest first) so an investigator works the highest-SAR-likelihood alerts before the long tail. Each row's score is colour-graded (red = urgent); a "Why this score?" panel renders the per-alert <code>priority_explanation</code> — the bias baseline plus each feature's contribution, largest first, with <code>score = sigmoid(Σ contributions)</code>. <strong>Advisory only:</strong> the sort never changes an alert's disposition or open/close state; the deterministic rules stay authoritative. Routed universally so every investigator persona can reach it. Enabled by a <code>program.prioritization</code> block in the spec.</p>
+<p><img alt="Triage Queue" src="../screenshots/52_triage_queue.png" /></p>
 <h3 id="case-investigation">Case Investigation<a class="headerlink" href="#case-investigation" title="Permanent link">&para;</a></h3>
 <p>Per-case investigation workspace with entity profile (customer details, risk rating, country), alert details (regulation citations, evidence requested), transaction timeline with alert window highlighting, Sankey flow diagram showing channel-level fund movement, and evidence panel.</p>
 <p><img alt="Case Investigation" src="../screenshots/04_case_investigation.png" /></p>
@@ -3573,6 +3574,7 @@
 - Investigations list sorted by severity → total amount
 - Drill-down with per-constituent-case live SLA state + escalation recommendation</p>
 <p>Sidebar exposes aggregation strategy (<code>per_customer_window</code> / <code>per_customer_per_run</code> / <code>per_case</code>) and an "evaluate SLA against now()" toggle for live-ops vs backtest view.</p>
+<p><img alt="Investigations" src="../screenshots/24_investigations.png" /></p>
 <h3 id="my-queue-analyst-dashboard">My Queue (Analyst Dashboard)<a class="headerlink" href="#my-queue-analyst-dashboard" title="Permanent link">&para;</a></h3>
 <p>Personal analyst dashboard showing assigned cases, open/resolved counts, SLA compliance percentage, and resolution time distribution. Select your queue to see cases by severity, recent activity log, and workload charts.</p>
 <p><img alt="My Queue" src="../screenshots/21_my_queue.png" /></p>
@@ -3649,12 +3651,16 @@
 <p><img alt="Audit &amp; Evidence" src="../screenshots/07_audit_evidence.png" /></p>
 <h3 id="lineage-explorer">Lineage Explorer<a class="headerlink" href="#lineage-explorer" title="Permanent link">&para;</a></h3>
 <p>End-to-end "source → DuckDB table → rendered SQL → matched rows → alert → case → STR" walk-back, deep-linkable from Audit &amp; Evidence and Case Investigation via <code>?case_id=...</code>. Mermaid graph + run anchors + source provenance (path + schema_hash + content_hash) + collapsible rule SQL + matched-rows AG Grid + decision timeline + JSON download. Powered by <code>walk_lineage()</code> after PR-LIN-1..4 lifted rule_sql, source_path, schema_hash, rule_version (every event), and matched_row_ids into the lineage chain.</p>
+<p><img alt="Lineage Explorer" src="../screenshots/32_lineage_explorer.png" /></p>
 <h3 id="analyst-review-queue">Analyst Review Queue<a class="headerlink" href="#analyst-review-queue" title="Permanent link">&para;</a></h3>
 <p>Network-pattern alerts get an explainability surface: the matched subgraph rendered as a Mermaid diagram, alongside the alert payload and an analyst decision form (escalate / close / request more evidence). Composes with <code>engine/explain.py:to_mermaid</code>.</p>
+<p><img alt="Analyst Review Queue" src="../screenshots/22_analyst_review_queue.png" /></p>
 <h3 id="tuning-lab">Tuning Lab<a class="headerlink" href="#tuning-lab" title="Permanent link">&para;</a></h3>
 <p>Pareto-frontier exploration of rule threshold combinations. Loads labelled historical alerts, sweeps thresholds across the spec's <code>tuning_grid</code>, and plots true-positive rate × false-positive rate. Used to defend threshold choices in model risk management reviews.</p>
+<p><img alt="Tuning Lab" src="../screenshots/23_tuning_lab.png" /></p>
 <h3 id="fp-analysis">FP Analysis<a class="headerlink" href="#fp-analysis" title="Permanent link">&para;</a></h3>
 <p>Per-rule false-positive rate (<code>closed_no_action ÷ total cases</code>) derived at render time from the cached <code>df_cases</code>. High-FP rules above 70% surface as a coloured callout at the top with a Tuning Lab cross-link; the per-rule table is sortable on the numeric <code>fp_rate_pct</code> column so AG Grid orders worst-offenders first. Filing queues are derived from the live spec workflow (any <code>regulator_form</code>-bearing queue counts as escalated), so custom STR/SAR/CTR queue ids classify correctly. The Pillar 7 ("DS as governed augmentation") surface that the North-Star coverage page flags as missing. PR-E1 (closes #378). Universally routed — every persona sees it.</p>
+<p><img alt="FP Analysis" src="../screenshots/45_fp_analysis.png" /></p>
 <hr />
 <h2 id="compliance-workflow-pages">Compliance Workflow Pages<a class="headerlink" href="#compliance-workflow-pages" title="Permanent link">&para;</a></h2>
 <h3 id="boi-workflow">BOI Workflow<a class="headerlink" href="#boi-workflow" title="Permanent link">&para;</a></h3>
@@ -3698,16 +3704,22 @@
 <h2 id="round-27-batch-six-universally-routed-dashboard-surfaces">Round 27 batch — six universally-routed dashboard surfaces<a class="headerlink" href="#round-27-batch-six-universally-routed-dashboard-surfaces" title="Permanent link">&para;</a></h2>
 <h3 id="decision-trail">Decision Trail<a class="headerlink" href="#decision-trail" title="Permanent link">&para;</a></h3>
 <p>Investigator-facing per-case event chain: case_opened → escalated → STR/SAR filing. Pure read of cached <code>df_cases</code> + <code>df_decisions</code>. Universal-routed via <code>AUDIT_TRAIL_PAGES</code>. PR-F3 (#385).</p>
+<p><img alt="Decision Trail" src="../screenshots/44_decision_trail.png" /></p>
 <h3 id="experiment-tracking">Experiment Tracking<a class="headerlink" href="#experiment-tracking" title="Permanent link">&para;</a></h3>
 <p>MLflow-style overview of every persisted run — spec_content_hash, seed, as_of, total_alerts, total_cases sortable. Universal-routed via <code>TRACKING_PAGES</code>. PR-E4 (#381).</p>
+<p><img alt="Experiment Tracking" src="../screenshots/46_experiment_tracking.png" /></p>
 <h3 id="threshold-sensitivity">Threshold Sensitivity<a class="headerlink" href="#threshold-sensitivity" title="Permanent link">&para;</a></h3>
 <p>Per-rule alert-volume curve across {0.5×, 0.75×, 1.0×, 1.25×, 1.5×, 2.0×} the spec threshold — every tunable <code>aggregation_window</code> rule's sensitivity at a glance. Universal-routed via <code>TUNING_PAGES</code>. PR-E2 (#379).</p>
+<p><img alt="Threshold Sensitivity" src="../screenshots/47_threshold_sensitivity.png" /></p>
 <h3 id="equivalence">Equivalence<a class="headerlink" href="#equivalence" title="Permanent link">&para;</a></h3>
 <p>Legacy↔new parallel-run divergence: loads the legacy CSV declared in <code>program.legacy_reference</code> and classifies every cell as MATCH / NEW_ONLY / LEGACY_ONLY / DIFF (via <code>engine/equivalence.py</code> shipped in PR-EQ-2). Universal-routed via <code>EQUIVALENCE_PAGES</code>. PR-EQ-3 (closes pillar 1 gap on the north-star page).</p>
+<p><img alt="Equivalence" src="../screenshots/48_equivalence.png" /></p>
 <h3 id="anomaly-discovery">Anomaly Discovery<a class="headerlink" href="#anomaly-discovery" title="Permanent link">&para;</a></h3>
 <p>Unsupervised z-score outlier detection on per-customer transaction features. Surfaces customers the spec's deterministic rules don't catch — discovery candidates for new rule typologies. Universal-routed via <code>TUNING_PAGES</code>. PR-E5 (#382).</p>
+<p><img alt="Anomaly Discovery" src="../screenshots/49_anomaly_discovery.png" /></p>
 <h3 id="drift-monitor">Drift Monitor<a class="headerlink" href="#drift-monitor" title="Permanent link">&para;</a></h3>
 <p>Per-scorer alert-volume drift across recent runs. Last-run vs median-of-priors with ≥2× / ≤0.5× thresholds flagged as "high drift". Universal-routed via <code>TUNING_PAGES</code>. PR-E3 (#380).</p>
+<p><img alt="Drift Monitor" src="../screenshots/50_drift_monitor.png" /></p>
 <hr />
 <h2 id="export-surface">Export Surface<a class="headerlink" href="#export-surface" title="Permanent link">&para;</a></h2>
 <h3 id="board-pdf-export">Board PDF Export<a class="headerlink" href="#board-pdf-export" title="Permanent link">&para;</a></h3>
@@ -3758,6 +3770,10 @@
 <tr>
 <td><strong>Developer</strong></td>
 <td>Spec Editor → Rule Performance → Rule Tuning → Tuning Lab → Model Performance → Data Quality → Analyst Review Queue → Run History → AI Assistant</td>
+</tr>
+<tr>
+<td><strong>Data Engineer / Head of Data</strong></td>
+<td>Data Integration → Data Quality → Customer 360 → Information Sharing → Spec Editor → Run History → Audit &amp; Evidence → AI Assistant</td>
 </tr>
 <tr>
 <td><strong>Auditor</strong></td>
