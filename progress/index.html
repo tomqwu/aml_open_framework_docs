@@ -3265,6 +3265,19 @@
 </blockquote>
 <hr />
 <blockquote>
+<p><strong>First-run Start screen + mobile nav fix</strong> (2026-06-04, <code>feat/first-run-golden-thread</code>, spec: <code>docs/superpowers/specs/2026-06-04-first-run-golden-thread-design.md</code>): replaced the confusing cold-open (the old legacy Welcome page) with a purpose-built first-run experience.</p>
+<ul>
+<li>
+<p><strong>Start screen</strong> (<code>pages/0_Start.py</code> + <code>dashboard/golden_thread.py</code>): one sentence establishes what the framework does; a "▶ Show me it's real" button drives a live 4-beat Golden Thread — <strong>alert → case → audit → doors</strong> — through the planted C0001 structuring case in the default <code>community_bank</code> spec. Each beat renders progressively: first the alert fires, then the case is built, then the audit hash-chain entry is shown, then the action doors (SAR filing / tuning / export). The page is universally routed and set as the Streamlit default landing page (<code>app.py</code> initial page). The legacy <code>pages/0_Welcome.py</code> was retired — its content scrubbed from README and dashboard-tour.</p>
+</li>
+<li>
+<p><strong>Mobile nav fix</strong>: the <code>.dna-topbar</code> CSS overlay was intercepting the Streamlit sidebar expand control on narrow (≤640 px) screens — the hamburger tap opened the topbar menu instead of the sidebar. Fixed: z-index lowered below Streamlit's sidebar layer so the native expand control remains tappable. An in-canvas ☰ Menu button was added as a fallback for browsers where <code>stSidebar</code> itself is hidden. A Playwright e2e test asserts the 640 px nav carve-out CSS is present and the tap-to-navigate flow reaches <code>Alert_Queue</code> from the in-canvas Menu.</p>
+</li>
+</ul>
+<p><strong>Result</strong>: dashboard opens on a single clear sentence + a live proof-of-concept beat instead of a static marketing blurb; mobile users can navigate without fighting the topbar overlay.</p>
+</blockquote>
+<hr />
+<blockquote>
 <p><strong>N1 — governed alert-prioritization layer</strong> (<code>v0.1.45</code>, #477, 2026-06-03): first of the ML/AI roadmap ("governed augmentation") initiatives (the N1 plan). Establishes the <strong>governed seam</strong> an advisory ML triage score plugs into: explainable, deterministic, and constitutionally incapable of changing a disposition.</p>
 <ul>
 <li>
