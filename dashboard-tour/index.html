@@ -1211,6 +1211,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Today
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1255,6 +1266,17 @@
     <span class="md-ellipsis">
       
         Triage Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regulatory-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regulatory Calendar
       
     </span>
   </a>
@@ -2854,6 +2876,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Today
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2898,6 +2931,17 @@
     <span class="md-ellipsis">
       
         Triage Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regulatory-calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regulatory Calendar
       
     </span>
   </a>
@@ -3572,7 +3616,7 @@
 
 
 <h1 id="dashboard-tour">Dashboard Tour<a class="headerlink" href="#dashboard-tour" title="Permanent link">&para;</a></h1>
-<p>The Streamlit dashboard runs the full engine on startup and surfaces results across <strong>42 purpose-built pages</strong> (44 page files on disk — the two extras, Start here and Today, are navigation surfaces documented separately). The sidebar <strong>Audience</strong> selector hides operational pages outside your persona's primary workflow. Every page also mounts the GenAI Assistant in the sidebar (PR-K) — backend selectable via <code>AML_AI_BACKEND</code>, audit-logged per spec. On every page the page-level AI explanation is now a collapsible block (collapsed by default) so the primary content leads — KPIs sit above the fold on mobile rather than below an explainer.</p>
+<p>The Streamlit dashboard runs the full engine on startup and surfaces results across <strong>43 purpose-built pages</strong> (45 page files on disk — the two extras, Start here and Today, are navigation surfaces documented separately). The sidebar <strong>Audience</strong> selector hides operational pages outside your persona's primary workflow. Every page also mounts the GenAI Assistant in the sidebar (PR-K) — backend selectable via <code>AML_AI_BACKEND</code>, audit-logged per spec. On every page the page-level AI explanation is now a collapsible block (collapsed by default) so the primary content leads — KPIs sit above the fold on mobile rather than below an explainer.</p>
 <p>The sidebar carries two external links — <strong>Research &amp; whitepapers</strong> and <strong>How-to recipes</strong> — pointing at the MkDocs docs site at <code>tomqwu.github.io/aml_open_framework_docs/</code> (<code>AML_DOCS_URL</code> env override). Round 32 (2026-05-24) retired the in-app Knowledge category — the 10 pages 33–42 ported from the old GH-Pages site in PR-U2/U3 — once the docs site shipped in Round 31. Knowledge content lives in one canonical place now; the dashboard owns the operational/run-coupled surfaces only.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev,dashboard]&quot;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/community_bank/aml.yaml
@@ -3584,6 +3628,8 @@
 <h3 id="start-here">Start here<a class="headerlink" href="#start-here" title="Permanent link">&para;</a></h3>
 <p>The default landing page (first-run Golden Thread). One sentence establishes what the framework does; a "▶ Show me it's real" button runs a live 4-beat walkthrough — alert → case → audit → doors — driven by the planted C0001 structuring case in the <code>community_bank</code> spec. Replaces the legacy Welcome cold-open. Universally routed so it is always reachable regardless of audience filter; <code>0_Start.py</code> is TOUR_EXEMPT (navigation surface, not an operational page).</p>
 <p><img alt="Start here" src="../screenshots/0_start.png" /></p>
+<h3 id="today">Today<a class="headerlink" href="#today" title="Permanent link">&para;</a></h3>
+<p>The personalised daily checklist landing surface. A regulatory-deadline alert banner surfaces the next forward deadlines (NPRM comment windows, AUSTRAC/AMLA dates) with live days-remaining and urgency bands, sourced from the bundled regulatory calendar. Universally routed; <code>0_Today.py</code> is TOUR_EXEMPT (navigation surface, not an operational page).</p>
 <hr />
 <h2 id="operational-pages">Operational Pages<a class="headerlink" href="#operational-pages" title="Permanent link">&para;</a></h2>
 <h3 id="executive-dashboard">Executive Dashboard<a class="headerlink" href="#executive-dashboard" title="Permanent link">&para;</a></h3>
@@ -3595,6 +3641,9 @@
 <h3 id="triage-queue">Triage Queue<a class="headerlink" href="#triage-queue" title="Permanent link">&para;</a></h3>
 <p>Ranks scored alerts by the advisory N1 <code>priority_score</code> (highest first) so an investigator works the highest-SAR-likelihood alerts before the long tail. Each row's score is colour-graded (red = urgent); a "Why this score?" panel renders the per-alert <code>priority_explanation</code> — the bias baseline plus each feature's contribution, largest first, with <code>score = sigmoid(Σ contributions)</code>. <strong>Advisory only:</strong> the sort never changes an alert's disposition or open/close state; the deterministic rules stay authoritative. When a <code>program.risk_segmentation</code> block is enabled (#495), alerts on low-risk customers scoring below a segment threshold are flagged <code>suppression.applied</code> and visually de-emphasized here — still present and openable, with a per-row override so an investigator can reverse the advisory de-prioritization. Routed universally so every investigator persona can reach it. Enabled by a <code>program.prioritization</code> block in the spec.</p>
 <p><img alt="Triage Queue" src="../screenshots/52_triage_queue.png" /></p>
+<h3 id="regulatory-calendar">Regulatory Calendar<a class="headerlink" href="#regulatory-calendar" title="Permanent link">&para;</a></h3>
+<p>Forward regulatory deadline calendar (#511). Loads the packaged <code>regulatory_calendar.yaml</code> and computes live days-remaining against <code>date.today()</code>, listing each upcoming deadline most-urgent-first in a band-colored block (red ≤7 days, amber ≤30, blue beyond) with a source link. Each deadline carries its <strong>evidence response</strong> — the dashboard pages and example specs in this framework that address the obligation — plus a per-deadline <strong>readiness indicator</strong>: for every referenced <code>spec_field</code> (a dotted path like <code>program.prioritization</code>) the page checks whether it's populated in the loaded spec and shows ✓/✗, with a "Readiness: N/M spec fields populated" roll-up. Read-only synthesis (no engine call, no spec write); complements the Today banner (#510), which surfaces only the nearest deadlines. Routed universally so every persona — MLRO, CCO, director, examiner, analyst — sees what's coming.</p>
+<p><img alt="Regulatory Calendar" src="../screenshots/54_regulatory_calendar.png" /></p>
 <h3 id="case-investigation">Case Investigation<a class="headerlink" href="#case-investigation" title="Permanent link">&para;</a></h3>
 <p>Per-case investigation workspace with entity profile (customer details, risk rating, country), alert details (regulation citations, evidence requested), transaction timeline with alert window highlighting, Sankey flow diagram showing channel-level fund movement, and evidence panel. A governed <strong>Case Copilot</strong> sidebar panel (#499) offers case-scoped GenAI DRAFTS — summarize / identify typology / draft STR-SAR narrative / counterparty network / risk &amp; recommended action (plus freeform) — every reply is a human-reviewed DRAFT (never an auto-decision), audited to <code>ai_interactions.jsonl</code> as <code>ai_case_copilot_action</code> with the backend/model + confidence.</p>
 <p><img alt="Case Investigation" src="../screenshots/04_case_investigation.png" /></p>
@@ -3756,7 +3805,7 @@
 <p>Generate a board-ready PDF report from the Executive Dashboard with program overview, key metrics (RAG-colored), case summary, and maturity assessment. Uses <code>reportlab</code> for professional formatting.</p>
 <hr />
 <h2 id="audience-filtering">Audience Filtering<a class="headerlink" href="#audience-filtering" title="Permanent link">&para;</a></h2>
-<p>The 42 operational pages serve 13 distinct personas. The sidebar <strong>Audience</strong> selector hides non-relevant pages so each role sees a focused operational workflow (no persona sees more than 9 operational pages); the cross-cutting synthesis surfaces (North-Star Coverage, FP Analysis, Threshold Sensitivity, Anomaly Discovery, Drift Monitor, Rule Lifecycle, Decision Trail, Experiment Tracking, Equivalence, Triage Queue) stay visible to every persona regardless of the filter:</p>
+<p>The 43 operational pages serve 13 distinct personas. The sidebar <strong>Audience</strong> selector hides non-relevant pages so each role sees a focused operational workflow (no persona sees more than 9 operational pages); the cross-cutting synthesis surfaces (North-Star Coverage, FP Analysis, Threshold Sensitivity, Anomaly Discovery, Drift Monitor, Rule Lifecycle, Decision Trail, Experiment Tracking, Equivalence, Triage Queue, Regulatory Calendar) stay visible to every persona regardless of the filter:</p>
 <table>
 <thead>
 <tr>
