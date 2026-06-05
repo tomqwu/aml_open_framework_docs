@@ -3718,7 +3718,7 @@
 <p>Unsupervised z-score outlier detection on per-customer transaction features. Surfaces customers the spec's deterministic rules don't catch — discovery candidates for new rule typologies. Universal-routed via <code>TUNING_PAGES</code>. PR-E5 (#382).</p>
 <p><img alt="Anomaly Discovery" src="../screenshots/49_anomaly_discovery.png" /></p>
 <h3 id="drift-monitor">Drift Monitor<a class="headerlink" href="#drift-monitor" title="Permanent link">&para;</a></h3>
-<p>Per-scorer alert-volume drift across recent runs. Last-run vs median-of-priors with ≥2× / ≤0.5× thresholds flagged as "high drift". Universal-routed via <code>TUNING_PAGES</code>. PR-E3 (#380).</p>
+<p>Per-scorer alert-volume drift across recent runs. Last-run vs median-of-priors with ≥2× / ≤0.5× thresholds flagged as "high drift". Universal-routed via <code>TUNING_PAGES</code>. PR-E3 (#380). When <code>program.model_risk_monitoring</code> is enabled the page also renders a <strong>Model-risk report</strong> section — the governed model inventory + per-rule count drift (current vs prior run) + validation cadence from the frozen, manifest-pinned <code>model_risk_report.json</code>; advisory/monitoring only (never blocks a run or changes a model). #497.</p>
 <p><img alt="Drift Monitor" src="../screenshots/50_drift_monitor.png" /></p>
 <hr />
 <h2 id="export-surface">Export Surface<a class="headerlink" href="#export-surface" title="Permanent link">&para;</a></h2>
