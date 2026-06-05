@@ -3588,7 +3588,7 @@
 <p>Executes <code>list_match</code> rules against reference sanctions lists (SEMA, OFAC SDN) with exact or fuzzy (token-overlap) matching. Shows match results with confidence scores, matched customer profiles, and the screening rules from the spec.</p>
 <p><img alt="Sanctions Screening" src="../screenshots/12_sanctions_screening.png" /></p>
 <h3 id="network-explorer">Network Explorer<a class="headerlink" href="#network-explorer" title="Permanent link">&para;</a></h3>
-<p>Interactive entity relationship graph built with <code>networkx</code> and <code>streamlit-agraph</code>. Edges represent <strong>temporal correlation</strong> (outflow from one customer followed by inflow to another within 1 hour) — this is how pass-through and layering patterns surface. Fan-in detection counts distinct correlated counterparties.</p>
+<p>Interactive entity relationship graph built with <code>networkx</code> and <code>streamlit-agraph</code>. Edges represent <strong>temporal correlation</strong> (outflow from one customer followed by inflow to another within 1 hour) — this is how pass-through and layering patterns surface. Fan-in detection counts distinct correlated counterparties. A <strong>"Detected mule rings"</strong> section reads <code>&lt;run-dir&gt;/mule_rings.json</code> (written by the offline <code>aml detect-mule-rings &lt;spec&gt; &lt;run-dir&gt;</code> CLI, #498) and lists dense identity-link communities — advisory, an investigator confirms before action.</p>
 <p><img alt="Network Explorer" src="../screenshots/10_network_explorer.png" /></p>
 <hr />
 <h2 id="strategic-pages">Strategic Pages<a class="headerlink" href="#strategic-pages" title="Permanent link">&para;</a></h2>
