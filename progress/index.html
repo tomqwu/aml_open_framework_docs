@@ -786,6 +786,8 @@
       
         
       
+        
+      
     
     
     
@@ -1109,6 +1111,34 @@
     
   
     Triage defects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/genius-ppsi-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stand up a GENIUS Act PPSI program
   
 
     
@@ -3243,6 +3273,10 @@
 
 <h1 id="project-progress">Project Progress<a class="headerlink" href="#project-progress" title="Permanent link">&para;</a></h1>
 <p>Snapshot of where the AML Open Framework is as of 2026-06-04. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<blockquote>
+<p><strong>#513 — GENIUS Act PPSI stablecoin spec (NPRM-grounded)</strong> (<code>feat/genius-ppsi-stablecoin</code>, 2026-06-05): richer companion to <code>genius_ppsi_issuer</code> (#500), grounded in the joint FinCEN/OFAC NPRM (Federal Register 2026-06963, comment deadline 9 June 2026). New <code>examples/genius_ppsi_stablecoin/aml.yaml</code>: 6 rules (stablecoin mixing/layering, rapid on-ramp/off-ramp cycling, structuring below the $10k reporting threshold, VASP counterparty exposure, OFAC SDN screening citing the new <strong>31 CFR Part 502</strong> sanctions program, adverse media); ISO 20022 pacs.008 fields (<code>debtor_bic</code>/<code>creditor_bic</code>/<code>uetr</code>/<code>purpose_code</code>) on the <code>txn</code> contract; a <code>program.sla</code> block (SAR/CTR filing-latency); <code>FINCEN_SAR</code> + <code>FINCEN_CTR</code> (the proposed PPSI currency-transaction report) filing forms. Validates + runs at seed 42. Two new citations added to <code>regwatch.CITATION_URL_MAP</code> (<code>31 CFR Part 502</code>, <code>GENIUS Act PPSI NPRM (FR 2026-06963)</code>). Focused run-fires-alerts test in <code>tests/test_spec.py</code>; docs across jurisdictions.md (new section + count 13→14), new how-to <code>genius-ppsi-compliance.md</code>, README, CLAUDE.md. 14 examples across 6 jurisdictions (PPSI is a US spec, not a new jurisdiction). <strong>Codex P2 follow-up (2026-06-05):</strong> fixed the two churn rules' SQL many-to-many cross-product (pre-aggregate each leg per customer before a 1:1 join, so SUM/COUNT can't inflate); and re-cited the PPSI rules to GENIUS Act s.4 / the NPRM rather than the 31 CFR 1022 MSB rules (the NPRM excludes PPSIs from the MSB definition). <strong>Codex P2 round 2 (2026-06-05):</strong> (A) bound both churn-rule leg CTEs to the recent 7-day window (<code>{recent_start}</code>) so the SQL temporal correlation matches the rule prose (dropped the unexpressible per-pair 24h claim; both still fire at seed 42); (B) <strong>restored</strong> the <code>FINCEN_CTR</code> form — Codex's corrected position is that the NPRM PROPOSES a PPSI-specific currency-transaction report (proposed 31 CFR 1033.310-315, cross-refs 31 CFR 1010.311 $10k trigger), so it's framed as that proposed obligation and the structuring rule cites the new <code>31 CFR 1033.310</code> map entry; (C) reconciled the jurisdictions.md ghost MSB citation — the <code>genius_ppsi_issuer</code> section now notes its 1022 cites are an interim MSB baseline that the PPSI NPRM replaces with PPSI-specific authority (Part 502 + proposed 1033).</p>
+</blockquote>
+<hr />
 <blockquote>
 <p><strong>#499 — GenAI case investigation copilot</strong> (<code>feat/case-copilot</code>, 2026-06-05): governed Case Copilot on the Case Investigation page (<code>dashboard/case_copilot.py</code>) reuses the existing assistant for case-scoped DRAFTS (summarize/typology/STR-SAR narrative/network/risk); audited as <code>ai_case_copilot_action</code>, human-reviewed, dashboard-only (never the engine run path), SR-26-2 carve-out. Pure builder+prompts unit-testable; streamlit lazy in the UI.</p>
 </blockquote>

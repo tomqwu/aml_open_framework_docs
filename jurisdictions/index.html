@@ -652,6 +652,8 @@
       
         
       
+        
+      
     
     
     
@@ -975,6 +977,34 @@
     
   
     Triage defects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/genius-ppsi-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stand up a GENIUS Act PPSI program
   
 
     
@@ -1316,6 +1346,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="United States — FinCEN / PPSI (GENIUS Act)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#genius-act-ppsi-stablecoin-issuer-richer-nprm-grounded-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GENIUS Act PPSI / stablecoin issuer (richer NPRM-grounded spec)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2344,6 +2391,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="United States — FinCEN / PPSI (GENIUS Act)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#genius-act-ppsi-stablecoin-issuer-richer-nprm-grounded-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GENIUS Act PPSI / stablecoin issuer (richer NPRM-grounded spec)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2568,9 +2632,15 @@
 <td>FinCEN (GENIUS Act)</td>
 <td>SAR (PPSI stablecoin issuer — #500)</td>
 </tr>
+<tr>
+<td><code>examples/genius_ppsi_stablecoin/aml.yaml</code></td>
+<td>US</td>
+<td>FinCEN + OFAC (GENIUS Act PPSI NPRM)</td>
+<td>SAR + proposed PPSI CTR (richer NPRM-grounded stablecoin spec — #513)</td>
+</tr>
 </tbody>
 </table>
-<p>All thirteen execute the same engine; the jurisdictional differences live in:
+<p>All fourteen execute the same engine; the jurisdictional differences live in:
 - the <code>regulation_refs</code> citations on each rule
 - the workflow queue names + filing forms
 - the dashboard's Framework Alignment tab content
@@ -2652,13 +2722,25 @@
 <p>The stablecoin-issuer spec (<code>genius_ppsi_issuer</code>) models a <strong>permitted payment stablecoin issuer (PPSI)</strong> under the <strong>GENIUS Act</strong> federal stablecoin framework. It aligns with:</p>
 <ul>
 <li><strong>GENIUS Act s.4</strong> — BSA/AML program obligations for permitted payment stablecoin issuers</li>
-<li><strong>31 CFR 1022</strong> — money-services-business AML program and reporting requirements (<code>1022.210</code> program, <code>1022.320</code> SAR / suspicious-structuring)</li>
+<li><strong>31 CFR 1022</strong> — money-services-business AML program and reporting requirements (<code>1022.210</code> program, <code>1022.320</code> SAR / suspicious-structuring), used here as an <em>interim MSB-baseline</em> framing. Note: the later <strong>GENIUS Act PPSI NPRM</strong> (see the richer spec below) EXCLUDES PPSIs from the MSB definition and proposes a <em>PPSI-specific</em> regime (31 CFR Part 502 OFAC + proposed 31 CFR 1033 reporting); the richer <code>genius_ppsi_stablecoin</code> spec therefore cites that PPSI-specific authority instead of the 1022 MSB rules.</li>
 <li><strong>FinCEN FIN-2019-G001</strong> — convertible virtual currency guidance (nested-VASP / pass-through typologies)</li>
 <li><strong>OFAC SDN — virtual currency addenda</strong> — sanctioned-wallet screening</li>
 <li><strong>FATF Recommendation 16</strong> — Travel Rule completeness on outbound transfers</li>
 </ul>
-<p>Filing form: <strong>SAR</strong> — a PPSI does not handle physical currency, so there is no currency-transaction (CTR) trigger. Key rules cover the stablecoin-specific typologies: rapid mint-then-redeem within 24h, outbound transfers to FATF call-for-action jurisdictions (KP/IR/MM), suspicious structuring below the USD $10,000 reporting threshold, OFAC SDN wallet screening, nested-VASP same-day pass-through churn, and adverse-media screening.</p>
+<p>Filing form: <strong>SAR</strong>. Key rules cover the stablecoin-specific typologies: rapid mint-then-redeem within 24h, outbound transfers to FATF call-for-action jurisdictions (KP/IR/MM), suspicious structuring below the USD $10,000 reporting threshold, OFAC SDN wallet screening, nested-VASP same-day pass-through churn, and adverse-media screening.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/genius_ppsi_issuer/aml.yaml
+</span></code></pre></div>
+<h3 id="genius-act-ppsi-stablecoin-issuer-richer-nprm-grounded-spec">GENIUS Act PPSI / stablecoin issuer (richer NPRM-grounded spec)<a class="headerlink" href="#genius-act-ppsi-stablecoin-issuer-richer-nprm-grounded-spec" title="Permanent link">&para;</a></h3>
+<p><code>examples/genius_ppsi_stablecoin/aml.yaml</code> is the <strong>richer companion</strong> to the basic issuer spec above, grounded in the joint <strong>FinCEN/OFAC NPRM</strong> "Permitted Payment Stablecoin Issuer AML/CFT Program and Sanctions Compliance" (<strong>Federal Register 2026-06963</strong>, published 2026-04-10; comment deadline 9 June 2026). What it adds over <code>genius_ppsi_issuer</code>:</p>
+<ul>
+<li><strong>New 31 CFR Part 502 OFAC sanctions program</strong> — the NPRM stands up a dedicated PPSI sanctions regime; the <code>ofac_sdn_screening</code> rule cites Part 502 explicitly (freeze-and-report on an SDN match, including the virtual-currency-address addenda).</li>
+<li><strong>ISO 20022 pacs.008 fields</strong> on the <code>txn</code> contract (<code>debtor_bic</code>, <code>creditor_bic</code>, <code>uetr</code>, <code>purpose_code</code>) the iso20022 ingestion adapter populates on wire/RTP rails — declared nullable so synthetic/CSV rows still load.</li>
+<li><strong><code>program.sla</code> block</strong> — FinCEN SAR/CTR filing-latency SLA (<code>alert_disposition_days: 30</code>); the engine records breaches in <code>sla_report.json</code>.</li>
+<li><strong>PPSI-specific citations</strong> — the NPRM EXCLUDES PPSIs from the MSB definition, so the SAR/program rules cite <code>GENIUS Act s.4</code> / the NPRM (<code>FR 2026-06963</code>) rather than the 31 CFR 1022 MSB rules.</li>
+<li><strong>Proposed PPSI currency-transaction report</strong> — the NPRM PROPOSES a PPSI-specific currency-transaction report (proposed <code>31 CFR 1033.310</code>-315, cross-referencing the $10,000 aggregate-day threshold of <code>31 CFR 1010.311</code>), modelled as the <code>FINCEN_CTR</code> form alongside <code>FINCEN_SAR</code>. This is a <em>proposed</em> obligation (comment deadline 9 June 2026), distinct from the generic cash CTR.</li>
+</ul>
+<p>Six rules: stablecoin mixing/layering (fan-in + fan-out churn in a recent 7-day window), rapid on-ramp/off-ramp cycling (mint + redeem in a recent 7-day window), structuring below the USD $10,000 reporting threshold, VASP counterparty exposure to FATF call-for-action jurisdictions (KP/IR/MM), OFAC SDN screening (31 CFR Part 502), and adverse-media screening. The workflow routes investigator → SAR filing → closed.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/genius_ppsi_stablecoin/aml.yaml
 </span></code></pre></div>
 <hr />
 <h2 id="cross-border-specialty-specs">Cross-Border / Specialty Specs<a class="headerlink" href="#cross-border-specialty-specs" title="Permanent link">&para;</a></h2>
@@ -2670,7 +2752,7 @@
 - <strong><code>network_pattern</code> rule type</strong> (PR #16) — detects layering through multi-hop wallet graphs
 - <strong>Wallet-screening <code>list_match</code></strong> against <code>data/lists/sanctioned_wallets.csv</code> (OFAC SDN crypto addresses)
 - <strong>Counterparty attribution via <code>vasp/</code></strong> module (PR #55) — public-data Chainalysis alternative that maps wallet clusters to known VASPs</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/crypto_vasp/aml.yaml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/crypto_vasp/aml.yaml
 </span></code></pre></div>
 <hr />
 <h2 id="adapting-a-spec-to-your-institution">Adapting a Spec to Your Institution<a class="headerlink" href="#adapting-a-spec-to-your-institution" title="Permanent link">&para;</a></h2>
