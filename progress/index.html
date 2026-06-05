@@ -3244,6 +3244,10 @@
 <h1 id="project-progress">Project Progress<a class="headerlink" href="#project-progress" title="Permanent link">&para;</a></h1>
 <p>Snapshot of where the AML Open Framework is as of 2026-06-04. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
 <blockquote>
+<p><strong>#499 — GenAI case investigation copilot</strong> (<code>feat/case-copilot</code>, 2026-06-05): governed Case Copilot on the Case Investigation page (<code>dashboard/case_copilot.py</code>) reuses the existing assistant for case-scoped DRAFTS (summarize/typology/STR-SAR narrative/network/risk); audited as <code>ai_case_copilot_action</code>, human-reviewed, dashboard-only (never the engine run path), SR-26-2 carve-out. Pure builder+prompts unit-testable; streamlit lazy in the UI.</p>
+</blockquote>
+<hr />
+<blockquote>
 <p><strong>#498 — Graph mule-ring detection</strong> (<code>feat/mule-ring-detection</code>, 2026-06-05): offline <code>aml detect-mule-rings</code> CLI runs deterministic union-find + density community detection over the identity-link graph (<code>resolved_entity_link</code>) into a governed <code>mule_rings.json</code>; engine builder <code>engine/mule_ring.py</code>; surfaced on Network Explorer. Pure stdlib, never in the run path, advisory (an investigator confirms).</p>
 </blockquote>
 <hr />
