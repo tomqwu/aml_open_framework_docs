@@ -3170,7 +3170,7 @@ classifies every <code>(customer, period, rule)</code> cell into four buckets:</
 <p>The legacy CSV needs <code>customer_id, period_start, period_end, rule_id_legacy</code>
 (optional <code>severity</code>). Pass <code>--rule-map</code> (the <strong>complete</strong> new→legacy map)
 when ids differ, and <code>--max-severity-diff N</code> to fail a CI gate on drift. The
-matching CLI walkthroughs: <a href="../getting-started/#8-the-flagship-scenario-5-year-legacy-to-cloud-lookback-10-min">getting-started §8</a>
+matching CLI walkthroughs: <a href="../getting-started/#stage-3-run-a-real-business-month">getting-started — Stage 3: run a real business month</a>
 and <a href="../how-to/run-five-year-lookback/#8-prove-legacy-new-equivalence">runbook step 8</a>.</p>
 <p>The spec also carries a first-class <strong><code>program.legacy_reference</code></strong> block
 (<code>spec/models.py:LegacyReference</code>, validated against the rule corpus). <code>aml
