@@ -3662,7 +3662,19 @@
 
 
 <h1 id="project-progress">Project Progress<a class="headerlink" href="#project-progress" title="Permanent link">&para;</a></h1>
-<p>Snapshot of where the AML Open Framework is as of 2026-06-06. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<p>Snapshot of where the AML Open Framework is as of 2026-06-08. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<blockquote>
+<p><strong>Round 35 — Roadmap wave #522–#525 + Getting Started reframe</strong> (<code>code</code>+<code>docs</code>, 2026-06-08):</p>
+<ul>
+<li><strong>#522 — spec-specific synthetic data</strong> (<code>feat/synthetic-data-newer-specs</code>): <code>us_rtp_fednow</code>, <code>uk_app_fraud</code>, <code>trade_based_ml</code> now have dedicated planted-positive generators (<code>data/synthetic_*.py</code>, customer bands C9001–C9029 / C9101–C9129 / C9201–C9229) selected by a <code>program.name</code> dispatch registry (<code>generate_dataset_for_spec</code>); every unregistered spec falls back byte-identically. All synthetic entry points (run, replay, backtest, demo, dashboard, cloud-mock) route through the dispatcher so a run replays against its own data. RNG-free + deterministic; sample CSVs under <code>data/input/&lt;spec&gt;/</code>. Each spec fires every planted typology at <code>--seed 42</code>.</li>
+<li><strong>#523 — fraud↔AML case links</strong> (<code>feat/cross-spec-linkage-example</code>): <code>_finalize_run</code> materializes <code>cases/linkage.py::find_linked_customers</code> as a frozen, manifest-pinned <code>case_links.jsonl</code> (one record per customer with cases in both the fraud domain — <code>aml_priority: fraud</code> — and the AML domain). Pure read, advisory; never changes alert counts/cases/dispositions; always written (empty when none); <code>customer_id</code> masked top-level AND inside every compound <code>*_case_ids</code> token under <code>AML_PII_MASKING</code>. <code>examples/uk_app_fraud/aml.yaml</code> is the demonstrator — its 4 APP rules carry <code>aml_priority: fraud</code> plus a new AML-domain <code>rapid_outbound_dispersal</code> (POCA s.327) rule firing on the planted mule C0019.</li>
+<li><strong>#524 — how-to pages marked Detailed</strong>: the 5 "placeholder" how-to pages (promote-rule, export-case-pack, walk-lineage, configure-sla, triage-defects) were already fully written; the how-to index now tags them <code>**Detailed.**</code> with time estimates instead of <code>(Placeholder)</code>.</li>
+<li><strong>#525 — July 2026 research refresh</strong>: all 5 research editions carried forward to a 2026-07-01 as-of date (June-9 NPRM comment window closed; AUSTRAC Tranche 2 effective; AMLA RTS 9 days; SR 26-2 75 days), every citation traced to a verified June edition or the regulatory calendar — no fabricated citations, fact-checked.</li>
+<li><strong>#527 — Getting Started reframed</strong> around a realistic production arc (synthetic warm-up → your data → real business month → legacy↔new equivalence → externally-verified evidence); stale 10→14 spec / 5→6 jurisdiction table fixed. <strong>#520</strong> bumped the e2e CI timeout 25→35min. <strong>#521</strong> (Getting Started 3-lesson split) closed as superseded by #527. <strong>#526</strong> (Round 34) synced the MkDocs nav.</li>
+</ul>
+<p>CI green; #522/#523 are engine/data changes (deployed in v0.1.59), the rest docs-only.</p>
+</blockquote>
+<hr />
 <blockquote>
 <p><strong>Round 34 — Static-site nav sync + feature roadmap issues</strong> (<code>docs</code>, 2026-06-06): six documentation-surface gaps closed; five GitHub roadmap issues filed.</p>
 <p><strong>mkdocs.yml nav fixes</strong> — the following pages existed on disk but were absent from the MkDocs nav (so the static site's sidebar omitted them):</p>
