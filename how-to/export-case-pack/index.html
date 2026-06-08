@@ -1189,6 +1189,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5-export-a-linked-case-cross-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Export a linked case (cross-domain)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2783,6 +2794,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5-export-a-linked-case-cross-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Export a linked case (cross-domain)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2963,6 +2985,8 @@
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">assert</span> <span class="n">expected</span> <span class="o">==</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;signature&quot;</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>Share the key out-of-band (not in the ZIP).</p>
+<h3 id="5-export-a-linked-case-cross-domain">5 · Export a linked case (cross-domain)<a class="headerlink" href="#5-export-a-linked-case-cross-domain" title="Permanent link">&para;</a></h3>
+<p>When a subject is flagged across domains — a row in <code>case_links.jsonl</code> (fraud↔AML cross-program linkage, #523) — each linked case still exports as its own pack. Run <code>aml export-case &lt;spec&gt; &lt;run-dir&gt; &lt;case_id&gt;</code> once per <code>case_id</code> in the link's <code>fraud_case_ids</code> / <code>aml_case_ids</code> to hand a regulator both sides of the parallel investigation. To bundle the cross-program link record itself, use the full-run <code>aml export &lt;run-dir&gt;</code> ZIP — it includes <code>case_links.jsonl</code>; the single-case <code>export-case</code> pack does not. Example: the <code>uk_app_fraud</code> mule <code>C0019</code> produces a fraud case (<code>rapid_pass_through_mule</code>) and an AML case (<code>rapid_outbound_dispersal</code>) — export both case packs, or the full-run ZIP for the link.</p>
 <hr />
 <h2 id="whats-in-the-pack">What's in the pack<a class="headerlink" href="#whats-in-the-pack" title="Permanent link">&para;</a></h2>
 <p>Unzip and inspect. Entries are written at the ZIP root (no enclosing folder) — layout from <code>generators/audit_pack.py::_case_pack_files()</code>:</p>

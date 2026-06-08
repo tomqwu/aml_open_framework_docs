@@ -1475,6 +1475,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="United Kingdom — FCA / POCA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fraud-aml-cross-program-case-linkage-uk_app_fraud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fraud ↔ AML cross-program case linkage (uk_app_fraud)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2710,6 +2727,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="United Kingdom — FCA / POCA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fraud-aml-cross-program-case-linkage-uk_app_fraud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fraud ↔ AML cross-program case linkage (uk_app_fraud)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3057,6 +3091,30 @@
 <p>Filing form: <strong>UK SAR</strong> to the National Crime Agency (NCA) under POCA s.330-332.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/uk_bank/aml.yaml
 </span></code></pre></div>
+<h3 id="fraud-aml-cross-program-case-linkage-uk_app_fraud">Fraud ↔ AML cross-program case linkage (<code>uk_app_fraud</code>)<a class="headerlink" href="#fraud-aml-cross-program-case-linkage-uk_app_fraud" title="Permanent link">&para;</a></h3>
+<p><code>examples/uk_app_fraud/aml.yaml</code> is the bundled demonstrator of
+<strong>cross-program case linkage</strong> — the <a href="../src/aml_framework/cases/linkage.py"><code>cases/linkage.py</code></a>
+mechanism that surfaces a subject under parallel investigation by both
+the fraud team and the financial-crime (AML) team. The spec carries two
+alert streams over the same accounts:</p>
+<ul>
+<li><strong>Fraud-domain</strong> — the four APP-fraud rules (<code>first_use_payee_large_amount</code>,
+  <code>cop_mismatch_override</code>, <code>vulnerable_customer_atypical_payment</code>,
+  <code>rapid_pass_through_mule</code>), each tagged <code>aml_priority: fraud</code>.</li>
+<li><strong>AML-domain</strong> — <code>rapid_outbound_dispersal</code> (<code>aml_priority: other</code>),
+  the AML team's POCA s.327 layering detector: ≥3 outbound CHAPS /
+  Faster-Payments legs summing ≥£1,500 in 7 days (a rapid-dispersal
+  layering signal; the investigator confirms the beneficiary fan-out
+  from each leg's <code>counterparty_account</code>).</li>
+</ul>
+<p>The planted mule <strong>C0019</strong> trips both the fraud-domain
+<code>rapid_pass_through_mule</code> and the AML-domain layering rule, so
+<code>aml run examples/uk_app_fraud/aml.yaml --seed 42</code> writes a
+<strong><code>case_links.jsonl</code></strong> artifact (manifest-pinned, frozen post-finalize)
+with one cross-program link, and the dashboard's
+<a href="../dashboard-tour/">Case Investigation page</a> shows a <em>Linked across
+domains</em> row. Export the full linked-case evidence bundle with
+<code>aml export</code> (the run-dir ZIP includes <code>case_links.jsonl</code>).</p>
 <hr />
 <h2 id="australia-austrac-aml-ctf-act">Australia — AUSTRAC / AML-CTF Act<a class="headerlink" href="#australia-austrac-aml-ctf-act" title="Permanent link">&para;</a></h2>
 <p>The Australian spec (<code>austrac_tranche_2_dnfbp</code>) models a <strong>Tranche 2 reporting entity</strong> — a designated non-financial business or profession (DNFBP: lawyers, accountants, real-estate agents, dealers in precious metals/stones) brought into the regime by the 2024 AML/CTF amendments. It aligns with:</p>

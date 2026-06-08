@@ -2795,6 +2795,10 @@ deterministic, append-only evidence ledger.</p>
 <td>Pillar-4 row-count survival per contract across bronze→silver→gold→alert + signed drop attribution (hash pinned on the manifest)</td>
 </tr>
 <tr>
+<td><code>case_links.jsonl</code></td>
+<td>fraud↔AML cross-program case links (#523): one record per customer with open cases in BOTH the fraud and AML domains (<code>aml_priority</code>-driven); always written (empty when nothing links), <code>customer_id</code> masked under <code>AML_PII_MASKING</code>, hash pinned on the manifest</td>
+</tr>
+<tr>
 <td><code>signatures/manifest.sig</code></td>
 <td>detached signature over <code>manifest.json</code> (if signing key set)</td>
 </tr>
