@@ -1556,6 +1556,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#spec-specific-planted-positive-demo-data-522" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spec-specific planted-positive demo data (#522)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adapting-a-spec-to-your-institution" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2780,6 +2791,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#spec-specific-planted-positive-demo-data-522" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spec-specific planted-positive demo data (#522)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adapting-a-spec-to-your-institution" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3083,6 +3105,58 @@
 - <strong>Wallet-screening <code>list_match</code></strong> against <code>data/lists/sanctioned_wallets.csv</code> (OFAC SDN crypto addresses)
 - <strong>Counterparty attribution via <code>vasp/</code></strong> module (PR #55) — public-data Chainalysis alternative that maps wallet clusters to known VASPs</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/crypto_vasp/aml.yaml
+</span></code></pre></div>
+<hr />
+<h2 id="spec-specific-planted-positive-demo-data-522">Spec-specific planted-positive demo data (#522)<a class="headerlink" href="#spec-specific-planted-positive-demo-data-522" title="Permanent link">&para;</a></h2>
+<p>Three of the newer specs ship with their <strong>own</strong> deterministic
+planted-positive synthetic data rather than inheriting the shared
+community-bank dataset. <code>aml run examples/&lt;spec&gt;/aml.yaml --seed 42</code>
+(synthetic source) now resolves the spec's dedicated generator by
+<code>program.name</code>, so a prospective user sees only that spec's typologies —
+not 60 community-bank customers. Every other spec is unchanged (it falls
+back to the shared <code>generate_dataset</code>, byte-identical to before).</p>
+<table>
+<thead>
+<tr>
+<th>Spec</th>
+<th>Generator</th>
+<th>Customer band</th>
+<th>Planted typologies (one alert each)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>examples/us_rtp_fednow/aml.yaml</code></td>
+<td><code>data/synthetic_rtp_fednow.py</code></td>
+<td><strong>C9001–C9029</strong></td>
+<td>first-use large RTP send · receive-velocity spike · ramp-up-then-drain · 4-mule device fan-out (network) · unusual send-hour</td>
+</tr>
+<tr>
+<td><code>examples/uk_app_fraud/aml.yaml</code></td>
+<td><code>data/synthetic_uk_app_fraud.py</code></td>
+<td><strong>C9101–C9129</strong></td>
+<td>first-use large payee · vulnerable-customer atypical payment · CoP-mismatch override · rapid pass-through mule (PSP-switching, account &lt; 30 days)</td>
+</tr>
+<tr>
+<td><code>examples/trade_based_ml/aml.yaml</code></td>
+<td><code>data/synthetic_trade_based_ml.py</code></td>
+<td><strong>C9201–C9229</strong></td>
+<td>over-invoicing · under-invoicing (over/under pair share an invoice corridor) · phantom shipping · multiple invoicing · TRAD-to-high-risk-jurisdiction</td>
+</tr>
+</tbody>
+</table>
+<p>The generators are stdlib-only, deterministic (every amount + time
+offset is hardcoded; output depends only on <code>as_of</code>), and isolated from
+the community-bank <code>C0xxx</code> band. Seed-42 sample CSVs (anchored at
+<code>as_of = 2026-06-01T12:00:00</code>) are committed under
+<code>data/input/&lt;spec&gt;/</code> for offline use:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Synthetic (dedicated generator picked automatically by program.name):</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>aml<span class="w"> </span>run<span class="w"> </span>examples/us_rtp_fednow/aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># From the committed CSVs (pass the matching --as-of):</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>aml<span class="w"> </span>run<span class="w"> </span>examples/trade_based_ml/aml.yaml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span>--data-source<span class="w"> </span>csv<span class="w"> </span>--data-dir<span class="w"> </span>data/input/trade_based_ml<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span>--as-of<span class="w"> </span><span class="m">2026</span>-06-01T12:00:00
 </span></code></pre></div>
 <hr />
 <h2 id="adapting-a-spec-to-your-institution">Adapting a Spec to Your Institution<a class="headerlink" href="#adapting-a-spec-to-your-institution" title="Permanent link">&para;</a></h2>
