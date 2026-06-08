@@ -448,6 +448,16 @@
               
               
               <li class="md-tabs__item">
+                <a href="../research/2026-06-aml-data-problem/" class="md-tabs__link">
+                  Data is the AML problem — 2026
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
                 <a href="../research/2026-05-aml-process-pain/" class="md-tabs__link">
                   10 Daily Pain Points an AML Leader Feels — May 2026
                 </a>
@@ -788,6 +798,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -887,6 +907,62 @@
     
   
     Wire a python_ref scorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/discover-typologies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discover candidate typologies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/detect-mule-rings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detect mule rings
   
 
     
@@ -1111,6 +1187,90 @@
     
   
     Triage defects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/configure-risk-segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure risk segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/monitor-model-risk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitor model risk + drift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to/use-case-copilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use the Case Copilot
   
 
     
@@ -1530,6 +1690,8 @@
       
         
       
+        
+      
     
     
     
@@ -1679,6 +1841,34 @@
     
   
     10 AML Realities a FinTech / EMI / MSB / VASP MLRO Lives With — June 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/2026-06-aml-data-problem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data is the AML problem — 2026
   
 
     
@@ -3272,7 +3462,22 @@
 
 
 <h1 id="project-progress">Project Progress<a class="headerlink" href="#project-progress" title="Permanent link">&para;</a></h1>
-<p>Snapshot of where the AML Open Framework is as of 2026-06-05. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<p>Snapshot of where the AML Open Framework is as of 2026-06-06. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<blockquote>
+<p><strong>Round 34 — Static-site nav sync + feature roadmap issues</strong> (<code>docs</code>, 2026-06-06): six documentation-surface gaps closed; five GitHub roadmap issues filed.</p>
+<p><strong>mkdocs.yml nav fixes</strong> — the following pages existed on disk but were absent from the MkDocs nav (so the static site's sidebar omitted them):</p>
+<ul>
+<li><code>research/2026-06-aml-data-problem.md</code> — the June 2026 data-problem whitepaper (added in Round 33 / #512 context) was missing from the Research whitepapers nav group; now inserted after <code>2026-06-fintech-aml-reality.md</code> where it belongs chronologically.</li>
+<li><code>how-to/discover-typologies.md</code> — the <code>aml discover-typologies</code> recipe (#496) was in the how-to index grid and in the repo but not reachable from the sidebar nav.</li>
+<li><code>how-to/detect-mule-rings.md</code> — the <code>aml detect-mule-rings</code> recipe (#498) same gap.</li>
+<li><code>how-to/configure-risk-segmentation.md</code> — the risk-segmentation + governed-suppression recipe (#495) same gap.</li>
+<li><code>how-to/monitor-model-risk.md</code> — the model-risk-monitoring recipe (#497) same gap.</li>
+<li><code>how-to/use-case-copilot.md</code> — the Case Copilot recipe (#499) same gap.</li>
+</ul>
+<p><strong>GitHub roadmap issues filed</strong>: #521 (Getting Started split into 3 paced lessons), #522 (synthetic-data quality pass for newer specs), #523 (fraud-AML cross-spec example), #524 (fill placeholder how-to pages), #525 (July 2026 research refresh prep).</p>
+<p>No code changes; no CI targets affected.</p>
+</blockquote>
+<hr />
 <blockquote>
 <p><strong>Round 33 — June 2026 research complete</strong> (<code>docs</code>, 2026-06-05): all five research documents now have June 2026 editions.</p>
 <ul>
