@@ -409,6 +409,16 @@
               
               
               <li class="md-tabs__item">
+                <a href="point-in-time-enrichment/" class="md-tabs__link">
+                  Wire point-in-time reference data
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
                 <a href="discover-typologies/" class="md-tabs__link">
                   Discover candidate typologies
                 </a>
@@ -509,8 +519,28 @@
               
               
               <li class="md-tabs__item">
+                <a href="enable-prioritization/" class="md-tabs__link">
+                  Enable alert prioritization
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
                 <a href="configure-risk-segmentation/" class="md-tabs__link">
                   Configure risk segmentation
+                </a>
+              </li>
+            
+          
+            
+              
+              
+              <li class="md-tabs__item">
+                <a href="run-champion-challenger/" class="md-tabs__link">
+                  Run a champion-challenger validation
                 </a>
               </li>
             
@@ -786,6 +816,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -886,6 +922,34 @@
     
   
     Wire a python_ref scorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="point-in-time-enrichment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wire point-in-time reference data
   
 
     
@@ -1186,6 +1250,34 @@
   
   
     <li class="md-nav__item">
+      <a href="enable-prioritization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enable alert prioritization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="configure-risk-segmentation/" class="md-nav__link">
         
   
@@ -1194,6 +1286,34 @@
     
   
     Configure risk segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="run-champion-challenger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run a champion-challenger validation
   
 
     
@@ -2747,6 +2867,11 @@
 <hr />
 <p>The offline <code>aml detect-mule-rings</code> CLI runs deterministic union-find + density community detection over the <code>resolved_entity_link</code> graph into a governed <code>mule_rings.json</code>. Surfaced on Network Explorer. Advisory — an investigator confirms, never auto-escalated. ~5 min. <strong>Detailed.</strong></p>
 </li>
+<li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2m5 11.9-.7 1.3-5.3-2.9V7h1.5v4.4z"/></svg></span> <strong><a href="point-in-time-enrichment/">Wire point-in-time reference data (M4)</a></strong></p>
+<hr />
+<p>Declare a reference contract <code>effective_dated</code> + add an <code>enrich</code> block to an <code>aggregation_window</code> rule so each transaction joins the reference row in force at its <code>booked_at</code> — not the latest row. Closes the Pillar-3 SCD-2 gap. ~15 min. <strong>Detailed.</strong></p>
+</li>
 </ul>
 </div>
 <h2 id="migrating-operating">Migrating + operating<a class="headerlink" href="#migrating-operating" title="Permanent link">&para;</a></h2>
@@ -2813,9 +2938,19 @@
 <p>Round 28's 11-category classifier + data/rule/mapping decision tree. ~2 min per defect. <strong>Detailed.</strong></p>
 </li>
 <li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h12v-2H3m0-5v2h18V6M3 18h6v-2H3z"/></svg></span> <strong><a href="enable-prioritization/">Enable the alert prioritization scorer</a></strong></p>
+<hr />
+<p>Advisory, deterministic, explainable <code>priority_score</code> (0–1) per alert via <code>program.prioritization</code>. Stamps <code>priority_explanation</code>, emits a manifest-pinned <code>priority_report.json</code>, ranks the Triage Queue. Never changes a disposition. ~10 min. <strong>Detailed.</strong></p>
+</li>
+<li>
 <p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0 3 7l1.63 1.27L12 14l7.36-5.73L21 7zm7.37 10.73L12 16.47l-7.38-5.73L3 12l9 7 9-7zm0 5L12 21.47l-7.38-5.73L3 17l9 7 9-7z"/></svg></span> <strong><a href="configure-risk-segmentation/">Configure risk segmentation + governed suppression</a></strong></p>
 <hr />
 <p>Advisory de-prioritization of low-score alerts on low-risk customers via <code>program.risk_segmentation</code>. Never auto-closes; emits <code>suppression_report.json</code>. Requires <code>program.prioritization</code>. ~10 min. <strong>Detailed.</strong></p>
+</li>
+<li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2a2 2 0 0 0-2 2v8h2V8h2v4h2V4a2 2 0 0 0-2-2zm0 2h2v2H4m18 9.5V14a2 2 0 0 0-2-2h-4v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M20 20h-2v-2h2zm0-4h-2v-2h2M5.79 21.61l-1.58-1.22 14-18 1.58 1.22Z"/></svg></span> <strong><a href="run-champion-challenger/">Run a champion-challenger validation</a></strong></p>
+<hr />
+<p>Compare two <code>prioritization</code> weight sets on a labelled alert set with <code>aml run --labels --challenger-weights</code>. Emits a frozen, manifest-pinned <code>priority_outcome.json</code> (precision@k / recall / winner) for the model-risk committee. SR 26-2; temporal-leakage guard enforced. ~5 min. <strong>Detailed.</strong></p>
 </li>
 <li>
 <p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 16V4H3v12zm0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v2h2v2H8v-2h2v-2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2zM5 6h9v5H5zm10 0h4v2h-4zm4 3v5h-4V9zM5 12h4v2H5zm5 0h4v2h-4z"/></svg></span> <strong><a href="monitor-model-risk/">Monitor model risk + per-rule drift</a></strong></p>

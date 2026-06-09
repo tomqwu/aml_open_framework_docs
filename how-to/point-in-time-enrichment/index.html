@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://tomqwu.github.io/aml_open_framework_docs/how-to/promote-rule/">
+        <link rel="canonical" href="https://tomqwu.github.io/aml_open_framework_docs/how-to/point-in-time-enrichment/">
       
       
-        <link rel="prev" href="../../legacy-import/">
+        <link rel="prev" href="../python-ref-scorer/">
       
       
-        <link rel="next" href="../export-case-pack/">
+        <link rel="next" href="../discover-typologies/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Promote a rule across environments - AML Open Framework</title>
+        <title>Wire point-in-time reference data - AML Open Framework</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-promote-a-rule-across-environments" class="md-skip">
+        <a href="#how-to-wire-point-in-time-reference-data-m4" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Promote a rule across environments
+              Wire point-in-time reference data
             
           </span>
         </div>
@@ -408,8 +408,8 @@
             
               
               
-              <li class="md-tabs__item">
-                <a href="../point-in-time-enrichment/" class="md-tabs__link">
+              <li class="md-tabs__item md-tabs__item--active">
+                <a href="./" class="md-tabs__link">
                   Wire point-in-time reference data
                 </a>
               </li>
@@ -468,8 +468,8 @@
             
               
               
-              <li class="md-tabs__item md-tabs__item--active">
-                <a href="./" class="md-tabs__link">
+              <li class="md-tabs__item">
+                <a href="../promote-rule/" class="md-tabs__link">
                   Promote a rule across environments
                 </a>
               </li>
@@ -939,10 +939,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../point-in-time-enrichment/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wire point-in-time reference data
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -958,6 +985,131 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-declare-the-reference-contract-as-effective_dated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 · Declare the reference contract as effective_dated
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-the-enrich-block-to-the-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 · Add the enrich block to the rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 · Validate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-against-effective-dated-reference-rows-and-verify-the-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 · Run against effective-dated reference rows and verify the count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-check-the-north-star-coverage-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 · Check the North Star Coverage page
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-it-worked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify it worked
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1107,37 +1259,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Promote a rule across environments
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../promote-rule/" class="md-nav__link">
         
   
   
@@ -1153,131 +1278,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Steps
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-declare-environments-on-the-program" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1 · Declare environments on the program
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-mark-each-rule-with-the-lanes-its-approved-for" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2 · Mark each rule with the lanes it's approved for
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-validate-run-in-the-target-lane" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3 · Validate + run in the target lane
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-promote-via-spec-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4 · Promote via spec PR
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-cut-to-prod" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5 · Cut to prod
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verify-it-worked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verify it worked
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-problems" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common problems
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2860,10 +2860,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-declare-environments-on-the-program" class="md-nav__link">
+  <a href="#1-declare-the-reference-contract-as-effective_dated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1 · Declare environments on the program
+        1 · Declare the reference contract as effective_dated
       
     </span>
   </a>
@@ -2871,10 +2871,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-mark-each-rule-with-the-lanes-its-approved-for" class="md-nav__link">
+  <a href="#2-add-the-enrich-block-to-the-rule" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 · Mark each rule with the lanes it's approved for
+        2 · Add the enrich block to the rule
       
     </span>
   </a>
@@ -2882,10 +2882,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-validate-run-in-the-target-lane" class="md-nav__link">
+  <a href="#3-validate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3 · Validate + run in the target lane
+        3 · Validate
       
     </span>
   </a>
@@ -2893,10 +2893,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-promote-via-spec-pr" class="md-nav__link">
+  <a href="#4-run-against-effective-dated-reference-rows-and-verify-the-count" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4 · Promote via spec PR
+        4 · Run against effective-dated reference rows and verify the count
       
     </span>
   </a>
@@ -2904,10 +2904,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-cut-to-prod" class="md-nav__link">
+  <a href="#5-check-the-north-star-coverage-page" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5 · Cut to prod
+        5 · Check the North Star Coverage page
       
     </span>
   </a>
@@ -3017,7 +3017,7 @@
 
 
   
-    <a href="https://github.com/tomqwu/aml_open_framework/edit/main/docs/how-to/promote-rule.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/tomqwu/aml_open_framework/edit/main/docs/how-to/point-in-time-enrichment.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -3026,84 +3026,102 @@
     
       
     
-    <a href="https://github.com/tomqwu/aml_open_framework/raw/main/docs/how-to/promote-rule.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/tomqwu/aml_open_framework/raw/main/docs/how-to/point-in-time-enrichment.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="how-to-promote-a-rule-across-environments">How to promote a rule across environments<a class="headerlink" href="#how-to-promote-a-rule-across-environments" title="Permanent link">&para;</a></h1>
+<h1 id="how-to-wire-point-in-time-reference-data-m4">How to wire point-in-time reference data (M4)<a class="headerlink" href="#how-to-wire-point-in-time-reference-data-m4" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>When you need this:</strong> You authored a rule in dev, want to send it to test for 2LoD validation, then to UAT, then to prod — without copy-pasting YAML and without firing the rule in prod before sign-off.</p>
-<p><strong>Prereqs:</strong> A working rule in your spec. The rule lifecycle workflow shipped in PR-D3 / Round 28 (<code>Program.environment</code> + <code>Rule.environments</code>). <code>aml validate</code> succeeds on the spec.</p>
-<p><strong>Time:</strong> ~5 min once you understand the model. Re-running it on every promotion is the point.</p>
+<p><strong>When you need this:</strong> A reference table (e.g. <code>customer</code>) carries a history of attribute changes (risk ratings, KYC tier, segment). You want an <code>aggregation_window</code> rule to evaluate each transaction against the <strong>reference value in force at that transaction's booking date</strong> — not the latest row. Without this, a customer whose risk rating went low → high mid-window is scored on the latest value for all their transactions, which overstates the historical alert count.</p>
+<p><strong>Prereqs:</strong> A reference contract with <code>valid_from</code> / <code>valid_to</code> timestamp columns. <code>aml validate</code> succeeds on the base spec.</p>
+<p><strong>Time:</strong> ~15 min to declare and verify. Closes the Pillar-3 SCD-2 gap.</p>
 </blockquote>
-<p>Spec-driven promotion: a rule declares which environments it's been approved for via <code>Rule.environments</code>, and the program declares which environment it's currently running in via <code>Program.environment</code>. The engine warns (or with <code>strict_environment_gating: true</code>, raises <code>EnvironmentGatingError</code>) when a mismatched rule fires.</p>
+<p>The M4 point-in-time mechanism works in two steps: (1) declare the reference <code>DataContract</code> as <code>effective_dated</code>; (2) add an <code>enrich</code> block to the <code>aggregation_window</code> rule. The SQL generator joins the reference contract against the pre-filtered source subquery (aliased <code>src</code>) on the key AND the validity window:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">-- auto-generated by the SQL generator (joined against the</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">-- window/filter-narrowed source subquery, aliased `src`):</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">customer</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">src</span><span class="p">.</span><span class="n">customer_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">customer</span><span class="p">.</span><span class="n">customer_id</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">customer</span><span class="p">.</span><span class="n">valid_from</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">src</span><span class="p">.</span><span class="n">booked_at</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">valid_to</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">src</span><span class="p">.</span><span class="n">booked_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">customer</span><span class="p">.</span><span class="n">valid_to</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="n">customer</span><span class="p">.</span><span class="n">risk_rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;high&#39;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- each enrich.where predicate, parenthesized</span>
+</span></code></pre></div>
+<p>The reference is joined by its own contract name (<code>customer</code>), not aliased <code>ref</code>; the source side is the already-narrowed subquery alias <code>src</code>. So a transaction booked at <code>2026-03-01</code> joins the customer row whose <code>[valid_from, valid_to)</code> interval covers <code>2026-03-01</code> — not the latest row.</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
-<h3 id="1-declare-environments-on-the-program">1 · Declare environments on the program<a class="headerlink" href="#1-declare-environments-on-the-program" title="Permanent link">&para;</a></h3>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">program</span><span class="p">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">community_bank_aml</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span><span class="w">               </span><span class="c1"># dev | test | uat | prod</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">strict_environment_gating</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># flip to true once your promotion process is signing off rules</span>
+<h3 id="1-declare-the-reference-contract-as-effective_dated">1 · Declare the reference contract as <code>effective_dated</code><a class="headerlink" href="#1-declare-the-reference-contract-as-effective_dated" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">data_contracts</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">raw.customers_history</span><span class="w">        </span><span class="c1"># SCD-2 table with valid_from / valid_to</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">effective_dated</span><span class="p">:</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nt">valid_from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">valid_from</span><span class="w">             </span><span class="c1"># column name in the source table</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nt">valid_to</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">valid_to</span><span class="w">               </span><span class="c1"># nullable — NULL means &quot;current&quot;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">columns</span><span class="p">:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">customer_id</span><span class="p p-Indicator">,</span><span class="nt">   type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">,</span><span class="nt">    nullable</span><span class="p">:</span><span class="w"> </span><span class="nv">false</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">risk_rating</span><span class="p p-Indicator">,</span><span class="nt">   type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">valid_from</span><span class="p p-Indicator">,</span><span class="nt">    type</span><span class="p">:</span><span class="w"> </span><span class="nv">timestamp</span><span class="p p-Indicator">,</span><span class="nt"> nullable</span><span class="p">:</span><span class="w"> </span><span class="nv">false</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> name</span><span class="p">:</span><span class="w"> </span><span class="nv">valid_to</span><span class="p p-Indicator">,</span><span class="nt">      type</span><span class="p">:</span><span class="w"> </span><span class="nv">timestamp</span><span class="p p-Indicator">,</span><span class="nt"> nullable</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="w">  </span><span class="p p-Indicator">}</span>
 </span></code></pre></div>
-<p>Greenfield deployments leave <code>environment: dev</code> until the promotion process is wired up. <code>strict_environment_gating: false</code> (the default) means mismatches log a warning; <code>true</code> raises and aborts the run.</p>
-<h3 id="2-mark-each-rule-with-the-lanes-its-approved-for">2 · Mark each rule with the lanes it's approved for<a class="headerlink" href="#2-mark-each-rule-with-the-lanes-its-approved-for" title="Permanent link">&para;</a></h3>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">rules</span><span class="p">:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">structuring_burst</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cash structuring — 3+ deposits under threshold in 30d</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">environments</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">dev</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">test</span><span class="p p-Indicator">]</span><span class="w">     </span><span class="c1"># NEW rule: dev + test only</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">logic</span><span class="p">:</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aggregation_window</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<p><code>valid_to: null</code> on a row means "this row is current and has no end date." The engine treats <code>NULL valid_to</code> as open-ended — <code>booked_at &lt; valid_to</code> becomes <code>valid_to IS NULL OR booked_at &lt; valid_to</code>.</p>
+<h3 id="2-add-the-enrich-block-to-the-rule">2 · Add the <code>enrich</code> block to the rule<a class="headerlink" href="#2-add-the-enrich-block-to-the-rule" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high_risk_burst</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">High-risk customer burst</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">regulation_refs</span><span class="p">:</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">citation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FinCEN SAR Advisory 2020-A001</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SAR-filing obligations for high-risk customers</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">logic</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aggregation_window</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">txn</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="nt">group_by</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">customer_id</span><span class="p p-Indicator">]</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="nt">window</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30d</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">      </span><span class="nt">having</span><span class="p">:</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> gte</span><span class="p">:</span><span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">      </span><span class="nt">enrich</span><span class="p">:</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="nt">contract</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer</span><span class="w">                       </span><span class="c1"># must be declared effective_dated above</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer_id</span><span class="w">                         </span><span class="c1"># join key — use `key`, NOT `on` (YAML 1.1 coerces `on:` to boolean true)</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="nt">where</span><span class="p">:</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;customer.risk_rating</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">&#39;high&#39;&quot;</span><span class="w">      </span><span class="c1"># raw SQL predicates on the joined contract columns</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="nt">escalate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aml_queue</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="nt">evidence</span><span class="p">:</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alert_amount_breakdown</span>
 </span></code></pre></div>
-<p>Brand-new rules typically ship <code>environments: [dev]</code> only. After 2LoD validation the list expands to <code>[dev, test]</code>, then <code>[dev, test, uat]</code>, then <code>[dev, test, uat, prod]</code> — each step is a spec PR with the corresponding sign-off in the PR description.</p>
-<p>Once the spec lands, every active rule the runner reaches gets a gate-check event on <code>decisions.jsonl</code> via <code>promotion_audit_event()</code> — approved rules show <code>outcome: approved</code>, mismatched rules show <code>outcome: blocked</code> (strict) or <code>warn_only</code> (non-strict). <strong>Strict-mode caveat</strong>: when <code>strict_environment_gating: true</code>, the runner emits the event for the first blocked rule and <strong>then raises <code>EnvironmentGatingError</code></strong>, so any active rules later in the spec aren't reached and don't get gate events that run. In non-strict mode every active rule gets one event. The grep recipes in §"Verify it worked" filter by outcome.</p>
-<h3 id="3-validate-run-in-the-target-lane">3 · Validate + run in the target lane<a class="headerlink" href="#3-validate-run-in-the-target-lane" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Promote your spec to test:</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sed<span class="w"> </span>-i.bak<span class="w"> </span><span class="s1">&#39;s/environment: dev/environment: test/&#39;</span><span class="w"> </span>aml.yaml
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>aml<span class="w"> </span>validate<span class="w"> </span>aml.yaml
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>aml<span class="w"> </span>run<span class="w"> </span>aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+<p><strong>Important:</strong> use <code>enrich.key</code>, not <code>enrich.on</code>. YAML 1.1 coerces a bare <code>on:</code> key to boolean <code>true</code>, which the spec parser rejects.</p>
+<h3 id="3-validate">3 · Validate<a class="headerlink" href="#3-validate" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>aml<span class="w"> </span>validate<span class="w"> </span>my_aml.yaml
 </span></code></pre></div>
-<p>The runner emits a <code>promotion_audit_event()</code> for every active rule it reaches, regardless of approval — the <code>outcome</code> field differentiates <code>approved</code> (in this environment) from <code>blocked</code> / <code>warn_only</code> (mismatched). With strict gating enabled, the run aborts on the first mismatch, so active rules after it don't emit a gate event that run.</p>
-<h3 id="4-promote-via-spec-pr">4 · Promote via spec PR<a class="headerlink" href="#4-promote-via-spec-pr" title="Permanent link">&para;</a></h3>
-<p>The promotion workflow is a normal git PR adding the next lane to the rule's <code>environments</code>:</p>
-<div class="language-diff highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gd">- environments: [dev, test]</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="gi">+ environments: [dev, test, uat]</span>
+<p>Expected: <code>✓ Spec is valid</code>. If the <code>enrich</code> points at a contract that lacks an <code>effective_dated</code> block, validation fails with <code>rule 'high_risk_burst' enriches 'customer' which is not effective_dated (declare valid_from/valid_to on it)</code> — add the <code>effective_dated</code> block to the data contract.</p>
+<h3 id="4-run-against-effective-dated-reference-rows-and-verify-the-count">4 · Run against effective-dated reference rows and verify the count<a class="headerlink" href="#4-run-against-effective-dated-reference-rows-and-verify-the-count" title="Permanent link">&para;</a></h3>
+<p>The as-of join only does anything when the reference contract actually carries <code>valid_from</code> / <code>valid_to</code> history. The built-in synthetic generator does <strong>not</strong> emit effective-dated customer rows (each synthetic customer has a single <code>risk_rating</code>, no validity window), so to prove point-in-time behaviour you supply an SCD-2 reference table yourself.</p>
+<p>The canonical worked example is <code>tests/test_point_in_time.py::test_point_in_time_join_resolves_contemporaneous_row</code>: it builds a small in-memory <code>customer</code> table with two rows for <code>C0001</code> (<code>risk_rating: low</code> valid until <code>2026-06-05</code>, then <code>risk_rating: high</code> open-ended) plus four transactions — two booked while low, two while high. The rule fires only on the <strong>2</strong> high-period transactions, not all four:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">assert</span> <span class="n">fired</span><span class="p">[</span><span class="s2">&quot;C0001&quot;</span><span class="p">][</span><span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>   <span class="c1"># high-period txns only, NOT 4 (latest-row)</span>
 </span></code></pre></div>
-<p>Reviewers (2LoD MLRO, model risk, audit) sign off on the PR. The Rule Lifecycle dashboard page (<code>pages/51_Rule_Lifecycle.py</code>) surfaces this per-rule along with the <code>approval</code> column (honest placeholder until the signed-off-version store ships).</p>
-<h3 id="5-cut-to-prod">5 · Cut to prod<a class="headerlink" href="#5-cut-to-prod" title="Permanent link">&para;</a></h3>
-<p>Final promotion:</p>
-<div class="language-diff highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gd">- environments: [dev, test, uat]</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="gi">+ environments: [dev, test, uat, prod]</span>
+<p>That <code>count == 2</code> (instead of <code>4</code>) is the proof the as-of join resolved the contemporaneous row rather than the latest one. To reproduce outside the test, point your spec's <code>customer</code> contract at an SCD-2 source (CSV / Parquet / DuckDB) whose rows carry <code>valid_from</code> / <code>valid_to</code>, e.g.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>customer_id,risk_rating,valid_from,valid_to
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>C0001,low,2026-01-01 00:00:00,2026-06-05 00:00:00
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>C0001,high,2026-06-05 00:00:00,
 </span></code></pre></div>
-<p>Once the prod deploy picks up the spec and <code>strict_environment_gating: true</code> is set, the engine refuses to run rules that aren't approved for prod — the spec PR is now the audit trail.</p>
+<p>then <code>aml run my_aml.yaml --data-source csv --data-dir &lt;dir&gt;</code> and confirm the alert's <code>count</code> reflects only the in-window high-risk transactions.</p>
+<h3 id="5-check-the-north-star-coverage-page">5 · Check the North Star Coverage page<a class="headerlink" href="#5-check-the-north-star-coverage-page" title="Permanent link">&para;</a></h3>
+<p>Navigate to <strong>North Star Coverage</strong> (page 43) in the dashboard. Pillar 3 (Point-in-time correctness) reads <strong>COVERED</strong> and its evidence panel describes the M4 SCD-2 <code>effective_dated</code> + <code>enrich</code> mechanism you just used. (This is a static framework-capability assessment — the status is not recomputed per spec, so it does not change based on whether <em>your</em> spec declares an <code>enrich</code> block.)</p>
 <hr />
 <h2 id="verify-it-worked">Verify it worked<a class="headerlink" href="#verify-it-worked" title="Permanent link">&para;</a></h2>
-<p>Three checks per promotion:</p>
-<ol>
-<li><strong>Gating events on the audit ledger</strong> — <code>promotion_audit_event()</code> (<code>engine/promotion.py:88-111</code>) emits a gate event for every active rule the runner reaches. <strong>In non-strict mode</strong>, every active rule gets one event. <strong>In strict mode</strong> (<code>strict_environment_gating: true</code>), the runner emits the event for the first blocked rule and then raises <code>EnvironmentGatingError</code> — so an incomplete ledger after a strict-mode abort is expected, not evidence of full coverage. The <code>outcome</code> field carries one of three values:</li>
-<li><code>approved</code> — rule's <code>environments</code> includes the program env</li>
-<li><code>blocked</code> — mismatch + strict gating (run aborts after emitting)</li>
-<li><code>warn_only</code> — mismatch + non-strict gating (run continues; warning logged)</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># All mismatches (strict or warn-only):</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;select(.outcome == &quot;blocked&quot; or .outcome == &quot;warn_only&quot;)&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>.artifacts/run-*/decisions.jsonl
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Only the strict-mode blocks:</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;select(.outcome == &quot;blocked&quot;)&#39;</span><span class="w"> </span>.artifacts/run-*/decisions.jsonl
+<p>Two checks, in order of strength.</p>
+<p><strong>(a) Inspect the generated SQL</strong> — this is the most direct proof the as-of join was wired:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>aml<span class="w"> </span>run<span class="w"> </span>my_aml.yaml<span class="w"> </span>--data-source<span class="w"> </span>csv<span class="w"> </span>--data-dir<span class="w"> </span>&lt;dir&gt;
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>grep<span class="w"> </span>-A3<span class="w"> </span><span class="s2">&quot;JOIN customer&quot;</span><span class="w"> </span>.artifacts/run-*/rules/high_risk_burst.sql
 </span></code></pre></div>
-<ol>
-<li>
-<p><strong>Rule Lifecycle dashboard page</strong> — visit <code>pages/51_Rule_Lifecycle.py</code>; the rule's status column reflects the lifecycle stage. <code>model_tier</code>, <code>validation_cadence_months</code>, <code>rule_version</code> (16-hex SHA-256), and <code>risk_tier</code> show alongside.</p>
-</li>
-<li>
-<p><strong>Replay the OLD spec, not the promoted one</strong> — a promotion changes the spec content hash, so <code>rule_version</code> AND <code>decisions_hash</code> change too even when the alert population is unchanged. To verify "the same alerts would have fired," keep the pre-promotion spec snapshot in your audit pack and replay against THAT; the post-promotion run is a separate row in <code>run_manifests</code>.</p>
-</li>
-</ol>
+<p>You should see the join against the source alias <code>src</code> on <code>customer.valid_from &lt;= src.booked_at</code> and the <code>valid_to</code> window — that clause is emitted only when the <code>enrich</code> block resolved.</p>
+<p><strong>(b) Check the alert <code>count</code></strong> — the as-of join changes <em>which</em> rows aggregate, so the alert's <code>count</code> is the as-of count, not the latest-row count:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>jq<span class="w"> </span><span class="s1">&#39;.count&#39;</span><span class="w"> </span>.artifacts/run-*/alerts/high_risk_burst.jsonl
+</span></code></pre></div>
+<p>With the SCD-2 fixture above, <code>count</code> is <code>2</code> (high-period transactions only); a latest-row join would report <code>4</code>. The difference is the behaviour you're verifying.</p>
+<blockquote>
+<p><strong>Note:</strong> do <strong>not</strong> use the alert's <code>matched_row_ids</code> as proof of the as-of join. Those row ids are looked up from the source transaction table alone (<code>engine/runner.py</code> re-queries <code>SELECT rowid FROM &lt;source&gt; WHERE customer_id = ? AND booked_at BETWEEN window_start AND window_end</code>) — they reflect the window, not the reference join, so they can be non-empty even if the enrichment did nothing. Likewise, the Lineage Explorer (page 32) renders a generic <code>source → contract → table → rule → alert → case</code> Mermaid graph; it does <strong>not</strong> show per-reference as-of intervals.</p>
+</blockquote>
 <hr />
 <h2 id="common-problems">Common problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h2>
 <table>
@@ -3116,35 +3134,38 @@
 </thead>
 <tbody>
 <tr>
-<td>Rule fires in <code>prod</code> despite not being on <code>environments: [..., prod]</code></td>
-<td><code>strict_environment_gating: false</code> (default) — engine warns instead of blocking</td>
-<td>Flip <code>strict_environment_gating: true</code> once your promotion sign-off process is wired up</td>
+<td><code>rule '&lt;id&gt;' enriches '&lt;contract&gt;' which is not effective_dated (declare valid_from/valid_to on it)</code></td>
+<td>Missing <code>effective_dated</code> block on the contract</td>
+<td>Add <code>effective_dated: { valid_from: &lt;col&gt;, valid_to: &lt;col&gt; }</code> to the data_contract</td>
 </tr>
 <tr>
-<td>Every rule fires the gating warning at startup</td>
-<td><code>Program.environment</code> left at <code>dev</code> but rules declared <code>[prod]</code> only</td>
-<td>Either set <code>Program.environment</code> to match the deployed lane, or expand rule <code>environments</code></td>
+<td><code>rule '&lt;id&gt;' enrich key '&lt;col&gt;' is not a column of '&lt;contract&gt;'</code> (or <code>... of source '&lt;src&gt;'</code>)</td>
+<td><code>enrich.key</code> names a column absent from the ref or source contract</td>
+<td>Use a join key declared on <strong>both</strong> the source and reference contracts</td>
 </tr>
 <tr>
-<td><code>EnvironmentGatingError</code> on a rule that SHOULD be in this lane</td>
-<td>Typo in the <code>environments</code> list (string instead of YAML list)</td>
-<td>Fix the YAML; <code>aml validate</code> catches structural typos before runtime</td>
+<td><code>KeyError: 'on'</code> or <code>enrich.on: true</code> in YAML</td>
+<td>Used <code>on:</code> instead of <code>key:</code></td>
+<td>Change to <code>enrich.key: &lt;column_name&gt;</code> — YAML 1.1 coerces bare <code>on:</code> to boolean <code>true</code></td>
 </tr>
 <tr>
-<td>Promotion PR merged but engine still skips the rule</td>
-<td>Container hasn't picked up the new spec hash</td>
-<td>Redeploy / restart the dashboard + API; the spec content hash drives <code>rule_version</code></td>
+<td>Alert count inflated (same as without enrich)</td>
+<td><code>where</code> predicate not filtering correctly</td>
+<td>Check the predicate uses the contract name: <code>"customer.risk_rating = 'high'"</code>, not <code>"risk_rating = 'high'"</code></td>
+</tr>
+<tr>
+<td>Transactions silently dropped from the count</td>
+<td>SCD-2 table has gaps — some booking dates have no covering reference row</td>
+<td>The as-of join is an <strong>INNER</strong> join: a transaction with no <code>[valid_from, valid_to)</code> row matching its <code>booked_at</code> is excluded (no error is raised). Ensure the SCD-2 table has gap-free coverage, with <code>valid_to: null</code> on the current row</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Where do new rules come from?</strong> <code>aml discover-typologies &lt;spec&gt; &lt;run_dir&gt;</code> is the upstream proposal lens: it profiles the <em>unexplained</em> population (customers no rule caught in that run), clusters them by shared anomalous shape, and writes <code>candidate_typologies.yaml</code> of PROPOSED rule stubs (<code>status: pending_promotion</code>). It is offline and human-gated — nothing auto-promotes. Review a proposal, then promote it through <code>add-a-rule.md</code> + the <code>environments:</code> ladder above.</li>
-<li>See <a href="../add-a-rule/">How to add a rule</a> — the upstream <code>environments:</code> field on <code>Rule</code>.</li>
-<li>See <a href="../verify-audit-chain/">How to verify the audit chain</a> — the <strong>spec PR</strong> is the promotion audit trail (the spec content hash changes; the git history records who approved). Subsequent runs against the new spec emit <code>promotion_audit_event()</code> gate-check events on <code>decisions.jsonl</code> (one per active rule per run) — those are the runtime evidence that the gate fired, not the promotion event itself.</li>
-<li>The Rule Lifecycle page (universally-routed, every persona) surfaces every rule's <code>status</code>, <code>model_tier</code>, <code>validation_cadence_months</code>, <code>rule_version</code>, <code>risk_tier</code>, and approval state. It does NOT yet show the <code>environments</code> list — adding that column is a small follow-up; for now verify via the gating-event grep above.</li>
-<li>For the cross-spec lifecycle (<code>active | experimental | deprecated</code>), see <code>Rule.status</code> in <a href="../../spec-reference/"><code>spec-reference.md</code></a>.</li>
+<li>The as-of join also works with non-customer reference tables (e.g. product codes, country lists). Any <code>effective_dated</code> contract can be enriched into any <strong><code>aggregation_window</code></strong> rule — <code>enrich</code> is defined only on <code>aggregation_window</code> logic, not on <code>custom_sql</code>, <code>python_ref</code>, <code>list_match</code>, or <code>network_pattern</code> rules.</li>
+<li>See <a href="../add-a-rule/">add-a-rule.md</a> for the full rule authoring flow.</li>
+<li>See <a href="../walk-lineage/">walk-lineage.md</a> to trace an alert back to its source rows (note: lineage shows the source→rule→alert→case chain, not the reference as-of interval).</li>
 </ul>
 
 
@@ -3183,7 +3204,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../legacy-import/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Migrate from legacy stack">
+          <a href="../python-ref-scorer/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Wire a python_ref scorer">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3193,20 +3214,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Migrate from legacy stack
+                Wire a python_ref scorer
               </div>
             </div>
           </a>
         
         
           
-          <a href="../export-case-pack/" class="md-footer__link md-footer__link--next" aria-label="Next: Export per-case / per-batch evidence">
+          <a href="../discover-typologies/" class="md-footer__link md-footer__link--next" aria-label="Next: Discover candidate typologies">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Export per-case / per-batch evidence
+                Discover candidate typologies
               </div>
             </div>
             <div class="md-footer__button md-icon">
