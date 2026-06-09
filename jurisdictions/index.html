@@ -3130,6 +3130,7 @@
 <li><strong>FinCEN BSA 6 Pillars</strong> including the April 2026 proposed 6th pillar (formalized risk assessment)</li>
 <li><strong>OFAC SDN list</strong> screening via the <code>list_match</code> rule type</li>
 <li><strong>FinCEN advisories</strong> (FIN-2014-A005 cash-to-wire, FIN-2023-Alert005 pig-butchering, FIN-2006-A003 unusual volume)</li>
+<li><strong>FinCEN Whistleblower Incentives and Protections NPRM</strong> (<a href="https://www.federalregister.gov/documents/2026/04/01/2026-06271/whistleblower-incentives-and-protections">Federal Register 2026-06271</a>) — the offline <code>aml whistleblower-audit</code> CLI (#531) rolls a run's audit ledger into a frozen <code>whistleblower_audit_report.json</code> (SAR-backlog exposure, escalation coverage, triage time, board-documented decisions, ledger integrity) + a <code>--format nprm-gap</code> readiness table. Advisory readiness lens; never blocks or changes a run. See <a href="../how-to/run-whistleblower-audit/">how-to: run a whistleblower audit</a>.</li>
 </ul>
 <p>Filing forms: <strong>SAR</strong> (Suspicious Activity Report) and <strong>CTR</strong> (Currency Transaction Report) for cash &gt;$10,000.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>aml<span class="w"> </span>dashboard<span class="w"> </span>examples/community_bank/aml.yaml
