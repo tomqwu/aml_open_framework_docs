@@ -1338,6 +1338,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#4a-record-lifecycle-transitions-with-aml-defect-update-529" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4a · Record lifecycle transitions with aml defect-update (#529)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#5-re-run-to-confirm" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2915,6 +2926,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#4a-record-lifecycle-transitions-with-aml-defect-update-529" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4a · Record lifecycle transitions with aml defect-update (#529)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#5-re-run-to-confirm" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3061,7 +3083,7 @@
 <p><strong>Prereqs:</strong> A finished run directory under <code>.artifacts/</code>. <code>engine/defect_log.py::classify_defect</code> is the canonical classifier.</p>
 <p><strong>Time:</strong> ~2 min per defect on average. Critical-severity entries should be triaged same-day.</p>
 </blockquote>
-<p><code>defect_log.jsonl</code> is one of the eight manifest-hashed artifacts — the <strong>detected-defect snapshot at run finalize</strong> is part of the immutable audit ledger. Later triage actions (acknowledge / resolve / close) are NOT re-written to the ledger; track those externally (see §5 below).</p>
+<p><code>defect_log.jsonl</code> is one of the eight manifest-hashed artifacts — the <strong>detected-defect snapshot at run finalize</strong> is part of the immutable audit ledger and stays frozen. Later triage actions (acknowledge / resolve / close) are recorded on a separate, append-only <strong>companion</strong> file <code>defect_lifecycle.jsonl</code> via <code>aml defect-update</code> (#529) — see §4a below. The frozen minted log never changes; the companion mirrors <code>decisions.jsonl</code>'s append-only posture.</p>
 <hr />
 <h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
 <h3 id="1-read-the-defect-log">1 · Read the defect log<a class="headerlink" href="#1-read-the-defect-log" title="Permanent link">&para;</a></h3>
@@ -3142,15 +3164,36 @@
 <li><strong><code>closed</code></strong> — resolved + verified across a subsequent run (manifest-hash-pinned proof)</li>
 <li><strong><code>wont_fix</code></strong> — accepted as a known limitation; document why on the spec</li>
 </ul>
-<p>Track transitions in your ticket-of-record system (Linear / Jira / GitHub issues) cross-referencing the defect <code>id</code> + <code>source_run_id</code>. The defect log itself is emitted fresh per run from the detected exceptions — a recurring underlying issue produces a new <code>Defect</code> row each run with a new <code>id</code>, so the absence of the defect in a later run IS the closure proof (verified via the manifest's <code>defect_log_hash</code>).</p>
+<p>The defect log itself is emitted fresh per run from the detected exceptions — a recurring underlying issue produces a new <code>Defect</code> row each run with a new <code>id</code>, so the absence of the defect in a later run IS the closure proof (verified via the manifest's <code>defect_log_hash</code>).</p>
+<h3 id="4a-record-lifecycle-transitions-with-aml-defect-update-529">4a · Record lifecycle transitions with <code>aml defect-update</code> (#529)<a class="headerlink" href="#4a-record-lifecycle-transitions-with-aml-defect-update-529" title="Permanent link">&para;</a></h3>
+<p>The minted <code>defect_log.jsonl</code> stays frozen, so transitions go on the append-only companion <code>defect_lifecycle.jsonl</code> next to it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>aml<span class="w"> </span>defect-update<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>defect:a1b2c3d4e5f6a7b8:0000:txn_amount_not_null<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>--status<span class="w"> </span>acknowledged<span class="w"> </span>--reviewer<span class="w"> </span><span class="s2">&quot;alice@2lod&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>aml<span class="w"> </span>defect-update<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span>defect:a1b2c3d4e5f6a7b8:0000:txn_amount_not_null<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span>--status<span class="w"> </span>resolved<span class="w"> </span>--reviewer<span class="w"> </span><span class="s2">&quot;alice@2lod&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span>--resolution<span class="w"> </span><span class="s2">&quot;Upstream feed nulls fixed in ETL-1421; re-run confirms 0 nulls.&quot;</span>
+</span></code></pre></div>
+<ul>
+<li><code>--status</code> is one of <code>acknowledged | resolved | closed</code>. <code>resolved</code> / <code>closed</code> require a non-empty <code>--resolution</code>.</li>
+<li>The <code>defect_id</code> must exist in that run's frozen <code>defect_log.jsonl</code> — an unknown id is rejected so the companion can't drift from the artifact it tracks.</li>
+<li>The event <strong>timestamp derives from the run's <code>manifest.json::as_of</code></strong>, not wall-clock, so the companion file stays byte-stable for a given run + sequence of actions (same determinism posture as <code>decisions.jsonl</code>).</li>
+<li>The command is <strong>offline / post-run</strong> — it never runs on the engine path.</li>
+</ul>
+<p>Read the lifecycle back with <code>jq</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>jq<span class="w"> </span>-c<span class="w"> </span>.<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z/defect_lifecycle.jsonl
+</span></code></pre></div>
+<p>You can still cross-reference the defect <code>id</code> + <code>source_run_id</code> in your ticket-of-record system (Linear / Jira / GitHub) for richer workflow.</p>
 <h3 id="5-re-run-to-confirm">5 · Re-run to confirm<a class="headerlink" href="#5-re-run-to-confirm" title="Permanent link">&para;</a></h3>
 <p>After a fix, re-run the spec:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>aml<span class="w"> </span>run<span class="w"> </span>aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>aml<span class="w"> </span>run<span class="w"> </span>aml.yaml<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
 </span></code></pre></div>
 <p>The next <code>defect_log.jsonl</code> shouldn't contain the same defect. If it does, the fix was incomplete.</p>
 <h3 id="6-triage-equivalence-divergences-by-cluster">6 · Triage equivalence divergences by cluster<a class="headerlink" href="#6-triage-equivalence-divergences-by-cluster" title="Permanent link">&para;</a></h3>
 <p>When the defect is a <strong>legacy↔new divergence</strong> (a cell the legacy system fired that the new spec didn't, or vice versa), run the equivalence comparison and render the Markdown report:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>aml<span class="w"> </span>equivalence<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z<span class="w"> </span>--legacy<span class="w"> </span>legacy_alerts.csv<span class="w"> </span>--markdown<span class="w"> </span>report.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>aml<span class="w"> </span>equivalence<span class="w"> </span>.artifacts/run-2026-05-25T10-15-30Z<span class="w"> </span>--legacy<span class="w"> </span>legacy_alerts.csv<span class="w"> </span>--markdown<span class="w"> </span>report.md
 </span></code></pre></div>
 <p>Open <code>report.md</code> and read the <strong><code>## Divergence clusters</code></strong> table. Work the <strong>largest cluster first</strong> (rows are sorted by size descending): each cluster is one defect shape — same rule, severity, and window length — so a single root cause (data, rule logic, or mapping) usually explains the whole cluster, and one fix clears many cells.</p>
 <p>The same clusters appear on <strong>dashboard page 48 (Equivalence)</strong> with a per-cluster drill-down into the member customers. Clustering is a <strong>triage lens only</strong> — the four-way MATCH / NEW_ONLY / LEGACY_ONLY / DIFF classification is what lands in the ledger.</p>
@@ -3200,7 +3243,7 @@
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../configure-sla/">How to configure SLA monitoring</a> — the sibling Pillar-6 evidence (<code>sla_report.json</code>). Together: "is alert stale?" + "did the pipeline produce something processable?"</li>
-<li><a href="../verify-audit-chain/">How to verify the audit chain</a> — the <strong>initial</strong> <code>defect_log.jsonl</code> is one of the eight manifest-hashed artifacts, so the detected-state snapshot is on the chain. Lifecycle transitions after the run (acknowledged → resolved → closed) are NOT currently re-written to the ledger; track those externally (Linear / Jira) and rely on the absence of the same defect in a later run as the closure proof.</li>
+<li><a href="../verify-audit-chain/">How to verify the audit chain</a> — the <strong>initial</strong> <code>defect_log.jsonl</code> is one of the eight manifest-hashed artifacts, so the detected-state snapshot is on the chain and stays frozen. Lifecycle transitions after the run (acknowledged → resolved → closed) land on the append-only companion <code>defect_lifecycle.jsonl</code> via <code>aml defect-update</code> (#529) — mirroring <code>decisions.jsonl</code>'s append-only posture — and you can additionally track them in your ticket-of-record system.</li>
 <li><a href="../../audit-evidence/"><code>audit-evidence.md</code></a> — the eight manifest-hashed artifacts and how <code>defect_log.jsonl</code> sits among them.</li>
 </ul>
 
