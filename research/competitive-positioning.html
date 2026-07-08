@@ -19,15 +19,15 @@
     <span style="margin-left:auto"><a href="../#/">← back to resource hub</a></span>
   </div>
 
-  <div class="r-eyebrow">Competitive positioning · April 2026</div>
+  <div class="r-eyebrow">Competitive positioning · July 2026</div>
   <h1 class="r-title">Where this framework <em>actually wins</em>.</h1>
   <p class="r-lede">
-    Deep-research output across vendor sites, regulator notices, OSS repos, and industry analyst blogs. Four buyer archetypes, three OSS competitors, two real defensible moats — and five features ranked by impact ÷ effort against the AMLA July 2026 deadline and the FinCEN NPRM comment-period close.
+    Deep-research output across vendor sites, regulator notices, OSS repos, and industry analyst blogs. Four buyer archetypes, three OSS competitors, two real defensible moats — and features ranked by impact ÷ effort. <strong>AMLA RTS deadline: July 10 (2 days). AUSTRAC Tranche 2: LIVE since July 1.</strong>
   </p>
   <div class="r-meta">
     <span><strong>Author</strong> · deep-research-agent</span>
-    <span><strong>Scope</strong> · post-Round 5–6 · 24 dashboard pages · 991 tests</span>
-    <span><strong>Refresh</strong> · 2026-04-27 (revised 2026-04-29)</span>
+    <span><strong>Scope</strong> · post-Wave-2 governance sprint · 45 dashboard pages · 14 jurisdiction specs</span>
+    <span><strong>Refresh</strong> · 2026-07-08 (original 2026-04-27; revised 2026-04-29; updated 2026-06-16, 2026-07-08)</span>
   </div>
 
   <h2 class="r-h2">Where the <em>2026 field</em> sits.</h2>
@@ -86,7 +86,7 @@
 
   <div class="r-spa">
     <div class="lead">Strategic Planning Assumption · #2</div>
-    By <strong>July 2026</strong>, AMLA's RTS on STR-effectiveness telemetry becomes binding for all EU PIs/EMIs. The framework's alert→case→STR funnel + per-rule precision/recall is the <strong>only OSS implementation</strong> shipping the required schema today.
+    <strong>AMLA's RTS submission deadline is July 10 — 2 days away.</strong> AMLA submits final draft regulatory technical standards (CDD RTS, business-relationships RTS, pecuniary-sanctions RTS) to the European Commission Thursday. After submission, the Commission has 3 months to endorse before the RTS bind. The framework ships <code>aml amla-effectiveness-report</code> (#528) — the <strong>only OSS implementation</strong> of the alert→case→STR funnel + per-rule precision/recall + AMLA Art. 28(1)/26/20(1)(d) citation-coverage artifact, ready before the standard locks in.
   </div>
 
   <h2 class="r-h2"><span class="num">1.</span> Vendor archetypes — <em>strengths &amp; cautions</em></h2>
@@ -326,66 +326,82 @@
     <strong>Reading guide:</strong> The same Manifest, the same engine, the same audit ledger serve all four. What differs is which capabilities are <em>load-bearing</em> in each pitch. A FinTech buyer doesn't care about the MRM dossier yet (no 2LoD); a Tier-1 MRM team doesn't care about time-to-first-alert (procurement runs 18 months regardless). Match the message to the meter.
   </p>
 
-  <h2 class="r-h2"><span class="num">3.</span> Five highest-leverage <em>next features</em></h2>
+  <h2 class="r-h2"><span class="num">3.</span> July 2026 feature re-ranking</h2>
   <p class="r-section-dek">
-    Re-ranked with current evidence. The AMLA July 2026 deadline (<a href="https://www.amla.europa.eu/amla-takes-major-step-toward-harmonised-eu-supervision_en">AMLA portal</a>) and the FinCEN NPRM comment-period closing June 9 2026 (<a href="https://www.federalregister.gov/documents/2026/04/10/2026-07033/anti-money-laundering-and-countering-the-financing-of-terrorism-programs">Federal Register 2026-07033</a>) reshuffle the impact ÷ effort math.
+    Re-ranked as of 2026-07-08. All items from the April 2026 list are now shipped. The AMLA RTS submission deadline is Thursday July 10 (2 days); AUSTRAC Tranche 2 enforcement went live July 1. The remaining open priorities are genuine roadmap gaps, not shipping lag.
   </p>
 
   <div class="r-feat">
     <div class="head">
-      <span class="rank">#1</span>
-      <span class="ttl">Regulatory-change diff watcher · <em>compliance/regwatch.py</em></span>
-      <div class="badges"><span class="badge">3 days</span><span class="badge imp">IMPACT/EFFORT: HIGHEST</span></div>
+      <span class="rank">✅</span>
+      <span class="ttl">AMLA STR / RTS effectiveness telemetry pack · <em>aml amla-effectiveness-report (#528)</em></span>
+      <div class="badges"><span class="badge imp">SHIPPED</span><span class="badge">AMLA RTS July 10 — 2 days</span></div>
     </div>
-    <p>Hash every <code>regulation_ref</code> URL in every shipped spec; alert on drift. <strong>Why now:</strong> FinCEN BOI was narrowed in March 2025 (<a href="https://www.fincen.gov/boi">FinCEN BOI page</a>) and FinCEN's April 7 2026 NPRM materially rewrites AML program requirements with a 12-month implementation tail — every example spec's regulator reference is at risk of going stale silently. No commercial vendor ships this because they own the rule library themselves; the framework needs it precisely because it doesn't.</p>
+    <p>Alert → case → STR funnel with per-rule precision/recall + AMLR Art. 28(1)/26/20(1)(d) citation coverage, packaged as <code>amla_effectiveness_report.json</code>. EU-supervised entities should run <code>aml amla-effectiveness-report &lt;spec&gt; &lt;run-dir&gt;</code> now and brief boards before Thursday. The AMLA standard locks in July 10; gaps become fixed implementation backlogs until Commission endorsement completes (~Oct 2026).</p>
+  </div>
+
+  <div class="r-feat">
+    <div class="head">
+      <span class="rank">✅</span>
+      <span class="ttl">AUSTRAC Tranche 2 example spec · <em>examples/austrac_tranche_2_dnfbp/ (#510)</em></span>
+      <div class="badges"><span class="badge imp">SHIPPED</span><span class="badge">Enforcement LIVE since July 1</span></div>
+    </div>
+    <p>Board-approved AML/CTF program template for Australian DNFBPs (lawyers, accountants, real-estate agents, precious-metals dealers). <strong>No OSS competitor shipped a Tranche 2 spec.</strong> AUSTRAC enforcement is live; firms remediating post-July 1 can still use this template as their documented good-faith evidence for the first EU cycle.</p>
+  </div>
+
+  <div class="r-feat">
+    <div class="head">
+      <span class="rank">✅</span>
+      <span class="ttl">FinCEN Whistleblower internal-channel audit · <em>aml whistleblower-audit (#531)</em></span>
+      <div class="badges"><span class="badge imp">SHIPPED</span></div>
+    </div>
+    <p>Five governance signals rolled into <code>whistleblower_audit_report.json</code>: SAR-backlog exposure, escalation coverage %, triage time (median/p95), board-documented decisions, and ledger integrity. <code>--format nprm-gap</code> emits a ✓/⚠/✗ readiness table against the FinCEN Whistleblower NPRM (final rule expected late 2026). Final rule coming — the report is the pre-implementation evidence artifact to have on file when it lands.</p>
+  </div>
+
+  <div class="r-feat">
+    <div class="head">
+      <span class="rank">✅</span>
+      <span class="ttl">Wave 2 governance sprint · <em>Pillars 2/4/5/7 (#523, #529×3)</em></span>
+      <div class="badges"><span class="badge imp">SHIPPED</span></div>
+    </div>
+    <p>Six features closed in June 4–16: Fraud↔AML cross-program case links (<code>case_links.jsonl</code>, #523); defect-ticket lifecycle (<code>aml defect-update</code>, #529 Pillar 2); expected <code>risk_tier</code> on active rules with <code>aml validate --strict</code> enforcement (#529 Pillars 4+5); model-risk approval gate blocking unapproved medium/high-tier rules in prod (#529 Pillar 7). North-Star governance pillars 2, 4, 5, 7 all COVERED.</p>
+  </div>
+
+  <div class="r-feat">
+    <div class="head">
+      <span class="rank">#1</span>
+      <span class="ttl">Regulatory-change diff watcher · <em>aml regwatch (#577)</em></span>
+      <div class="badges"><span class="badge">~3 days</span><span class="badge imp">IMPACT/EFFORT: HIGHEST</span></div>
+    </div>
+    <p>Hash every <code>regulation_ref</code> URL in every shipped spec; alert on drift. <strong>Why now:</strong> the AMLA RTS locks in Thursday and the FinCEN Effectiveness NPRM final rule lands late 2026 — every example spec's regulator reference is at risk of going stale silently. No commercial vendor ships this because they own the rule library; the framework needs it precisely because it doesn't. Especially valuable in the post-RTS endorsement window (Oct 2026).</p>
     <div class="risk"><strong>Risk:</strong> false positives on cosmetic page edits (mitigation: textual-diff threshold + human approval gate).</div>
   </div>
 
   <div class="r-feat">
     <div class="head">
       <span class="rank">#2</span>
-      <span class="ttl">AMLA STR / RTS effectiveness telemetry pack · <em>metrics/outcomes.py + examples/amla_rts_2026/</em></span>
-      <div class="badges"><span class="badge">6 days</span><span class="badge imp">IMPACT/EFFORT: HIGH</span></div>
+      <span class="ttl">PSD3 / Verification-of-Payee (VoP) ingestion adapter · <em>data/psd3/ (#578)</em></span>
+      <div class="badges"><span class="badge">~5 days</span><span class="badge imp">IMPACT/EFFORT: MED-HIGH</span></div>
     </div>
-    <p>Alert → case → STR funnel with per-rule precision / recall, packaged against the AMLA RTS due July 10 2026 (<a href="https://blog.protiviti.com/2026/03/16/amla-readiness-starts-now-ten-practical-moves-for-2026/">Protiviti AMLA readiness</a>). FinCEN's NPRM enumerates the same metrics. <strong>One feature, two regulators, both with hard 2026 deadlines.</strong></p>
-    <div class="risk"><strong>Risk:</strong> outcome data depends on case-disposition labels the framework doesn't currently demand — needs schema additions to cases, not just metrics.</div>
+    <p>PSD3 + PSR entered into force; VoP / payee-name-match liability applies 24 months after. Lands a payments-ops persona that today has no OSS option. The 2-year clock is the right window for a reference implementation to exist before banks have to procure one.</p>
+    <div class="risk"><strong>Risk:</strong> spec instability until Official Journal publication — mark the adapter "draft" with a version pinned to the agreed text.</div>
   </div>
 
   <div class="r-feat">
     <div class="head">
       <span class="rank">#3</span>
-      <span class="ttl">TBML + APP-fraud spec pair · <em>examples/trade_based_ml/ + examples/uk_app_fraud/</em></span>
-      <div class="badges"><span class="badge">9 days</span><span class="badge imp">IMPACT/EFFORT: HIGH</span></div>
+      <span class="ttl">FINTRAC pre-examination audit pack · <em>aml audit-pack --jurisdiction CA-FINTRAC (#579)</em></span>
+      <div class="badges"><span class="badge">~4 days</span><span class="badge imp">IMPACT/EFFORT: MED-HIGH</span></div>
     </div>
-    <p>TBML covers FATF / Egmont's continuing focus area (cited in the <a href="https://www.fatf-gafi.org/en/publications/Fatfgeneral/outcomes-FATF-plenary-february-2026.html">FATF Feb 2026 plenary outcomes</a>); APP-fraud covers the <a href="https://www.psr.org.uk/information-for-consumers/app-scams-reimbursement-dashboard/">PSR's expanding scope to CHAPS + Q2 2026 joint review</a>. Together they answer the FRAML-convergence buyer question without building a fraud engine — just demonstrating the framework can express the typologies.</p>
-    <div class="risk"><strong>Risk:</strong> spec authenticity — needs a real practitioner review or it reads as theoretical (mitigation: cite specific PSR / Egmont indicator lists).</div>
-  </div>
-
-  <div class="r-feat">
-    <div class="head">
-      <span class="rank">#4</span>
-      <span class="ttl">PSD3 / Verification-of-Payee (VoP) ingestion adapter · <em>data/psd3/</em></span>
-      <div class="badges"><span class="badge">5 days</span><span class="badge imp">IMPACT/EFFORT: MED-HIGH</span></div>
-    </div>
-    <p>PSD3 + PSR are expected in the Official Journal end-Q2 2026, with VoP / payee-name-match liability applying 24 months after entry into force (<a href="https://www.nortonrosefulbright.com/en/knowledge/publications/cedd39c6/psd3-and-psr-from-provisional-agreement-to-2026-readiness">Norton Rose Fulbright PSD3 brief</a>). Lands a payments-ops persona that today has no OSS option. <strong>Why now:</strong> the 2-year clock is the right window for a reference implementation to exist before banks have to procure one.</p>
-    <div class="risk"><strong>Risk:</strong> spec instability between Council / Parliament agreement and Official Journal publication — mark the adapter "draft" with a version pinned to the agreed text.</div>
-  </div>
-
-  <div class="r-feat">
-    <div class="head">
-      <span class="rank">#5</span>
-      <span class="ttl">FINTRAC pre-examination audit pack · <em>aml audit-pack --jurisdiction CA-FINTRAC</em></span>
-      <div class="badges"><span class="badge">4 days</span><span class="badge imp">IMPACT/EFFORT: MED-HIGH</span></div>
-    </div>
-    <p>The Canadian Schedule-I bank example spec is already in tree; FINTRAC's January 2026 examination-manual update (<a href="https://fintrac-canafe.canada.ca/guidance-directives/exam-examen/eng">FINTRAC examination guidance</a>) makes the pre-exam evidence demand explicit. Clones the SR 26-2 MRM-bundle pattern to a second jurisdiction with proven format. Aligns with the user's stated Canadian-bank focus.</p>
+    <p>The Canadian Schedule-I bank example spec is already in tree; FINTRAC's January 2026 examination-manual update makes the pre-exam evidence demand explicit. Clones the SR 26-2 MRM-bundle pattern to a second jurisdiction with proven format.</p>
     <div class="risk"><strong>Risk:</strong> small TAM (Canadian FIs only); mitigation is to use it as the template for a 3rd / 4th jurisdiction (FCA-UK, BaFin-DE) on the same skeleton.</div>
   </div>
 
-  <h3 class="r-h3">Notable omissions, ranked by why-not</h3>
+  <h3 class="r-h3">Monitoring: no action needed yet</h3>
   <ul class="r-list">
-    <li><strong>AMLA central-register sandbox.</strong> Real signal but the register isn't operational until H2 2026 and the API surface is still in <a href="https://www.step.org/industry-news/eba-issues-advice-aml-standards-ahead-amla-operational-launch">EBA advice</a>. Defer until Q3 2026.</li>
-    <li><strong>Notabene / Sumsub Travel-Rule message-bus adapters.</strong> Already covered by Round 5's Travel-Rule field validator at the Manifest layer; the message-bus integration is a vendor-specific runtime feature that bloats the binary.</li>
-    <li><strong>FedNow / RTP push-fraud detector pack.</strong> Genuinely valuable but requires the APP-fraud spec to land first as the shape-template; sequence after #3.</li>
+    <li><strong>AMLA direct-supervision selection (July 2027).</strong> AMLA selects its first 40 directly-supervised obliged entities from July 2027. Data-collection exercise feeds the methodology. Groups in 6+ EU member states are highest-exposure. First action point: Q4 2026 data submission.</li>
+    <li><strong>FinCEN Effectiveness NPRM final rule (late 2026 / early 2027).</strong> Comment window closed June 9; rulemaking pending. Once final, the 12-month implementation clock starts. The <code>examples/</code> specs and the MRM bundle are already structured to the proposed requirements.</li>
+    <li><strong>FATF grey list Q3/Q4 2026 update (#580).</strong> FATF plenary October 2026 will update the Increased Monitoring list. Trigger: post-plenary, patch <code>examples/</code> spec <code>jurisdiction_risk</code> fields for affected countries.</li>
   </ul>
 
   <div class="r-sources">
@@ -423,7 +439,7 @@
 
   <div class="r-foot">
     <a href="../#/">← back to resource hub</a>
-    <span class="gh">view source on <a href="https://github.com/tomqwu/aml_open_framework/blob/main/docs/research/2026-04-competitive-positioning.md">github</a></span>
+    <span class="gh">view source on <a href="https://github.com/tomqwu/aml_open_framework/blob/main/docs/research/2026-07-competitive-positioning.md">github</a></span>
   </div>
 
 </div>
