@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1548,6 +1548,8 @@
       
         
       
+        
+      
     
     
     
@@ -1694,6 +1696,34 @@
     
   
     Regulator Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../case-studies/td-2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Case study: TD 2024 enforcement
   
 
     
@@ -3852,7 +3882,59 @@
 
 
 <h1 id="project-progress">Project Progress<a class="headerlink" href="#project-progress" title="Permanent link">&para;</a></h1>
-<p>Snapshot of where the AML Open Framework is as of 2026-06-22. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<p>Snapshot of where the AML Open Framework is as of 2026-07-24. This document is a fact-based audit of what's shipped, not a roadmap or marketing piece. For "what's next?" see <a href="../getting-started/"><code>getting-started.md</code></a> and the <a href="../CHANGELOG.md">Changelog</a>.</p>
+<blockquote>
+<p><strong>Round 41 — July 24 docs refresh</strong> (<code>docs</code>, 2026-07-24):</p>
+<ul>
+<li><strong>Deadline countdown corrected to a July 24 baseline</strong> across all five <code>docs/research/2026-07-*.md</code> editions, <code>docs/index.md</code>'s deadline card, and the evergreen <code>docs/pitch/landing/</code> + <code>docs/pitch/landing/research/*.html</code> mirror pages: AUSTRAC Tranche 2 is <strong>23 days in</strong> (was 18); the AUSTRAC enrolment grace period ends 2026-07-29, now <strong>5 days</strong> away (was 10); AMLA RTS submission deadline <strong>passed 14 days ago</strong> (was 9); SR 26-2 is <strong>98 days</strong> examination-active (was 93); the Commission's post-RTS-submission endorsement clock (2026-07-10 → 2026-10-10) now has <strong>78 days remaining</strong> (was 83).</li>
+<li><strong>Builds directly on #648</strong> (Round 40, <code>mergeable_state: clean</code>, July-19 baseline) — fast-forwarded its commits onto this branch and applied the July-24 delta on top, rather than re-deriving from scratch or adding another independent attempt.</li>
+<li><strong>No new roadmap issue filed.</strong> No genuinely new regulatory finding surfaced this round (unlike Round 40's AUSTRAC-enrolment discovery) — this is a pure day-count refresh. The "automate this" idea remains tracked by the existing 12+ open issues plus the meta-tracking issue <strong>#644</strong>; filing another would add to the exact pile-up #644 documents.</li>
+<li><strong>Process blocker, unchanged from #644/#648/#646</strong>: this session also has no Codex-review tool available (confirmed via skill search), so it cannot satisfy <code>CLAUDE.md</code>'s merge gate. This PR is opened <strong>ready-for-review, not draft</strong>, and left for a human (or a session with Codex-review access) to merge. <strong><code>main</code> has now been stuck at the Round 37 commit (<code>3127846</code>, 2026-06-22) for 32 days</strong>, while PR #648 — itself <code>mergeable_state: clean</code> and CI-green — has sat unmerged for 5 days. The blocker is not missing content; it is that nothing in this environment can complete the repo's own merge-gate requirement.</li>
+</ul>
+<p>No code changes; no CI targets affected.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p><strong>Round 40 — July 19 docs refresh + AUSTRAC enrolment-deadline finding</strong> (<code>docs</code>, 2026-07-19):</p>
+<ul>
+<li><strong>Deadline countdown corrected to a July 19 baseline</strong> across all five <code>docs/research/2026-07-*.md</code> editions, <code>docs/index.md</code>'s deadline card, and the evergreen <code>docs/pitch/landing/</code> + <code>docs/pitch/landing/research/*.html</code> mirror pages: AUSTRAC Tranche 2 is <strong>18 days in</strong> (was 15); AMLA RTS submission deadline <strong>passed 9 days ago</strong> (was 6); SR 26-2 is <strong>93 days</strong> examination-active (was 90).</li>
+<li><strong>New finding, not previously captured by any of the ~30 prior docs-refresh sessions</strong>: AUSTRAC opened Tranche 2 enrolment 2026-03-31 with a <strong>2026-07-29</strong> deadline for newly regulated entities that provide a designated service on or after July 1 without having enrolled — a distinct, harder near-term deadline from the July 1 obligation-start date every prior round documented. Verified via primary/secondary sources during this round's research pass (AUSTRAC enrolment FAQs; no prior round's docs mention a July 29 date). Added to <code>docs/research/2026-07-regulator-pulse.md</code>, <code>2026-07-competitive-positioning.md</code>, <code>2026-07-fintech-aml-reality.md</code>, <code>docs/index.md</code>, and the <code>regulator-pulse.html</code> / <code>fintech.html</code> / <code>competitive-positioning.html</code> mirror pages.</li>
+<li><strong>AMLA submission status left hedged, not asserted</strong>: web research this round found only prospective ("AMLA will submit...") secondary sources, no primary press release confirming the July 10 submission actually occurred — consistent with #605's acceptance criteria and Round 39's own careful framing. Docs continue to say the <em>statutory deadline</em> passed, not that submission is confirmed.</li>
+<li><strong>Consolidates and supersedes PR #646</strong> (this repo's most current prior candidate, July-16 baseline, CI-green, opened ready-for-review) — cherry-picked its full content (including the pitch-HTML mirror sync and the <code>produce-amla-effectiveness-pack.md</code> / <code>README.md</code> / <code>dashboard-tour.md</code> updates it carried from #639) rather than re-deriving from a stale <code>main</code>, per the same reasoning #646 itself used relative to #639.</li>
+<li><strong>No new roadmap issue filed</strong> for the "automate this" idea — already tracked by 12+ open issues (#553, #569, #573, #587, #592, #608, #609, #614, #617, #620, #629, #637) plus the meta-tracking issue <strong>#644</strong>. Filing another would add to the exact pile-up #644 documents.</li>
+<li><strong>Process blocker, unchanged from #644/#646</strong>: this session also has no Codex-review tool available (confirmed via skill/plugin search), so it cannot satisfy <code>CLAUDE.md</code>'s merge gate either. This PR is opened <strong>ready-for-review, not draft</strong>, and left for a human (or a session with Codex-review access) to merge. <code>main</code> has now been stuck at the Round 37 commit (<code>3127846</code>, 2026-06-22) for <strong>27 days</strong>.</li>
+</ul>
+<p>No code changes; no CI targets affected.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p><strong>Round 39 — July 16 docs refresh + AMLA RTS deadline-passed transition</strong> (<code>docs</code>, 2026-07-16):</p>
+<ul>
+<li><strong>Deadline countdown corrected to a July 16 baseline</strong> across all five <code>docs/research/2026-07-*.md</code> editions, <code>docs/index.md</code>'s deadline card, and the evergreen <code>docs/pitch/landing/</code> + <code>docs/pitch/landing/research/*.html</code> mirror pages: AUSTRAC Tranche 2 is <strong>15 days in</strong> (was 7); SR 26-2 is <strong>90 days</strong> examination-active (was 82).</li>
+<li><strong>AMLA RTS submission deadline (2026-07-10) has now passed</strong> — closes #587 / addresses #605 / #629's docs half. Reframed from a "N days" countdown to "deadline passed" everywhere it appeared, per #605's acceptance criteria: no submission outcome is asserted (no press release independently verified in this edition), and a "What happens next" section was added describing the Commission's 3-month endorsement clock (2026-07-10 → 2026-10-10, 86 days remaining). <code>docs/how-to/produce-amla-effectiveness-pack.md</code> gets a matching note on how <code>rts_coverage</code> gaps change meaning once the standard is locked in (consultation input → implementation backlog).</li>
+<li><strong>Not done in this pass</strong>: <code>regulatory_calendar.yaml</code>'s <code>urgency_band</code>/status fields (#629) and the dashboard's live countdown banner still render the pre-passed framing — that's a code change (Today-page banner logic), out of scope for this docs-only round; left for #629.</li>
+<li><strong>Consolidation, not a new PR pile-on</strong>: built directly on PR #639's already CI-green, <code>mergeable_state: clean</code> July-8 baseline (cherry-picked, not re-derived) rather than adding a 29th independent attempt at the same refresh — see #644's finding that 25+ duplicate sessions did exactly that against the same stale <code>main</code>. #639 is superseded by this round's PR.</li>
+<li>No new roadmap issue filed: the automation idea this round's staleness would otherwise motivate ("stop hand-editing day-counts every week") is already tracked by <strong>12 open issues</strong> (#553, #569, #573, #587, #592, #608, #609, #614, #617, #620, #629, #637) plus the meta-tracking issue <strong>#644</strong> ("scheduled docs-refresh sessions pile up as unmerged draft PRs") — filing a 13th would add to the exact pile-up #644 documents, not fix it.</li>
+</ul>
+<p>No code changes; no CI targets affected.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p><strong>Round 38 — July 8 docs refresh + PR-backlog consolidation</strong> (<code>docs</code>, 2026-07-08):</p>
+<ul>
+<li><strong>Deadline countdown corrected to a July 8 baseline</strong> across all five <code>docs/research/2026-07-*.md</code> editions, <code>docs/index.md</code>'s deadline card, and the six evergreen <code>docs/pitch/landing/</code> + <code>docs/pitch/landing/research/*.html</code> mirror pages: AUSTRAC Tranche 2 is now <strong>in effect</strong> (since 2026-07-01, no longer "9 days away"); AMLA RTS submission is <strong>2 days</strong> out (was 18); SR 26-2 is <strong>82 days</strong> examination-active (was 66, and inconsistently 75 in a few spots).</li>
+<li><strong>AMLA RTS citation fix (closes #635)</strong>: <code>docs/research/2026-07-regulator-pulse.md</code> and the landing-page mirror's forward-calendar entry cited "AMLR Article 19(9)" and "AMLD6 Article 53(10)" for the business-relationships and pecuniary-sanctions RTS — flagged as a possible mismatch back in Round 36 and never resolved. Corrected to <strong>AMLR Art. 26</strong> (ongoing monitoring of the business relationship) and <strong>AMLR Art. 20(1)(d)</strong> (targeted-financial-sanctions screening), matching the verified <code>CITATION_URL_MAP</code> in <code>metrics/amla_effectiveness.py</code> (#528). <strong>Not touched</strong>: two historical narrative entries in the landing page's chronological log (the 2026-02-09 consultation-open and 2026-05-08 consultation-close events) that name the same articles via their actual AMLA consultation-page titles — left alone pending explicit EUR-Lex verification rather than guessed at; see follow-up below.</li>
+<li><strong>README.md (closes #602)</strong> — added <code>aml amla-effectiveness-report</code> and <code>aml whistleblower-audit</code> to the Key CLI Commands table. <strong><code>docs/dashboard-tour.md</code> (closes #601)</strong> — documented the EU-only "AMLA RTS coverage" fourth tab on Framework Alignment (page 8), its three-state ✓/∼/✗ indicator, and the <code>examples/eu_bank</code> reference implementation.</li>
+<li><strong><code>mkdocs.yml</code> nav gap closed</strong>: <code>docs/case-studies/td-2024.md</code> existed on disk and is linked from <code>README.md</code> and <code>regulator-mapping.md</code>, but was absent from the sidebar nav — added under Operate. Verified via <code>mkdocs build --strict</code>: no other on-disk <code>.md</code> outside <code>superpowers/</code>, <code>migration/</code>, <code>perf/</code>, and <code>pitch/deck-v2/</code> assets (none of which are meant for the public nav) is missing.</li>
+</ul>
+<p><strong>Process finding — the actual blocker was never missing content, it was an unmerged-PR backlog.</strong> <code>main</code> had been stuck at the Round 37 commit for 16 days despite 25 open draft PRs on this repo attempting the same monthly-refresh work independently (and 9 more, now closed, on the demo repo — see #637). Every PR showed <code>mergeable_state: clean</code> against the same stale base, which hid the real problem: they were mutually redundant, not actually landable together. This PR consolidates rather than adds a 26th duplicate:
+- Cherry-picked the two non-overlapping, CI-green files from <strong>PR #636</strong> (<code>README.md</code>, <code>docs/dashboard-tour.md</code>) verbatim.
+- Applied <strong>PR #638</strong>'s evergreen-HTML-mirror patch (6 files under <code>docs/pitch/landing/</code>, zero overlap with anything else touched this round) and then corrected its baked-in June-22-era day-counts/day-out figures to July 8 on top — closes the content-currency half of #634.
+- Superseded and closed PR #636 and PR #638 (content incorporated above) plus ~21 older same-purpose draft PRs (#550–#633) whose day-count edits are now moot given this round's numbers.
+- Left PR #541 (stale base, <code>ready</code> not <code>draft</code>) and PR #554 (unrelated security-hardening) for separate human triage — out of scope for a docs-consolidation pass.</p>
+<p>No code changes; no CI targets affected.</p>
+</blockquote>
+<hr />
 <blockquote>
 <p><strong>Round 37 — June 22 docs refresh</strong> (<code>docs</code>, 2026-06-22):</p>
 <ul>
@@ -5634,7 +5716,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.highlight", "search.suggest", "search.share", "content.code.copy", "content.code.annotate", "content.action.edit", "content.action.view", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
