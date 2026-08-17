@@ -3245,7 +3245,7 @@
 <li><strong>The reply is marked DRAFT</strong> and shows a confidence value plus the backend/model name. If it doesn't, you're not looking at copilot output.</li>
 <li><strong>The action is audited</strong> — tail the run's <code>ai_interactions.jsonl</code> and confirm a row with event <code>ai_case_copilot_action</code>, the <code>backend</code>/<code>model</code>, <code>confidence</code>, and (under <code>hash_only</code>) the SHA-256 of the draft rather than its text:</li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;select(.event == &quot;ai_case_copilot_action&quot;)&#39;</span><span class="w"> </span>.artifacts/run-*/ai_interactions.jsonl
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">'select(.event == "ai_case_copilot_action")'</span><span class="w"> </span>.artifacts/run-*/ai_interactions.jsonl
 </span></code></pre></div>
 <p>No case in the ledger should have changed disposition as a result — the copilot is dashboard-only and never on the engine run path.</p>
 <hr />
